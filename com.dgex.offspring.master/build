@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# ############################################################################
+#
+# This script builds the offspring project, this includes both a new installer
+# and the update site that older intalls can use to update to the newest
+# installation files.  
+#
+# This script requires the following environment variables being set:
+#
+#   JAVA_HOME=[Path to JDK]
+# 
+# To build a release (includes signing all jars):
+#
+#   $ PWD1=123456 PWD2=654321 bash build
+#
+# To build and test without signing:
+#
+#   Comment out the jar signer plugin in product/pom.xml
+#
+#   $ bash build
+#
+# ############################################################################
+
+KEYSTORE="$HOME/.keystore"
+MY_ALIAS=offspring
+
+# Run maven build
+
+PWD1=$PWD1 PWD2=$PWD2 KEYSTORE=$KEYSTORE MY_ALIAS=$MY_ALIAS mvn clean verify

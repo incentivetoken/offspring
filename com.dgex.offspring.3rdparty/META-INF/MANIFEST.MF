@@ -1,0 +1,47 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: 3rdparty
+Bundle-SymbolicName: com.dgex.offspring.3rdparty
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: au.com.bytecode.opencsv,
+ au.com.bytecode.opencsv.bean,
+ it.sauronsoftware.junique,
+ org.apache.commons.io,
+ org.apache.commons.io.filefilter,
+ org.apache.commons.lang3;
+  uses:="org.apache.commons.lang3.text.translate,
+   new org.apache.commons.lang3,
+   org.apache.commons.lang3.text,
+   org.apache.commons.lang3.builder,
+   org.apache.commons.lang3.mutable",
+ org.apache.commons.lang3.builder;uses:="org.apache.commons.lang3.tuple",
+ org.apache.commons.lang3.concurrent;uses:="org.apache.commons.lang3.builder,new org.apache.commons.lang3.concurrent",
+ org.apache.commons.lang3.event,
+ org.apache.commons.lang3.exception,
+ org.apache.commons.lang3.math,
+ org.apache.commons.lang3.mutable,
+ org.apache.commons.lang3.reflect;uses:="org.apache.commons.lang3,new org.apache.commons.lang3.reflect,org.apache.commons.lang3.builder",
+ org.apache.commons.lang3.text;uses:="org.apache.commons.lang3.builder",
+ org.apache.commons.lang3.text.translate,
+ org.apache.commons.lang3.time,
+ org.apache.commons.lang3.tuple,
+ org.apache.log4j;uses:="org.apache.log4j.helpers,org.apache.log4j.or,org.apache.log4j.spi",
+ org.joda.time,
+ org.joda.time.base,
+ org.joda.time.chrono,
+ org.joda.time.convert,
+ org.joda.time.field,
+ org.joda.time.format,
+ org.joda.time.tz,
+ org.json.simple,
+ org.json.simple.parser
+Bundle-ClassPath: lib/commons-lang3-3.2.1.jar,
+ lib/log4j-1.2.17.jar,
+ lib/commons-io-2.4.jar,
+ lib/json-simple-1.1.1.jar,
+ lib/opencsv-2.3.jar,
+ lib/joda-time-2.3.jar,
+ lib/junique-1.0.4.jar,
+ .
+Require-Bundle: org.eclipse.osgi

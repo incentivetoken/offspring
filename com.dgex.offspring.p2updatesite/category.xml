@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/com.dgex.offspring.feature_1.0.0.qualifier.jar" id="com.dgex.offspring.feature" version="1.0.0.qualifier"/>
+</site>

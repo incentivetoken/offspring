@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<installation version="1.0">
+
+  <!-- http://docs.codehaus.org/display/IZPACK/Installation+Files -->
+
+  <variables>
+    <variable name="APP-VERSION" value="0.3.4e"/>
+    <variable name="RELEASED-ON" value="10/03/2014"/>
+  </variables>
+
+	<info>	
+		<appname>Offspring</appname>
+		<appversion>${APP-VERSION}</appversion>
+		<appsubpath>Offspring</appsubpath>
+		<url>http://offspring.dgex.com/</url>
+		<authors>
+			<author name="incentivetoken" email="incentivetoken@gmail.com" />
+		</authors>
+		<uninstaller name="uninstall.jar">${INSTALL_PATH}/Uninstaller</uninstaller>
+		<javaversion>1.7</javaversion>
+		<requiresjdk>no</requiresjdk>
+		<summarylogfilepath>${INSTALL_PATH}/InstallationSummary.html</summarylogfilepath>
+		
+		<!-- 
+		  <pack200/>: adding this element will cause every JAR file that you will add to your packs 
+		  to be compressed using Pack200 (see http://java.sun.com/j2se/1.5.0/docs/guide/deployment/deployment-guide/pack200.html). 
+		  As a special exception, signed JARs are not compressed using Pack200, as it would invalidate the signatures. 
+		  This makes the compilation process a little bit longer, but it usually results in drasticaly smaller installer files. 
+		  The decompression is relatively fast. Please note that Pack200 compression is destructive, i.e., 
+		  after decompression a JAR won't be identical to its original version (yet the code in the class files remains semantically equivalent). -->
+		  
+		<!-- <pack200 /> -->
+		
+		<!-- Only use this feature if you really need to be an administrator as part of your installation process. -->
+		
+		<!-- <run-privileged /> --> 
+	</info>
+
+	<packager>com.izforge.izpack.compiler.Packager</packager>
+	<unpacker>com.izforge.izpack.compiler.UnPacker</unpacker>
+	
+	<guiprefs resizable="no" width="800" height="600">
+		<laf name="metouia">
+			<os family="unix" />
+		</laf>
+		<laf name="looks">
+			<os family="windows" />
+			<param name="variant" value="windows" />
+		</laf>
+		<modifier key="useFlags" value="no" />
+		<modifier key="useHeadingPanel" value="yes" />
+		<modifier key="headingBackgroundColor" value="0x00ffffff" />
+	</guiprefs>
+	
+	<locale>
+		<langpack iso3="eng" />
+		<!-- <langpack iso3="deu" />
+		<langpack iso3="fra" />
+		<langpack iso3="cze" /> -->
+	</locale>
+	
+	<resources>
+		<!-- Readme file for readme InfoPanel -->
+		<res id="InfoPanel.info" src="doc/readme.txt" parse="yes" />
+		<!-- License file for license Panel -->
+		<res id="LicencePanel.licence" src="doc/license.txt" parse="yes" />
+		<!-- Image for dialog header -->
+		<res id="Heading.image" src="logo.jpg" />
+		<!-- Image for language selection dialog -->
+		<res id="installer.langsel.img" src="splash.jpg" />
+		<res id="shortcutSpec.xml" src="shortcutSpec.xml" />
+	</resources>
+
+	<panels>
+		<panel classname="InfoPanel" />
+		<panel classname="LicencePanel" />
+		<panel classname="TargetPanel" />
+		<panel classname="PacksPanel" id="packspanel" />
+		<panel classname="SummaryPanel" id="summarypanel" />
+		<panel classname="InstallPanel" />
+		<panel classname="ShortcutPanel" is="shortcutpanel" />
+		<panel classname="SimpleFinishPanel" />
+	</panels>
+
+	<packs>
+		<pack name="Core Offspring Application" required="yes"
+			preselected="yes" loose="false">
+			<description>Full feature Offspring application</description>
+			<fileset dir="data/win32/x86" targetdir="$INSTALL_PATH">
+				<include name="**" />
+			</fileset>
+		</pack>
+	</packs>
+
+	<langpack>
+		<str id="myApplication" txt="Main Application" />
+	</langpack>
+
+	<native type="izpack" name="ShellLink_x64.dll" />
+	<native type="izpack" name="ShellLink.dll">
+		<os family="windows" />
+	</native>
+</installation>

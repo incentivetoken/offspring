@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# ############################################################################
+#
+# Run this script once to create a new certificate.
+# 
+# This script requires the following environment variables being set:
+#
+#   JAVA_HOME=[Path to JDK]
+#   PWD1=[Key password here]
+#   PWD2=[Keystore password here]
+#
+# Example:
+#
+#   $ PWD1=123456 PWD2=654321 bash ./create_certificate
+#   > Certificate stored in file <.../offspring.crt>
+#
+# ############################################################################
+
+KEY_TOOL=$JAVA_HOME/bin/keytool     # Keytool binary
+
+# Certificate data
+
+DN_CN=offspring.dgex.com            # Common Name
+DN_OU=IT                            # Organizational Unit
+DN_O="Graviton Capital Inc."        # Organization
+DN_L="Panama City"                  # Locality
+DN_ST=Panama                        # State or province name
+DN_C=PA                             # Country
+DN_E=admin@dgex.com                 # Email
+
+# Certificate Distinquised Name
+
+D_NAME="CN=$DN_CN, ou=$DN_OU, O=$DN_O, L=$DN_L, ST=$DN_ST, C=$DN_C"
+
+MY_ALIAS=offspring                  # Keystore alias
+MY_VALIDITY=700                     # Number of days the Certificate remains valid
+
+KEYSTORE="$HOME/.keystore"
+CERTFILE="`pwd`/../com.dgex.offspring.feature/offspring.crt"
+
+# Create keystore
+
+$KEY_TOOL -genkeypair -alias $MY_ALIAS -keypass $PWD1 -keystore "$KEYSTORE" \
+ -storepass $PWD2 -validity $MY_VALIDITY -dname "$D_NAME"
+
+# Extract X.509 Certificate
+
+$KEY_TOOL -export -keystore "$KEYSTORE" -storepass $PWD2 \
+ -alias $MY_ALIAS -file "$CERTFILE"

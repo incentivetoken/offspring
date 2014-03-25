@@ -1,0 +1,27 @@
+You can access the cacerts..
+
+$JAVA_HOME/bin/keytool -list -keystore $JAVA_HOME/jre/lib/security/cacerts 
+
+Password: changeit
+
+http://docs.oracle.com/cd/E19082-01/819-2379/swmgrpkgscli-3/index.html
+
+Export the root CA certificate from the Java keystore to a temporary file.
+
+
+# keytool -export -storepass storepass -alias verisignclass2g2ca -keystore 
+/usr/java/jre/lib/security/cacerts certfile -file filename
+-export
+Exports the trusted certificate.
+
+-storepass storepass
+Specifies the password that protects the integrity of the Java keystore.
+
+-alias verisignclass2g2ca
+Identifies the alias of the trusted certificate.
+
+-keystore certfile
+Specifies the name and location of the keystore file.
+
+-file filename
+Identifies the file to hold the exported certificate.

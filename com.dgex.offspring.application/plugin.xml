@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            name="com.dgex.offspring.product"
+            application="org.eclipse.e4.ui.workbench.swt.E4Application">
+         <property
+               name="applicationCSS"
+               value="platform:/plugin/com.dgex.offspring.application/css/default.css">
+         </property>
+         <property
+               name="appName"
+               value="com.dgex.offspring.product">
+         </property>
+         <property
+               name="lifeCycleURI"
+               value="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.lifecycle.LifeCycleManager">
+         </property>
+      </product>
+   </extension>
+
+</plugin>

@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+    <relativePath>../com.dgex.offspring.master/pom.xml</relativePath>
+    <groupId>com.dgex</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>offspring.installer</artifactId>
+  <packaging>pom</packaging>
+	<name>Offspring</name>
+	<version>0.3.3e</version>
+
+	<properties>
+		<staging.dir>${project.build.directory}/staging</staging.dir>
+		<izpack.standalone.compiler.version>4.3.5</izpack.standalone.compiler.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<!-- Used to configure IzPack installer -->
+			<plugin>
+				<groupId>org.codehaus.izpack</groupId>
+				<artifactId>izpack-maven-plugin</artifactId>
+				<version>1.0-alpha-5</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>izpack</goal>
+						</goals>
+						<configuration>
+							<izpackBasedir>${staging.dir}</izpackBasedir>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.izpack</groupId>
+						<artifactId>izpack-standalone-compiler</artifactId>
+						<version>${izpack.standalone.compiler.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.4.2</version>
+				<executions>
+				
+				  <!-- Copy the izpack install.xml to our target -->
+					<execution>
+						<id>copy-izpack-resources</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<encoding>UTF-8</encoding>
+							<outputDirectory>${staging.dir}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					
+					<!-- Copy windows files to our target -->
+					<execution>
+            <id>copy-win32-resources</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <encoding>UTF-8</encoding>
+              <outputDirectory>${staging.dir}/data</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>../com.dgex.offspring.product/target/products/com.dgex.product/win32</directory>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

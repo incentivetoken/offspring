@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Messages
+Bundle-SymbolicName: com.dgex.offspring.messages
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Export-Package: com.dgex.offspring.messages
+Import-Package: org.eclipse.osgi.util

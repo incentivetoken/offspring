@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test
+Bundle-SymbolicName: com.dgex.offspring.nxtCore.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: DGEX
+Fragment-Host: com.dgex.offspring.nxtCore;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.junit

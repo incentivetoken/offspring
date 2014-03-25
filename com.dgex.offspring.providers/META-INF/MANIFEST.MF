@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Providers
+Bundle-SymbolicName: com.dgex.offspring.providers
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: au.com.bytecode.opencsv,
+ com.dgex.offspring.dataprovider.internal,
+ com.dgex.offspring.dataprovider.service,
+ org.apache.log4j,
+ org.json.simple,
+ org.json.simple.parser
+Export-Package: com.dgex.offspring.providers.bitcoinaverage,
+ com.dgex.offspring.providers.dgex,
+ com.dgex.offspring.providers.service

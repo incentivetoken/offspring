@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<shortcuts>
+	<skipIfNotSupported />
+	<programGroup defaultName="Dgex.com\Offspring" location="applications|startMenu" />
+	<shortcut name="Offspring application" target="$INSTALL_PATH\offspring.exe"
+		commandLine="" workingDirectory="$INSTALL_PATH" description="Offspring app launcher"
+		iconFile="$INSTALL_PATH\icon.ico" iconIndex="0" initialState="normal"
+		programGroup="yes" deskto="yes" applications="yes" startMenu="no"
+		startup="no">
+		<createForPack name="Core Offspring Application" />
+	</shortcut>
+</shortcuts>

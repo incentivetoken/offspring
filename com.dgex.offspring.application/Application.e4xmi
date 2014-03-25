@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_I01uAHltEeOoea91ep9utA" elementId="org.eclipse.e4.ide.application" bindingContexts="_I01uCXltEeOoea91ep9utA">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_I01uAXltEeOoea91ep9utA" elementId="com.dgex.offspring.application.mainwindow" selectedElement="_I02VG3ltEeOoea91ep9utA" label="Offspring ..." iconURI="platform:/plugin/com.dgex.offspring.application/icons/money.png" x="100" y="100" width="800" height="600">
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_I02VG3ltEeOoea91ep9utA" elementId="com.dgex.offspring.application.perspectivestack">
+      <children xsi:type="advanced:Perspective" xmi:id="_D_k0YILSEeOlfeqlAPZHAQ" elementId="com.dgex.offspring.application.perspective.home" selectedElement="_BXtRMJAuEeOnxLUz1JWKmQ" label="Home">
+        <children xsi:type="basic:Part" xmi:id="_BXtRMJAuEeOnxLUz1JWKmQ" elementId="com.dgex.offspring.application.part.home" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.parts.HomePart" label="Home"/>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_I02VHHltEeOoea91ep9utA" elementId="com.dgex.offspring.application.perspective.accounts" selectedElement="_dit0wIZyEeObWcXb7AIbRQ" label="Accounts">
+        <children xsi:type="basic:Part" xmi:id="_dit0wIZyEeObWcXb7AIbRQ" elementId="com.dgex.offspring.application.part.accounts" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.parts.AccountsPart" label="Accounts"/>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_Rmv1UIJ9EeOW2uUgFejwCA" elementId="com.dgex.offspring.application.perspective.nxt" selectedElement="_XBYWcIkqEeO9eKRoGAqr8Q" label="NXT">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_XBYWcIkqEeO9eKRoGAqr8Q" elementId="com.dgex.offspring.application.partsashcontainer.outer" selectedElement="_iPAFcIkqEeO9eKRoGAqr8Q">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_iPAFcIkqEeO9eKRoGAqr8Q" elementId="com.dgex.offspring.application.partsashcontainer.top" selectedElement="_k5n4oIkqEeO9eKRoGAqr8Q" horizontal="true">
+            <children xsi:type="basic:PartStack" xmi:id="_k5n4oIkqEeO9eKRoGAqr8Q" elementId="com.dgex.offspring.application.partstack.topleft" selectedElement="_7295sIJ9EeOW2uUgFejwCA">
+              <children xsi:type="basic:Part" xmi:id="_7295sIJ9EeOW2uUgFejwCA" elementId="com.dgex.offspring.application.part.nxt.activepeers" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.parts.ActivePeersPart" label="Active Peers" iconURI="platform:/plugin/com.dgex.offspring.application/icons/user_green.png"/>
+              <children xsi:type="basic:Part" xmi:id="_-qdj8IKcEeOW2uUgFejwCA" elementId="com.dgex.offspring.application.part.nxt.knownpeers" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.parts.KnownPeersPart" label="Known Peers" iconURI="platform:/plugin/com.dgex.offspring.application/icons/user_suit.png"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_lT72EIkqEeO9eKRoGAqr8Q" elementId="com.dgex.offspring.application.partstack.topright" selectedElement="_-1uYwIKcEeOW2uUgFejwCA">
+              <children xsi:type="basic:Part" xmi:id="_-1uYwIKcEeOW2uUgFejwCA" elementId="com.dgex.offspring.application.part.nxt.blacklistedpeers" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.parts.BlacklistedPeersPart" label="Blacklisted Peers" iconURI="platform:/plugin/com.dgex.offspring.application/icons/user_gray.png"/>
+            </children>
+          </children>
+          <children xsi:type="basic:PartStack" xmi:id="_dydosIkqEeO9eKRoGAqr8Q" elementId="com.dgex.offspring.application.partstack.bottom" selectedElement="__AXTkIJ9EeOW2uUgFejwCA">
+            <children xsi:type="basic:Part" xmi:id="__AXTkIJ9EeOW2uUgFejwCA" elementId="com.dgex.offspring.application.part.nxt.blocks" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.parts.RecentBlocksPart" label="Recent Blocks" iconURI="platform:/plugin/com.dgex.offspring.application/icons/bricks.png"/>
+            <children xsi:type="basic:Part" xmi:id="_2lCyMIWgEeOUGvoIQW9_YQ" elementId="com.dgex.offspring.application.part.nxt.recenttransactions" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.parts.RecentTransactionsPart" label="Recent Transactions" iconURI="platform:/plugin/com.dgex.offspring.application/icons/brick.png"/>
+          </children>
+        </children>
+      </children>
+      <children xsi:type="advanced:Perspective" xmi:id="_AxQaUJNREeOaWp3eU46OxA" elementId="com.dgex.offspring.application.perspective.trader" label="Trader">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_ZLj3YJfCEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partsashcontainer.0" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_1BKP0JfDEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partsashcontainer.1" horizontal="true">
+            <children xsi:type="basic:PartSashContainer" xmi:id="_5o86UJfDEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partsashcontainer.2" horizontal="true">
+              <children xsi:type="basic:PartStack" xmi:id="_7Of70JfDEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partstack.1">
+                <children xsi:type="basic:Part" xmi:id="_Tdp6YJe3EeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.part.trader.assets" contributionURI="bundleclass://com.dgex.offspring.trader/com.dgex.offspring.trader.assets.AssetsPart" label="Assets" iconURI="platform:/plugin/com.dgex.offspring.application/icons/coins.png"/>
+              </children>
+              <children xsi:type="basic:PartSashContainer" xmi:id="_--mJUJfDEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partsashcontainer.3">
+                <children xsi:type="basic:PartStack" xmi:id="_AMCM0JfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partstack.2">
+                  <children xsi:type="basic:Part" xmi:id="_cxZWoJe3EeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.part.trader.chart" contributionURI="bundleclass://com.dgex.offspring.trader/com.dgex.offspring.trader.charts.ChartsPart" label="Chart" iconURI="platform:/plugin/com.dgex.offspring.application/icons/chart_line.png"/>
+                </children>
+                <children xsi:type="basic:PartSashContainer" xmi:id="_Dl7g0JfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partsashcontainer.4">
+                  <children xsi:type="basic:PartSashContainer" xmi:id="_FFJQ0JfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partsashcontainer.5" horizontal="true">
+                    <children xsi:type="basic:PartStack" xmi:id="_GYOpUJfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partstack.3">
+                      <children xsi:type="basic:Part" xmi:id="_3g1NsJe3EeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.part.trader.sellOrder" contributionURI="bundleclass://com.dgex.offspring.trader/com.dgex.offspring.trader.askorders.AskOrdersPart" label="Sell Orders" iconURI="platform:/plugin/com.dgex.offspring.application/icons/table_row_delete.png"/>
+                    </children>
+                    <children xsi:type="basic:PartStack" xmi:id="_GuRx0JfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partstack.4">
+                      <children xsi:type="basic:Part" xmi:id="_zrjlQJe3EeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.part.trader.buyOrder" contributionURI="bundleclass://com.dgex.offspring.trader/com.dgex.offspring.trader.bidorders.BidOrdersPart" label="Buy  Orders" iconURI="platform:/plugin/com.dgex.offspring.application/icons/table_row_insert.png"/>
+                    </children>
+                  </children>
+                  <children xsi:type="basic:PartStack" xmi:id="_KbCXcJfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partstack.5">
+                    <children xsi:type="basic:Part" xmi:id="_WIUw4Je3EeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.part.trader.trades" contributionURI="bundleclass://com.dgex.offspring.trader/com.dgex.offspring.trader.trades.TradesPart" label="Trades" iconURI="platform:/plugin/com.dgex.offspring.application/icons/shield_go.png"/>
+                  </children>
+                </children>
+              </children>
+            </children>
+            <children xsi:type="basic:PartSashContainer" xmi:id="_OQPucJfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partsashcontainer.6">
+              <children xsi:type="basic:PartStack" xmi:id="_PtAAUJfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partstack.6">
+                <children xsi:type="basic:Part" xmi:id="_ANvEsJe-EeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.part.1" contributionURI="bundleclass://com.dgex.offspring.trader/com.dgex.offspring.trader.myassets.MyAssetsPart" label="My Assets" iconURI="platform:/plugin/com.dgex.offspring.application/icons/coins_add.png"/>
+              </children>
+              <children xsi:type="basic:PartSashContainer" xmi:id="_YFk00JfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partsashcontainer.8" horizontal="true">
+                <children xsi:type="basic:PartStack" xmi:id="_Y4kYAJfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partstack.8">
+                  <children xsi:type="basic:Part" xmi:id="_qxxPMJe5EeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.part.0" contributionURI="bundleclass://com.dgex.offspring.trader/com.dgex.offspring.trader.mysellorders.MySellOrdersPart" label="My Sell Orders" iconURI="platform:/plugin/com.dgex.offspring.application/icons/table_row_delete.png"/>
+                </children>
+                <children xsi:type="basic:PartStack" xmi:id="_ZVm5UJfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partstack.9">
+                  <children xsi:type="basic:Part" xmi:id="_DqfHIJe4EeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.part.trader.myBuyOrders" contributionURI="bundleclass://com.dgex.offspring.trader/com.dgex.offspring.trader.mybuyorders.MyBuyOrdersPart" label="My Buy Orders" iconURI="platform:/plugin/com.dgex.offspring.application/icons/table_row_insert.png"/>
+                </children>
+              </children>
+              <children xsi:type="basic:PartSashContainer" xmi:id="_TRHnUJfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partsashcontainer.7" toBeRendered="false" visible="false">
+                <children xsi:type="basic:PartStack" xmi:id="_UBQq0JfEEeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.partstack.7" toBeRendered="false" visible="false">
+                  <children xsi:type="basic:Part" xmi:id="_BCpiMJe4EeO8BqKYUhNZTw" elementId="com.dgex.offspring.application.part.trader.myTrades" contributionURI="bundleclass://com.dgex.offspring.trader/com.dgex.offspring.trader.mytrades.MyTradesPart" label="My Trades"/>
+                </children>
+              </children>
+            </children>
+          </children>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="_I02VFHltEeOoea91ep9utA" elementId="menu:org.eclipse.ui.main.menu">
+      <children xsi:type="menu:Menu" xmi:id="_I02VFXltEeOoea91ep9utA" label="File">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_p78wMHoaEeOUi-pJkBwF3A" elementId="com.dgex.offspring.application.handledmenuitem.createAccount" label="Add Account" tooltip="" command="_9I5cUHoREeOUi-pJkBwF3A"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_xk79UIndEeOmcYbB4uWWMA" elementId="com.dgex.offspring.application.handledmenuitem.sendMoney" label="Send Money" tooltip="" command="_TRFTsIOPEeOxK7cQPCvwmg"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_4sZvQIndEeOmcYbB4uWWMA" elementId="com.dgex.offspring.application.handledmenuitem.assignAlias" toBeRendered="false" visible="false" label="Assign Alias" tooltip="" enabled="false"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_LooL4IniEeOmcYbB4uWWMA" elementId="com.dgex.offspring.application.handledmenuitem.0" label="Authentication Token" command="_tJT7wIgKEeO-jqreS2ZtTw"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_SYINgI83EeOkapEF6vHroA" elementId="com.dgex.offspring.application.handledmenuitem.2" label="Delete Blockchain" enabled="false" command="_-6fJEI82EeOkapEF6vHroA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_4ctMEJTCEeOqkMlAPFxguQ" elementId="com.dgex.offspring.application.handledmenuitem.3" label="Quit" command="_I01uDHltEeOoea91ep9utA"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_MTJcgLAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.menu.0" label="Asset Exchange">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_QlQK4LAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handledmenuitem.4" label="Place Sell Order" command="_aZQbkLAWEeOLoKEGtx621g"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_Svo-0LAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handledmenuitem.5" label="Place Buy Order" command="_avX1gLAWEeOLoKEGtx621g"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_UCkmULAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handledmenuitem.6" toBeRendered="false" visible="false" label="Cancel Sell Order" enabled="false" command="_a14GILAWEeOLoKEGtx621g"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_VvNuULAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handledmenuitem.7" toBeRendered="false" visible="false" label="Cancel Buy Order" enabled="false" command="_a7cioLAWEeOLoKEGtx621g"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_XXcQYLAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handledmenuitem.8" label="Issue Asset" command="_bA4cQLAWEeOLoKEGtx621g"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_-LrwkLArEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handledmenuitem.9" label="Transfer Asset" command="_jaFWULArEeOLoKEGtx621g"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_dgpGkLEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.menu.1" label="Block Explorer">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_fT-scLEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.handledmenuitem.10" label="Lookup Account" command="_lAzsYLEDEeOcifaxly-V0A"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_hxuhQLEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.handledmenuitem.11" label="Lookup Transaction" command="_lIC80LEDEeOcifaxly-V0A"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_jGQrQLEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.handledmenuitem.12" label="Lookup Block" command="_lOp7ILEDEeOcifaxly-V0A"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_I02VGXltEeOoea91ep9utA" label="Help">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_I02VGnltEeOoea91ep9utA" label="About" command="_I02VEXltEeOoea91ep9utA"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_5q3fwJSrEeOqkMlAPFxguQ" elementId="com.dgex.offspring.application.handledmenuitem.1" label="Check for Updates (Not Implemented)" command="_w9uJcJSrEeOqkMlAPFxguQ"/>
+      </children>
+    </mainMenu>
+    <trimBars xmi:id="_3vIaQIKAEeOW2uUgFejwCA" elementId="com.dgex.offspring.application.trimbar.0">
+      <children xsi:type="menu:ToolBar" xmi:id="_ZDprIILSEeOlfeqlAPZHAQ" elementId="com.dgex.offspring.application.toolbar.0">
+        <children xsi:type="menu:HandledToolItem" xmi:id="_XjYVwILTEeOlfeqlAPZHAQ" elementId="com.dgex.offspring.application.handledtoolitem.showhomeperspective" label="Home" iconURI="platform:/plugin/com.dgex.offspring.application/icons/house.png" command="_-46nIILSEeOlfeqlAPZHAQ">
+          <tags>FORCE_TEXT</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_ad1KIILSEeOlfeqlAPZHAQ" elementId="com.dgex.offspring.application.handledtoolitem.showaccountperspective" label="Accounts" iconURI="platform:/plugin/com.dgex.offspring.application/icons/group.png" command="_isYEEIJ-EeOW2uUgFejwCA">
+          <tags>FORCE_TEXT</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_goWLoILSEeOlfeqlAPZHAQ" elementId="com.dgex.offspring.application.handledtoolitem.shownxtperspective" label="Advanced" iconURI="platform:/plugin/com.dgex.offspring.application/icons/cog.png" command="_qPID0IJ-EeOW2uUgFejwCA">
+          <tags>FORCE_TEXT</tags>
+        </children>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_Gd6bIJNREeOaWp3eU46OxA" elementId="com.dgex.offspring.application.handledtoolitem.showtraderperspective" label="Trader" iconURI="platform:/plugin/com.dgex.offspring.application/icons/coins.png" command="_PompEJNREeOaWp3eU46OxA">
+          <tags>FORCE_TEXT</tags>
+        </children>
+      </children>
+    </trimBars>
+    <trimBars xmi:id="_smb68IE1EeO1osHiAcju3g" elementId="com.dgex.offspring.application.trimbar.bottom" side="Bottom">
+      <children xsi:type="menu:ToolControl" xmi:id="_OEXdgIHqEeOo6eFHdrWfaQ" elementId="com.dgex.offspring.application.toolcontrol.statusstatistics" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.ui.statusbar.StatusBar">
+        <tags>stretch</tags>
+      </children>
+    </trimBars>
+  </children>
+  <handlers xmi:id="_I01uDXltEeOoea91ep9utA" elementId="com.dgex.offspring.application.handler.quitCommand" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.QuitHandler" command="_I01uDHltEeOoea91ep9utA"/>
+  <handlers xmi:id="_I02VEnltEeOoea91ep9utA" elementId="com.dgex.offspring.application.handler.aboutCommand" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.AboutHandler" command="_I02VEXltEeOoea91ep9utA"/>
+  <handlers xmi:id="_137ToHoSEeOUi-pJkBwF3A" elementId="com.dgex.offspring.application.handler.createAccountCommand" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.CreateAccountHandler" command="_9I5cUHoREeOUi-pJkBwF3A"/>
+  <handlers xmi:id="_uTvv0IJ-EeOW2uUgFejwCA" elementId="com.dgex.offspring.application.handler.showAccountPerspective" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.ShowAccountPerspectiveHandler" command="_isYEEIJ-EeOW2uUgFejwCA"/>
+  <handlers xmi:id="_ug1JkIJ-EeOW2uUgFejwCA" elementId="com.dgex.offspring.application.handler.showNXTPerspective" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.ShowNXTPerspectiveHandler" command="_qPID0IJ-EeOW2uUgFejwCA"/>
+  <handlers xmi:id="_CSl4sILTEeOlfeqlAPZHAQ" elementId="com.dgex.offspring.application.handler.showHomePerspective" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.ShowHomePerspectiveHandler" command="_-46nIILSEeOlfeqlAPZHAQ"/>
+  <handlers xmi:id="_XzjZUIOPEeOxK7cQPCvwmg" elementId="com.dgex.offspring.application.handler.sendMoney" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.SendMoneyHandler" command="_TRFTsIOPEeOxK7cQPCvwmg"/>
+  <handlers xmi:id="_iszgoIgKEeO-jqreS2ZtTw" elementId="com.dgex.offspring.application.handler.authToken" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.AuthTokenHandler" command="_tJT7wIgKEeO-jqreS2ZtTw"/>
+  <handlers xmi:id="_Fa6h0Ig0EeO-jqreS2ZtTw" elementId="com.dgex.offspring.application.handler.unlock" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.UnlockHandler" command="_8T3dwIgzEeO-jqreS2ZtTw"/>
+  <handlers xmi:id="_6yNsII82EeOkapEF6vHroA" elementId="com.dgex.offspring.application.handler.deleteBlocks" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.DeleteBlocksHandler" command="_-6fJEI82EeOkapEF6vHroA"/>
+  <handlers xmi:id="_gqeOoJNREeOaWp3eU46OxA" elementId="com.dgex.offspring.application.handler.showTraderPerspective" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.ShowTraderPerspectiveHandler" command="_PompEJNREeOaWp3eU46OxA"/>
+  <handlers xmi:id="_1C0WkJSrEeOqkMlAPFxguQ" elementId="com.dgex.offspring.application.handler.softwareUpdate" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.UpdateHandler" command="_w9uJcJSrEeOqkMlAPFxguQ"/>
+  <handlers xmi:id="_ri6EILAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handler.placeSellOrder" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.PlaceSellOrderHandler" command="_aZQbkLAWEeOLoKEGtx621g"/>
+  <handlers xmi:id="_rnzLMLAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handler.placeBuyOrder" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.PlaceBuyOrderHandler" command="_avX1gLAWEeOLoKEGtx621g"/>
+  <handlers xmi:id="_rr-gkLAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handler.cancelSellOrder" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.CancelSellOrderHandler" command="_a14GILAWEeOLoKEGtx621g"/>
+  <handlers xmi:id="_rv5-ULAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handler.cancelBuyOrder" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.CancelBuyOrderHandler" command="_a7cioLAWEeOLoKEGtx621g"/>
+  <handlers xmi:id="_r0KzQLAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handler.issueAsset" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.IssueAssetHandler" command="_bA4cQLAWEeOLoKEGtx621g"/>
+  <handlers xmi:id="_naaYMLArEeOLoKEGtx621g" elementId="com.dgex.offspring.application.handler.transferAsset" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.TransferAssetHandler" command="_jaFWULArEeOLoKEGtx621g"/>
+  <handlers xmi:id="_uCTiELEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.handler.lookupAccount" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.LookupAccountHandler" command="_lAzsYLEDEeOcifaxly-V0A"/>
+  <handlers xmi:id="_uGKHULEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.handler.lookupTransaction" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.LookupTransactionHandler" command="_lIC80LEDEeOcifaxly-V0A"/>
+  <handlers xmi:id="_uJYacLEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.handler.lookupBlock" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.LookupBlockHandler" command="_lOp7ILEDEeOcifaxly-V0A"/>
+  <bindingTables xmi:id="_I01uDnltEeOoea91ep9utA" bindingContext="_I01uCXltEeOoea91ep9utA">
+    <bindings xmi:id="_I01uD3ltEeOoea91ep9utA" keySequence="M1+Q" command="_I01uDHltEeOoea91ep9utA"/>
+    <bindings xmi:id="_I01uEnltEeOoea91ep9utA" keySequence="M1+O"/>
+    <bindings xmi:id="_I02VEHltEeOoea91ep9utA" keySequence="M1+S"/>
+    <bindings xmi:id="_I02VE3ltEeOoea91ep9utA" keySequence="M1+A" command="_I02VEXltEeOoea91ep9utA"/>
+  </bindingTables>
+  <rootContext xmi:id="_I01uCXltEeOoea91ep9utA" elementId="org.eclipse.ui.contexts.dialogAndWindow" name="In Dialog and Windows">
+    <children xmi:id="_I01uCnltEeOoea91ep9utA" elementId="org.eclipse.ui.contexts.window" name="In Windows"/>
+    <children xmi:id="_I01uC3ltEeOoea91ep9utA" elementId="org.eclipse.ui.contexts.dialog" name="In Dialogs"/>
+  </rootContext>
+  <commands xmi:id="_I01uDHltEeOoea91ep9utA" elementId="org.eclipse.ui.file.exit" commandName="quitCommand"/>
+  <commands xmi:id="_I02VEXltEeOoea91ep9utA" elementId="org.eclipse.ui.help.aboutAction" commandName="aboutCommand"/>
+  <commands xmi:id="_9I5cUHoREeOUi-pJkBwF3A" elementId="com.dgex.offspring.application.command.createaccount" commandName="createAccountCommand" description="Create a new account"/>
+  <commands xmi:id="_isYEEIJ-EeOW2uUgFejwCA" elementId="com.dgex.offspring.application.command.accountperspective" commandName="showAccountPerspective" description="Show Account Perspective"/>
+  <commands xmi:id="_qPID0IJ-EeOW2uUgFejwCA" elementId="com.dgex.offspring.application.command.nxtperspective" commandName="showNXTPerspective" description="Show NXT Perspective"/>
+  <commands xmi:id="_-46nIILSEeOlfeqlAPZHAQ" elementId="com.dgex.offspring.application.command.homeperspective" commandName="showHomePerspective" description="Show Home Perspective"/>
+  <commands xmi:id="_TRFTsIOPEeOxK7cQPCvwmg" elementId="com.dgex.offspring.application.command.sendmoney" commandName="sendMoney" description="Send Money"/>
+  <commands xmi:id="_tJT7wIgKEeO-jqreS2ZtTw" elementId="com.dgex.offspring.application.command.authtoken" commandName="authToken" description="Show Auth Token Dialog"/>
+  <commands xmi:id="_8T3dwIgzEeO-jqreS2ZtTw" elementId="com.dgex.offspring.application.command.unlock" commandName="unlock" description="Unlock"/>
+  <commands xmi:id="_-6fJEI82EeOkapEF6vHroA" elementId="com.dgex.offspring.application.command.deleteBlocks" commandName="deleteBlocks" description="Reset Blockchain"/>
+  <commands xmi:id="_PompEJNREeOaWp3eU46OxA" elementId="com.dgex.offspring.application.command.traderperspective" commandName="showTraderPerspective" description="Show Trader Perspective"/>
+  <commands xmi:id="_w9uJcJSrEeOqkMlAPFxguQ" elementId="com.dgex.offspring.application.command.softwareUpdate" commandName="softwareUpdate" description="Update Software"/>
+  <commands xmi:id="_aZQbkLAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.command.placeSellOrder" commandName="placeSellOrder" description="Place Sell Order"/>
+  <commands xmi:id="_avX1gLAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.command.placeBuyOrder" commandName="placeBuyOrder" description="Place Buy Order"/>
+  <commands xmi:id="_a14GILAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.command.cancelSellOrder" commandName="cancelSellOrder" description="Cancel Sell Order"/>
+  <commands xmi:id="_a7cioLAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.command.cancelBuyOrder" commandName="cancelBuyOrder" description="Cancel Buy Order"/>
+  <commands xmi:id="_bA4cQLAWEeOLoKEGtx621g" elementId="com.dgex.offspring.application.command.issueAsset" commandName="issueAsset" description="Issue Asset"/>
+  <commands xmi:id="_jaFWULArEeOLoKEGtx621g" elementId="com.dgex.offspring.application.command.transferAsset" commandName="transferAsset" description="Transfer Asset"/>
+  <commands xmi:id="_lAzsYLEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.command.lookupAccount" commandName="lookupAccount" description="Lookup Account"/>
+  <commands xmi:id="_lIC80LEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.command.lookupTransaction" commandName="lookupTransaction" description="Lookup Transaction"/>
+  <commands xmi:id="_lOp7ILEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.command.lookupBlock" commandName="lookupBlock" description="Lookup Block"/>
+  <addons xmi:id="_I01uAnltEeOoea91ep9utA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_I01uA3ltEeOoea91ep9utA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_I01uBHltEeOoea91ep9utA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_I01uBXltEeOoea91ep9utA" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_I01uBnltEeOoea91ep9utA" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+  <addons xmi:id="_I01uB3ltEeOoea91ep9utA" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_I01uCHltEeOoea91ep9utA" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_zUczsH4XEeOUtaEyaka2eA" elementId="com.dgex.offspring.application.addon.QuitHandlerAddon" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.addon.QuitHandlerAddon"/>
+  <addons xmi:id="_a-bjsH4aEeOUtaEyaka2eA" elementId="com.dgex.offspring.application.addon.StartHandlerAddon" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.addon.StartHandlerAddon"/>
+</application:Application>

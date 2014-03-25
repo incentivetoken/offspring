@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Swt
+Bundle-SymbolicName: com.dgex.offspring.swt
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: DGEX
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Require-Bundle: org.eclipse.jface,
+ org.eclipse.swt
+Export-Package: com.dgex.offspring.swt.table,
+ com.dgex.offspring.swt.wizard
+Import-Package: com.dgex.offspring.config,
+ com.dgex.offspring.nxtCore.service,
+ com.dgex.offspring.swt.table,
+ com.dgex.offspring.user.service,
+ nxt.util,
+ org.apache.log4j

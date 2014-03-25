@@ -1,0 +1,37 @@
+/* BooYaa */
+
+.accountButton .name {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.accountButton .account {
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.accountButton .balance {
+  font-weight: bold;
+}
+
+.accountTotals Label {
+  font-weight: bold;
+}
+
+.accountTotals .total {
+  font-size: 12px;
+}
+
+.accountNumber {
+  font-size: 12px;
+}
+
+.accountName {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.totalNXT {
+  font-weight: bold;
+  font-size: 15px;
+}
