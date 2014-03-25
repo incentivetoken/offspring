@@ -1,5 +1,5 @@
-Offspring
-=========
+Offspring (NXT desktop wallet)
+==============================
 
 Offspring is [NXT](http://www.nxtcrypto.org/) desktop wallet software. With Offspring you can create and manage your NXT accounts, send/receive NXT coins, assets and more.
 
@@ -7,14 +7,12 @@ Offspring uses the NXT Java. This allows for fast access to all data in the bloc
 
 Offspring was developed by [DGEX the BTC / NXT Cryptocurrency Exchange](http://dgex.com/)
 
-[Click here for screenshots]()
+#[Click Here For Screenshots](#screenshots)
 
-Open source
-===========
+#Open source
 Offspring is open source. We wellcome anyone to help and improve Offspring.
 
-Features
-========
+#Features
 * Asset Exchange (fully functional, buy/sell assets, issue assets etc..)
 * Block Explorer
 * Peer Explorer
@@ -24,24 +22,20 @@ Features
 * Send and receive Assets
 * Register/Explore/Update Aliases
 
-Requirements
-============
+#Requirements
 Java 1.7 is required. Cross platform (Windows, Mac and Linux).
 
-Install
-=======
+#Install
 Go to http://offspring.dgex.com and download the version for your platform. Unzip the package and double click the `offspring.exe` (on Windows) or the executable for your platform. 
 
 Updates are easy, simply unzip and run the executable, Offspring will use your existing  blockchain and NXT wallet.
 
-Technology
-==========
+#Technology
 Offspring is built on Eclipse 4 technology.
 
-If you wan't to learn Eclipse 4 I advise the [Eclipse 4 RCP](http://blog.vogella.com/2013/11/22/eclipse-4-rcp-second-edition-available/) book by Lars Vogel.
+If you want to learn Eclipse 4 I advise the [Eclipse 4 RCP](http://blog.vogella.com/2013/11/22/eclipse-4-rcp-second-edition-available/) book by Lars Vogel.
 
-Build
-=====
+#Build
 Offspring builds for all platforms at once (only tried this on ubuntu).
 
 Clone this repository
@@ -63,18 +57,13 @@ Find the installers in:
 [CLONE DIR]/com.dgex.offspring.product/target/products/..
 ```
 
-Screenshots
-===========
-# Windows
+#Screenshots
+Got screenshots? Add them!
 
-(Got screenshots? Add them!)
-
+##Windows
 ![Asset Exchange](http://i.imgur.com/4nBGgcZ.png)
 
-# Ubuntu 
-
-(Got screenshots? Add them!)
-
+##Ubuntu 
 ![Asset Exchange](http://i.imgur.com/OsFEySN.png)
 ![Asset Exchange](http://i.imgur.com/IjxiBrs.png)
 ![Asset Exchange Place Buy Order](http://i.imgur.com/s0LUPzS.png)
@@ -85,6 +74,5 @@ Screenshots
 ![Home DGEX Order Book](http://i.imgur.com/4LIqAvd.png)
 ![Asset Exchange Transfer Asset](http://i.imgur.com/f2sOfiN.png)
 
-# Mac OS
-
-(Got screenshots? Add them!)
+##Mac OS
+![Steve Jobs](http://i.imgur.com/FTYChP7.jpg)
