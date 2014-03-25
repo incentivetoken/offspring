@@ -1,13 +1,15 @@
 Offspring
 =========
-
 NXT crypto currency desktop client. 
 
 Offspring uses the NXT Java API directly, this allows for fast access to all data in the blockchain. All displayed transactions, accounts and blocks can be clicked and inspected.
 
+Open source
+===========
+Offspring is opensource software, we wellcome anyone to help and improve Offspring.
+
 Features
 ========
-
 * Asset Exchange (fully functional, buy/sell assets, issue assets etc..)
 * Block Explorer
 * Peer Explorer
@@ -19,19 +21,22 @@ Features
 
 Requirements
 ============
-
 Java 1.7 is required. Cross platform (Windows, Mac and Linux).
 
 Install
 =======
-
 Go to http://offspring.dgex.com and download the version for your platform. Unzip the package and double click the `offspring.exe` (on Windows) or the executable for your platform. 
 
 Updates are easy, simply unzip and run the executable, Offspring will use your existing  blockchain and NXT wallet.
 
+Technology
+==========
+Offspring is built on Eclipse 4 technology.
+
+If you wan't to learn Eclipse 4 I advise the [Eclipse 4 RCP](http://blog.vogella.com/2013/11/22/eclipse-4-rcp-second-edition-available/) book by Lars Vogel.
+
 Build
 =====
-
 Offspring builds for all platforms at once (only tried this on ubuntu).
 
 Clone this repository
@@ -55,7 +60,6 @@ Find the installers in:
 
 Screenshots
 ===========
-
 # Windows
 
 (Got screenshots? Add them!)
