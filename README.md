@@ -1,7 +1,21 @@
 Offspring
 =========
 
-NXT crypto currency desktop client with Asset Exchange. 
+NXT crypto currency desktop client. 
+
+Offspring uses the NXT Java API directly, this allows for fast access to all data in the blockchain. All displayed transactions, accounts and blocks can be clicked and inspected.
+
+Features
+========
+
+* Asset Exchange (fully functional, buy/sell assets, issue assets etc..)
+* Block Explorer
+* Peer Explorer
+* Account Explorer/Inspector
+* Transaction Explorer/Inspector
+* Send and receive NXT
+* Send and receive Assets
+* Register/Explore/Update Aliases
 
 Requirements
 ============
