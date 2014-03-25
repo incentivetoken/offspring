@@ -3,7 +3,7 @@ Offspring (NXT desktop wallet)
 
 Offspring is [NXT](http://www.nxtcrypto.org/) desktop wallet software. With Offspring you can create and manage your NXT accounts, send/receive NXT coins, assets and more.
 
-Offspring uses the NXT Java. This allows for fast access to all data in the blockchain. All displayed transactions, accounts and blocks can be clicked and inspected.
+Offspring uses the NXT Java API. This allows for fast access to all data in the blockchain. All displayed transactions, accounts and blocks can be clicked and inspected.
 
 Offspring was developed by [DGEX the BTC / NXT Cryptocurrency Exchange](http://dgex.com/)
 
@@ -36,7 +36,7 @@ Offspring is built on Eclipse 4 technology.
 If you want to learn Eclipse 4 I advise the [Eclipse 4 RCP](http://blog.vogella.com/2013/11/22/eclipse-4-rcp-second-edition-available/) book by Lars Vogel.
 
 #Build
-Offspring builds for all platforms at once (only tried this on ubuntu).
+These instructions apply to ubuntu.
 
 Clone this repository
 
