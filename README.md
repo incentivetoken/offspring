@@ -1,12 +1,17 @@
 Offspring
 =========
-NXT crypto currency desktop client. 
 
-Offspring uses the NXT Java API directly, this allows for fast access to all data in the blockchain. All displayed transactions, accounts and blocks can be clicked and inspected.
+Offspring is [NXT](http://www.nxtcrypto.org/) desktop wallet software. With Offspring you can create and manage your NXT accounts, send/receive NXT coins, assets and more.
+
+Offspring uses the NXT Java. This allows for fast access to all data in the blockchain. All displayed transactions, accounts and blocks can be clicked and inspected.
+
+Offspring was developed by [DGEX the BTC / NXT Cryptocurrency Exchange](http://dgex.com/)
+
+[Click here for screenshots]()
 
 Open source
 ===========
-Offspring is opensource software, we wellcome anyone to help and improve Offspring.
+Offspring is open source. We wellcome anyone to help and improve Offspring.
 
 Features
 ========
