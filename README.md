@@ -26,7 +26,7 @@ Offspring is open source. We wellcome anyone to help and improve Offspring.
 Java 1.7 is required. Cross platform (Windows, Mac and Linux).
 
 #Install
-Go to http://offspring.dgex.com and download the version for your platform. Unzip the package and double click the `offspring.exe` (on Windows) or the executable for your platform. 
+Go to https://github.com/incentivetoken/offspring/releases and download the version for your platform. Unzip the package and double click the `offspring.exe` (on Windows) or the executable for your platform. 
 
 Updates are easy, simply unzip and run the executable, Offspring will use your existing  blockchain and NXT wallet.
 
