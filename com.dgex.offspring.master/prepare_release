@@ -1,0 +1,130 @@
+#!/bin/bash
+
+# ############################################################################
+#
+# * rename installers according to version argument
+# * calculate SHA hash for installers
+# * generate HTML for DGEX page
+# * generate HTML for Github Release Page
+# * generate TXT for forum announcements
+#
+# Requires version as argument..
+#
+#	$ sh prepare_release 0.4.0
+#
+# If you prepare a release for example 1.2.3 you should name your release on
+# Github v1.2.3.
+#
+# ############################################################################
+
+# Warn about missing version number
+if [ $# -lt 1 ]; then
+  echo 1>&2 "$0: not enough arguments"
+  exit 2
+fi
+
+VERSION=$1
+PROD_DIR=`pwd`/../com.dgex.offspring.product/target/products
+
+GITHUB_RELEASE_HTML_OUTPUT=$PROD_DIR/github_release.html
+rm -f $GITHUB_RELEASE_HTML_OUTPUT
+
+DGEX_HTML_OUTPUT=$PROD_DIR/dgex_release.html
+rm -f $DGEX_HTML_OUTPUT
+
+FORUM_MARKUP_OUTPUT=$PROD_DIR/forum_release.txt
+rm -f $FORUM_MARKUP_OUTPUT
+
+# Base url contains the version number prefixed with a 'v'
+BASE_URL="https://github.com/incentivetoken/offspring/releases/download/v$VERSION" 
+
+LIN_32=$PROD_DIR/com.dgex.product-linux.gtk.x86.zip
+LIN_64=$PROD_DIR/com.dgex.product-linux.gtk.x86_64.zip
+WIN_32=$PROD_DIR/com.dgex.product-win32.win32.x86.zip
+WIN_64=$PROD_DIR/com.dgex.product-win32.win32.x86_64.zip
+MAC_64=$PROD_DIR/com.dgex.product-macosx.cocoa.x86_64.zip
+
+LIN_32_SHA=`sha1sum "$LIN_32"`
+LIN_32_MD5=`md5sum "$LIN_32"`
+LIN_64_SHA=`sha1sum "$LIN_64"`
+LIN_64_MD5=`md5sum "$LIN_64"`
+WIN_32_SHA=`sha1sum "$WIN_32"`
+WIN_32_MD5=`md5sum "$WIN_32"`
+WIN_64_SHA=`sha1sum "$WIN_64"`
+WIN_64_MD5=`md5sum "$WIN_64"`
+MAC_64_SHA=`sha1sum "$MAC_64"`
+MAC_64_MD5=`md5sum "$MAC_64"`
+
+LIN_32_SHA=${LIN_32_SHA%\ *}
+LIN_32_MD5=${LIN_32_MD5%\ *}
+LIN_64_SHA=${LIN_64_SHA%\ *}
+LIN_64_MD5=${LIN_64_MD5%\ *}
+WIN_32_SHA=${WIN_32_SHA%\ *}
+WIN_32_MD5=${WIN_32_MD5%\ *}
+WIN_64_SHA=${WIN_64_SHA%\ *}
+WIN_64_MD5=${WIN_64_MD5%\ *}
+MAC_64_SHA=${MAC_64_SHA%\ *}
+MAC_64_MD5=${MAC_64_MD5%\ *}
+
+LIN_32x=OFFSPRING.$VERSION.LINUX.X86.zip
+LIN_64x=OFFSPRING.$VERSION.LINUX.X86_64.zip
+WIN_32x=OFFSPRING.$VERSION.WINDOWS.X86.zip
+WIN_64x=OFFSPRING.$VERSION.WINDOWS.X86_64.zip
+MAC_64x=OFFSPRING.$VERSION.MACOSX.zip
+
+#mv $LIN_32 $PROD_DIR/$LIN_32x
+#mv $LIN_64 $PROD_DIR/$LIN_64x
+#mv $WIN_32 $PROD_DIR/$WIN_32x
+#mv $WIN_64 $PROD_DIR/$WIN_64x
+#mv $MAC_64 $PROD_DIR/$MAC_64x
+
+GITHUB_RELEASE_HTML=$( cat <<EOF
+<html doctype="html"><head></head><body>
+<span><p>$WIN_32x</p><p>SHA1 <code> $WIN_32_SHA</code></p><p>MD5 <code> $WIN_32_MD5</code></p></span>
+<span><p>$WIN_64x</p><p>SHA1 <code> $WIN_64_SHA</code></p><p>MD5 <code> $WIN_64_MD5</code></p></span>
+<span><p>$MAC_64x</p><p>SHA1 <code> $MAC_64_SHA</code></p><p>MD5 <code> $MAC_64_MD5</code></p></span>
+<span><p>$LIN_32x</p><p>SHA1 <code> $LIN_32_SHA</code></p><p>MD5 <code> $LIN_32_MD5</code></p></span>
+<span><p>$LIN_64x</p><p>SHA1 <code> $LIN_64_SHA</code></p><p>MD5 <code> $LIN_64_MD5</code></p></span>
+</body></html>
+EOF
+)
+
+DGEX_RELEASE_HTML=$( cat <<EOF
+<html doctype="html"><head></head><body>
+<span><p><a href="$BASE_URL/$WIN_32x">$WIN_32x</a></p><p>SHA1 <code> $WIN_32_SHA</code></p><p>MD5 <code> $WIN_32_MD5</code></p></span>
+<span><p><a href="$BASE_URL/$WIN_64x">$WIN_64x</a></p><p>SHA1 <code> $WIN_64_SHA</code></p><p>MD5 <code> $WIN_64_MD5</code></p></span>
+<span><p><a href="$BASE_URL/$MAC_64x">$MAC_64x</a></p><p>SHA1 <code> $MAC_64_SHA</code></p><p>MD5 <code> $MAC_64_MD5</code></p></span>
+<span><p><a href="$BASE_URL/$LIN_32x">$LIN_32x</a></p><p>SHA1 <code> $LIN_32_SHA</code></p><p>MD5 <code> $LIN_32_MD5</code></p></span>
+<span><p><a href="$BASE_URL/$LIN_64x">$LIN_64x</a></p><p>SHA1 <code> $LIN_64_SHA</code></p><p>MD5 <code> $LIN_64_MD5</code></p></span>
+</body></html>
+EOF
+)
+
+FORUM_MARKUP_HTML=$( cat <<EOF
+OFFSPRING VERSION $VERSION RELEASED
+
+$BASE_URL/$WIN_32x
+SHA1: $WIN_32_SHA
+MD5: $WIN_32_MD5
+
+$BASE_URL/$WIN_64x
+SHA1: $WIN_64_SHA
+MD5: $WIN_64_MD5
+
+$BASE_URL/$MAC_64x
+SHA1: $MAC_64_SHA
+MD5: $MAC_64_MD5
+
+$BASE_URL/$LIN_32x
+SHA1: $LIN_32_SHA
+MD5: $LIN_32_MD5
+
+$BASE_URL/$LIN_64x
+SHA1: $LIN_64_SHA
+MD5: $LIN_64_MD5
+EOF
+)
+
+echo "$GITHUB_RELEASE_HTML" > $GITHUB_RELEASE_HTML_OUTPUT
+echo "$DGEX_RELEASE_HTML" > $DGEX_HTML_OUTPUT
+echo "$FORUM_MARKUP_HTML" > $FORUM_MARKUP_OUTPUT
