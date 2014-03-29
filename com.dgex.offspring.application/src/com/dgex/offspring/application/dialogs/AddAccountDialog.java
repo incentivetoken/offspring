@@ -45,7 +45,7 @@ import com.dgex.offspring.wallet.NXTAccount;
 
 public class AddAccountDialog extends TitleAreaDialog {
 
-  private static Logger logger = Logger.getLogger(AddAccountDialog.class);
+  static Logger logger = Logger.getLogger(AddAccountDialog.class);
 
   private final long balance = 0l;
   private Text textAccountLabel;

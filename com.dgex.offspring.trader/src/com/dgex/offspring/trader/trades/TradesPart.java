@@ -28,7 +28,9 @@ public class TradesPart {
 
   @PostConstruct
   public void postConstruct(Composite parent, INxtService nxt,
-      final IUserService userService, IStylingEngine engine, UISynchronize sync) {
+      final IUserService userService, IStylingEngine engine,
+ UISynchronize sync) {
+
     mainComposite = new Composite(parent, SWT.NONE);
     GridLayoutFactory.fillDefaults().numColumns(1).spacing(5, 2).margins(0, 0)
         .applyTo(mainComposite);

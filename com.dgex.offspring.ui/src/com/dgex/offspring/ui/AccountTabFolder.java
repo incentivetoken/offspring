@@ -16,6 +16,7 @@ import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.ui.controls.AliasControl;
 import com.dgex.offspring.ui.controls.AssetsControl;
 import com.dgex.offspring.ui.controls.GeneratedBlocksControl;
+import com.dgex.offspring.ui.controls.MessagingControl;
 import com.dgex.offspring.ui.controls.TransactionsControl;
 import com.dgex.offspring.user.service.IUserService;
 
@@ -26,20 +27,23 @@ public class AccountTabFolder extends Composite {
   private final TabFolder tabFolder;
   private final IUserService userService;
   private final IContactsService contactsService;
+  private final INxtService nxt;
+  private final IStylingEngine engine;
+  private final UISynchronize sync;
 
   private final TabItem transactionsTab;
   private final TabItem generatedBlocksTab;
   private final TabItem aliasesTab;
   private final TabItem assetsTab;
-  // private final TabItem messagesTab;
+  private final TabItem messagesTab;
 
   private TabItem selectedTab = null;
 
-  private final TransactionsControl transactionsControl;
-  private final GeneratedBlocksControl generatedBlocksControl;
-  private final AliasControl aliasesControl;
-  private final AssetsControl assetsControl;
-  // private final MessagesControl messagesControl;
+  private TransactionsControl transactionsControl = null;
+  private GeneratedBlocksControl generatedBlocksControl = null;
+  private AliasControl aliasesControl = null;
+  private AssetsControl assetsControl = null;
+  private MessagingControl messagesControl = null;
 
   private final Runnable lazyRefresh = new Runnable() {
 
@@ -51,44 +55,36 @@ public class AccountTabFolder extends Composite {
     }
   };
 
-  public AccountTabFolder(Composite parent, int style, Long accountId,
-      INxtService nxt, IStylingEngine engine, IUserService userService,
-      UISynchronize sync, IContactsService contactsService) {
+
+
+  public AccountTabFolder(Composite parent, int style, final Long accountId,
+      final INxtService nxt, final IStylingEngine engine,
+      final IUserService userService, final UISynchronize sync,
+      final IContactsService contactsService) {
     super(parent, style);
     this.accountId = accountId;
     this.userService = userService;
     this.contactsService = contactsService;
+    this.nxt = nxt;
+    this.engine = engine;
+    this.sync = sync;
     setLayout(new FillLayout());
     tabFolder = new TabFolder(this, SWT.NONE);
 
     transactionsTab = new TabItem(tabFolder, SWT.NONE);
     transactionsTab.setText("Transactions");
-    transactionsControl = new TransactionsControl(tabFolder, SWT.NONE,
-        accountId, nxt, engine, userService, sync);
-    transactionsTab.setControl(transactionsControl);
 
     generatedBlocksTab = new TabItem(tabFolder, SWT.NONE);
     generatedBlocksTab.setText("Blocks");
-    generatedBlocksControl = new GeneratedBlocksControl(tabFolder, SWT.NONE,
-        accountId, engine, nxt, userService, sync, contactsService);
-    generatedBlocksTab.setControl(generatedBlocksControl);
 
     aliasesTab = new TabItem(tabFolder, SWT.NONE);
     aliasesTab.setText("Aliases");
-    aliasesControl = new AliasControl(tabFolder, SWT.NONE, accountId, nxt,
-        engine, userService, sync, contactsService);
-    aliasesTab.setControl(aliasesControl);
 
     assetsTab = new TabItem(tabFolder, SWT.NONE);
     assetsTab.setText("Assets");
-    assetsControl = new AssetsControl(tabFolder, SWT.NONE, accountId, nxt,
-        userService, contactsService, sync, engine);
-    assetsTab.setControl(assetsControl);
 
-    // messagesTab = new TabItem(tabFolder, SWT.NONE);
-    // messagesTab.setText("Messages");
-    // messagesControl = new MessagesControl(tabFolder, SWT.NONE, user, nxt);
-    // messagesTab.setControl(messagesControl);
+    messagesTab = new TabItem(tabFolder, SWT.NONE);
+    messagesTab.setText("Messages");
 
     tabFolder.addSelectionListener(new SelectionAdapter() {
 
@@ -106,6 +102,34 @@ public class AccountTabFolder extends Composite {
     });
   }
 
+  private void createTabContents(TabItem tab) {
+    if (tab.equals(transactionsTab) && transactionsControl == null) {
+      transactionsControl = new TransactionsControl(tabFolder, SWT.NONE,
+          accountId, nxt, engine, userService, sync);
+      transactionsTab.setControl(transactionsControl);
+    }
+    else if (tab.equals(generatedBlocksTab) && generatedBlocksControl == null) {
+      generatedBlocksControl = new GeneratedBlocksControl(tabFolder, SWT.NONE,
+          accountId, engine, nxt, userService, sync, contactsService);
+      generatedBlocksTab.setControl(generatedBlocksControl);
+    }
+    else if (tab.equals(aliasesTab) && aliasesControl == null) {
+      aliasesControl = new AliasControl(tabFolder, SWT.NONE, accountId, nxt,
+          engine, userService, sync, contactsService);
+      aliasesTab.setControl(aliasesControl);
+    }
+    else if (tab.equals(messagesTab) && messagesControl == null) {
+      messagesControl = new MessagingControl(tabFolder, SWT.NONE, accountId,
+          nxt, engine, userService, sync);
+      messagesTab.setControl(messagesControl);
+    }
+    else if (tab.equals(assetsTab) && assetsControl == null) {
+      assetsControl = new AssetsControl(tabFolder, SWT.NONE, accountId, nxt,
+          userService, contactsService, sync, engine);
+      assetsTab.setControl(assetsControl);
+    }
+  }
+
   public Long getAccountId() {
     return accountId;
   }
@@ -119,24 +143,28 @@ public class AccountTabFolder extends Composite {
       return;
 
     TabItem tab = items[0];
-    if (tab.equals(transactionsTab)) {
+
+    createTabContents(tab);
+
+    if (tab.equals(transactionsTab) && transactionsControl != null) {
       transactionsControl.refresh();
     }
-    else if (tab.equals(generatedBlocksTab)) {
+    else if (tab.equals(generatedBlocksTab) && generatedBlocksControl != null) {
       generatedBlocksControl.refresh();
     }
-    else if (tab.equals(aliasesTab)) {
+    else if (tab.equals(aliasesTab) && aliasesControl != null) {
       aliasesControl.refresh();
     }
-    // else if (tab.equals(messagesTab)) {
-    // messagesControl.refresh();
-    // }
-    else if (tab.equals(assetsTab)) {
+    else if (tab.equals(messagesTab) && messagesControl != null) {
+      messagesControl.refresh();
+    }
+    else if (tab.equals(assetsTab) && assetsControl != null) {
       assetsControl.refresh();
     }
   }
 
   public void lazyRefresh() {
+    logger.info("lazyRefresh");
     getDisplay().timerExec(-1, lazyRefresh);
     getDisplay().timerExec(3000, lazyRefresh);
   }

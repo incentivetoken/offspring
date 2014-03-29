@@ -57,9 +57,14 @@ public class GenericTransactionWizard extends Wizard {
         label.setText(field.getLabel());
 
         Control control = field.createControl(composite);
-        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER)
-            .grab(true, false).applyTo(control);
-
+        if (control instanceof Text && (control.getStyle() & SWT.V_SCROLL) != 0) {
+          GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL)
+              .grab(true, true).applyTo(control);
+        }
+        else {
+          GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER)
+              .grab(true, false).applyTo(control);
+        }
         ControlDecoration deco = new ControlDecoration(control, SWT.TOP
             | SWT.RIGHT);
         deco.setImage(errorImage);
@@ -104,8 +109,16 @@ public class GenericTransactionWizard extends Wizard {
         label.setText(field.getLabel());
 
         Control control = field.createReadonlyControl(composite);
-        GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER)
-            .grab(true, false).applyTo(control);
+
+        /* Special case multiline textbox */
+        if (field instanceof IMultiLineTextTransactionField) {
+          GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL)
+              .grab(true, true).applyTo(control);
+        }
+        else {
+          GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER)
+              .grab(true, false).applyTo(control);
+        }
 
         ControlDecoration deco = new ControlDecoration(control, SWT.TOP
             | SWT.RIGHT);

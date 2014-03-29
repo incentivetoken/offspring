@@ -268,7 +268,7 @@ public interface INxtService {
    * @throws TransactionException
    */
   public Transaction createSendMessageTransaction(IAccount sender,
-      IAccount _recipient, byte[] messageValue, short deadline, int fee,
+      Long recipient, byte[] messageValue, short deadline, int fee,
       Long referencedTransaction) throws ValidationException,
       TransactionException;
 

@@ -32,7 +32,6 @@ public class TransactionsControl extends Composite {
         paginationContainer.getViewerParent(), accountId, null, nxt, engine,
         userService, sync);
     paginationContainer.setTableViewer(transactionViewer, 300);
-    transactionViewer.refresh();
 
     transactionViewer.getControl().pack();
   }

@@ -1,0 +1,1625 @@
+INFO  com.dgex.offspring.application.osgi.Activator: Starting Offspring NXT Client
+INFO  com.dgex.offspring.application.osgi.Activator: Java 1.7.0_45 (Oracle Corporation) Linux 3.8.0-36-generic i386
+INFO  com.dgex.offspring.config.Config: /home/dirk/Offspring/offspring.config EXISTS
+INFO  com.dgex.offspring.config.Config: 
+========================================================
+Offspring Configuration Settings
+========================================================
+nxt.peerServerPort=7874
+nxt.maxNumberOfConnectedPublicPeers=20
+nxt.pullThreshold=0
+nxt.apiServerHost=127.0.0.1
+nxt.enableHallmarkProtection=true
+nxt.apiSSL=false
+nxt.peerServerDoSFilter.maxRequestMs=300000
+nxt.uiServerHost=127.0.0.1
+nxt.dbCacheKB=0
+nxt.shareMyAddress=true
+nxt.pushThreshold=0
+nxt.myHallmark=
+nxt.javadocResourceBase=html/doc
+nxt.keyStorePath=keystore
+nxt.peerServerHost=0.0.0.0
+nxt.debugJetty=false
+nxt.peerServerIdleTimeout=5000
+nxt.peerServerDoSFilter.maxRequestsPerSec=30
+nxt.communicationLoggingMask=0
+nxt.enableStackTraces=true
+nxt.log=/home/dirk/Offspring/nxt.log
+offspring.charset=UTF-8
+nxt.readTimeout=5000
+nxt.allowedBotHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.myAddress=
+nxt.myPlatform=Offspring
+nxt.enableUIServer=true
+nxt.maxDbConnections=10
+nxt.allowedUserHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.uiServerIdleTimeout=30000
+nxt.apiServerPort=7876
+nxt.connectTimeout=2000
+nxt.peerServerDoSFilter.delayMs=1000
+nxt.debug=false
+nxt.sendToPeersLimit=10
+nxt.uiServerPort=7875
+nxt.apiServerCORS=false
+nxt.uiSSL=false
+nxt.blacklistingPeriod=300000
+nxt.testDbUrl=jdbc:h2:/home/dirk/Offspring/nxt_test_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.keyStorePassword=password
+nxt.enableAPIServer=true
+nxt.apiResourceBase=html/tools
+nxt.dbLoginTimeout=70
+nxt.apiServerIdleTimeout=30000
+nxt.uiResourceBase=html/nrs
+nxt.dbUrl=jdbc:h2:/home/dirk/Offspring/nxt_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.uiServerCORS=false
+nxt.wellKnownPeers=
+INFO  com.dgex.offspring.application.osgi.Activator: offspring.config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/offspring.config
+INFO  com.dgex.offspring.application.osgi.Activator: log4j config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/log4j.properties
+INFO  com.dgex.offspring.dataprovider.internal.DataProviderPool: new DataProviderPool #1
+INFO  com.dgex.offspring.application.lifecycle.LifeCycleManager: LifeCycleManager.postContextCreate
+INFO  com.dgex.offspring.config.Config: /home/dirk/Offspring/offspring.config EXISTS
+INFO  com.dgex.offspring.config.Config: Adding TEST NET is TRUE
+INFO  com.dgex.offspring.config.Config: 
+========================================================
+Offspring Configuration Settings
+========================================================
+nxt.peerServerPort=7874
+nxt.testnetPeers=bug.airdns.org; tn01.nxtsolaris.info
+nxt.maxNumberOfConnectedPublicPeers=20
+nxt.pullThreshold=0
+nxt.apiServerHost=127.0.0.1
+nxt.enableHallmarkProtection=true
+nxt.apiSSL=false
+nxt.peerServerDoSFilter.maxRequestMs=300000
+nxt.uiServerHost=127.0.0.1
+nxt.dbCacheKB=0
+nxt.shareMyAddress=true
+nxt.isTestnet=true
+nxt.pushThreshold=0
+nxt.myHallmark=
+nxt.javadocResourceBase=html/doc
+nxt.keyStorePath=keystore
+nxt.peerServerHost=0.0.0.0
+nxt.debugJetty=false
+nxt.peerServerIdleTimeout=5000
+nxt.peerServerDoSFilter.maxRequestsPerSec=30
+nxt.communicationLoggingMask=0
+nxt.enableStackTraces=true
+nxt.log=/home/dirk/Offspring/nxt.log
+offspring.charset=UTF-8
+nxt.readTimeout=5000
+nxt.allowedBotHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.myAddress=
+nxt.myPlatform=Offspring
+nxt.enableUIServer=true
+nxt.maxDbConnections=10
+nxt.allowedUserHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.uiServerIdleTimeout=30000
+nxt.apiServerPort=7876
+nxt.connectTimeout=2000
+nxt.peerServerDoSFilter.delayMs=1000
+nxt.debug=false
+nxt.sendToPeersLimit=10
+nxt.uiServerPort=7875
+nxt.apiServerCORS=false
+nxt.uiSSL=false
+nxt.blacklistingPeriod=300000
+nxt.testDbUrl=jdbc:h2:/home/dirk/Offspring/nxt_test_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.keyStorePassword=password
+nxt.enableAPIServer=true
+nxt.apiResourceBase=html/tools
+nxt.dbLoginTimeout=70
+nxt.apiServerIdleTimeout=30000
+nxt.uiResourceBase=html/nrs
+nxt.dbUrl=jdbc:h2:/home/dirk/Offspring/nxt_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.uiServerCORS=false
+nxt.wellKnownPeers=
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 1479195156480445561 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 12790521293207104739 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 8740895197413515199 could not obtain Generator
+INFO  com.dgex.offspring.nxtCore.core.NXTService: Initialize START
+INFO  com.dgex.offspring.nxtCore.core.NXTService: NXT init START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: getElements
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: getElements
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.nxtCore.core.TransactionDB: SELECT COUNT(*) FROM ( SELECT * FROM transaction WHERE recipient_id = ? AND ( (type = ? AND subtype = ?) ) UNION SELECT * FROM transaction WHERE sender_id = ? AND ( (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) ) )
+INFO  com.dgex.offspring.nxtCore.core.TransactionDB: prep20986: SELECT COUNT(*) FROM ( SELECT * FROM transaction WHERE recipient_id = ? AND ( (type = ? AND subtype = ?) ) UNION SELECT * FROM transaction WHERE sender_id = ? AND ( (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) ) ) {1: 1479195156480445561, 2: 0, 3: 0, 4: 1479195156480445561, 5: 0, 6: 0, 7: 1, 8: 1, 9: 1, 10: 0, 11: 1, 12: 2, 13: 1, 14: 3, 15: 2, 16: 4, 17: 2, 18: 2, 19: 2, 20: 0, 21: 2, 22: 5, 23: 2, 24: 3}
+INFO  com.dgex.offspring.nxtCore.core.TransactionDB: SELECT * FROM ( SELECT * FROM transaction WHERE recipient_id = ? AND ( (type = ? AND subtype = ?) ) UNION SELECT * FROM transaction WHERE sender_id = ? AND ( (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) ) ) ORDER BY timestamp DESC
+INFO  com.dgex.offspring.nxtCore.core.TransactionDB: prep21130: SELECT * FROM ( SELECT * FROM transaction WHERE recipient_id = ? AND ( (type = ? AND subtype = ?) ) UNION SELECT * FROM transaction WHERE sender_id = ? AND ( (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) OR (type = ? AND subtype = ?) ) ) ORDER BY timestamp DESC {1: 1479195156480445561, 2: 0, 3: 0, 4: 1479195156480445561, 5: 0, 6: 0, 7: 1, 8: 1, 9: 1, 10: 0, 11: 1, 12: 2, 13: 1, 14: 3, 15: 2, 16: 4, 17: 2, 18: 2, 19: 2, 20: 0, 21: 2, 22: 5, 23: 2, 24: 3}
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements page=1 size=300
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements returns ELEMENTS.size=45
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=45
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 1479195156480445561 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: stopForging: 1479195156480445561 is not forging
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 1479195156480445561 could not obtain Generator
+INFO  com.dgex.offspring.nxtCore.core.NXTService: NXT init END
+INFO  com.dgex.offspring.nxtCore.core.NXTService: Initialization COMPLETE
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyUSD: getInstance()
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthly: new PerHourMonthly(Currency[USD]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyUSD: new PerHourMonthlyUSD(Currency[USD]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyEUR: getInstance()
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthly: new PerHourMonthly(Currency[EUR]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyEUR: new PerHourMonthlyEUR(Currency[EUR]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyCNY: getInstance()
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthly: new PerHourMonthly(Currency[CNY]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyCNY: new PerHourMonthlyCNY(Currency[CNY]
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator START nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator START nxt.Generator@7c16ee
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator START nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: Expected length 56 got 59
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: IOException https://api.bitcoinaverage.com/history/USD/per_minute_24h_global_average_sliding_window.csv
+com.dgex.offspring.providers.service.CSVStructureException
+	at com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding.doRun(PerMinute24HSliding.java:148)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: Expected length 56 got 59
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: IOException https://api.bitcoinaverage.com/history/USD/per_minute_24h_global_average_sliding_window.csv
+com.dgex.offspring.providers.service.CSVStructureException
+	at com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding.doRun(PerMinute24HSliding.java:148)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: Expected length 56 got 59
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: IOException https://api.bitcoinaverage.com/history/USD/per_minute_24h_global_average_sliding_window.csv
+com.dgex.offspring.providers.service.CSVStructureException
+	at com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding.doRun(PerMinute24HSliding.java:148)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ebd24
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@c56cbd
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@7c16ee
+ERROR com.dgex.offspring.providers.dgex.DGEXTradeProvider: ParseException https://dgex.com/API/trades3h.json
+Unexpected token RIGHT SQUARE(]) at position 15.
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:257)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:81)
+	at org.json.simple.parser.JSONParser.parse(JSONParser.java:75)
+	at com.dgex.offspring.providers.dgex.DGEXTradeProvider.doRun(DGEXTradeProvider.java:61)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.nxtCore.core.TransactionDB: LazyList.dispose
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.application.osgi.Activator: Starting Offspring NXT Client
+INFO  com.dgex.offspring.application.osgi.Activator: Java 1.7.0_45 (Oracle Corporation) Linux 3.8.0-36-generic i386
+INFO  com.dgex.offspring.config.Config: /home/dirk/Offspring/offspring.config EXISTS
+INFO  com.dgex.offspring.config.Config: 
+========================================================
+Offspring Configuration Settings
+========================================================
+nxt.peerServerPort=7874
+nxt.maxNumberOfConnectedPublicPeers=20
+nxt.pullThreshold=0
+nxt.apiServerHost=127.0.0.1
+nxt.enableHallmarkProtection=true
+nxt.apiSSL=false
+nxt.peerServerDoSFilter.maxRequestMs=300000
+nxt.uiServerHost=127.0.0.1
+nxt.dbCacheKB=0
+nxt.shareMyAddress=true
+nxt.pushThreshold=0
+nxt.myHallmark=
+nxt.javadocResourceBase=html/doc
+nxt.keyStorePath=keystore
+nxt.peerServerHost=0.0.0.0
+nxt.debugJetty=false
+nxt.peerServerIdleTimeout=5000
+nxt.peerServerDoSFilter.maxRequestsPerSec=30
+nxt.communicationLoggingMask=0
+nxt.enableStackTraces=true
+nxt.log=/home/dirk/Offspring/nxt.log
+offspring.charset=UTF-8
+nxt.readTimeout=5000
+nxt.allowedBotHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.myAddress=
+nxt.myPlatform=Offspring
+nxt.enableUIServer=true
+nxt.maxDbConnections=10
+nxt.allowedUserHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.uiServerIdleTimeout=30000
+nxt.apiServerPort=7876
+nxt.connectTimeout=2000
+nxt.peerServerDoSFilter.delayMs=1000
+nxt.debug=false
+nxt.sendToPeersLimit=10
+nxt.uiServerPort=7875
+nxt.apiServerCORS=false
+nxt.uiSSL=false
+nxt.blacklistingPeriod=300000
+nxt.testDbUrl=jdbc:h2:/home/dirk/Offspring/nxt_test_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.keyStorePassword=password
+nxt.enableAPIServer=true
+nxt.apiResourceBase=html/tools
+nxt.dbLoginTimeout=70
+nxt.apiServerIdleTimeout=30000
+nxt.uiResourceBase=html/nrs
+nxt.dbUrl=jdbc:h2:/home/dirk/Offspring/nxt_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.uiServerCORS=false
+nxt.wellKnownPeers=
+INFO  com.dgex.offspring.application.osgi.Activator: offspring.config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/offspring.config
+INFO  com.dgex.offspring.application.osgi.Activator: log4j config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/log4j.properties
+INFO  com.dgex.offspring.dataprovider.internal.DataProviderPool: new DataProviderPool #1
+INFO  com.dgex.offspring.application.lifecycle.LifeCycleManager: LifeCycleManager.postContextCreate
+INFO  com.dgex.offspring.config.Config: /home/dirk/Offspring/offspring.config EXISTS
+INFO  com.dgex.offspring.config.Config: Adding TEST NET is TRUE
+INFO  com.dgex.offspring.config.Config: 
+========================================================
+Offspring Configuration Settings
+========================================================
+nxt.peerServerPort=7874
+nxt.testnetPeers=bug.airdns.org; tn01.nxtsolaris.info
+nxt.maxNumberOfConnectedPublicPeers=20
+nxt.pullThreshold=0
+nxt.apiServerHost=127.0.0.1
+nxt.enableHallmarkProtection=true
+nxt.apiSSL=false
+nxt.peerServerDoSFilter.maxRequestMs=300000
+nxt.uiServerHost=127.0.0.1
+nxt.dbCacheKB=0
+nxt.shareMyAddress=true
+nxt.isTestnet=true
+nxt.pushThreshold=0
+nxt.myHallmark=
+nxt.javadocResourceBase=html/doc
+nxt.keyStorePath=keystore
+nxt.peerServerHost=0.0.0.0
+nxt.debugJetty=false
+nxt.peerServerIdleTimeout=5000
+nxt.peerServerDoSFilter.maxRequestsPerSec=30
+nxt.communicationLoggingMask=0
+nxt.enableStackTraces=true
+nxt.log=/home/dirk/Offspring/nxt.log
+offspring.charset=UTF-8
+nxt.readTimeout=5000
+nxt.allowedBotHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.myAddress=
+nxt.myPlatform=Offspring
+nxt.enableUIServer=true
+nxt.maxDbConnections=10
+nxt.allowedUserHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.uiServerIdleTimeout=30000
+nxt.apiServerPort=7876
+nxt.connectTimeout=2000
+nxt.peerServerDoSFilter.delayMs=1000
+nxt.debug=false
+nxt.sendToPeersLimit=10
+nxt.uiServerPort=7875
+nxt.apiServerCORS=false
+nxt.uiSSL=false
+nxt.blacklistingPeriod=300000
+nxt.testDbUrl=jdbc:h2:/home/dirk/Offspring/nxt_test_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.keyStorePassword=password
+nxt.enableAPIServer=true
+nxt.apiResourceBase=html/tools
+nxt.dbLoginTimeout=70
+nxt.apiServerIdleTimeout=30000
+nxt.uiResourceBase=html/nrs
+nxt.dbUrl=jdbc:h2:/home/dirk/Offspring/nxt_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.uiServerCORS=false
+nxt.wellKnownPeers=
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 1479195156480445561 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 12790521293207104739 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 8740895197413515199 could not obtain Generator
+INFO  com.dgex.offspring.nxtCore.core.NXTService: Initialize START
+INFO  com.dgex.offspring.nxtCore.core.NXTService: NXT init START
+INFO  com.dgex.offspring.nxtCore.core.NXTService: NXT init END
+INFO  com.dgex.offspring.nxtCore.core.NXTService: Initialization COMPLETE
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyUSD: getInstance()
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthly: new PerHourMonthly(Currency[USD]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyUSD: new PerHourMonthlyUSD(Currency[USD]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyEUR: getInstance()
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthly: new PerHourMonthly(Currency[EUR]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyEUR: new PerHourMonthlyEUR(Currency[EUR]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyCNY: getInstance()
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthly: new PerHourMonthly(Currency[CNY]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyCNY: new PerHourMonthlyCNY(Currency[CNY]
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements page=1 size=300
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements returns ELEMENTS.size=56
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=56
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: Expected length 56 got 59
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: IOException https://api.bitcoinaverage.com/history/USD/per_minute_24h_global_average_sliding_window.csv
+com.dgex.offspring.providers.service.CSVStructureException
+	at com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding.doRun(PerMinute24HSliding.java:148)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.ui.controls.MessagingControl: Link text=<A>6635869272840226493</A>
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.ui.controls.MessagingControl: Link text=<A>6635869272840226493</A>
+INFO  com.dgex.offspring.ui.controls.MessagingControl: Link text=<A>6635869272840226493</A>
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: Expected length 56 got 59
+ERROR com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding: IOException https://api.bitcoinaverage.com/history/USD/per_minute_24h_global_average_sliding_window.csv
+com.dgex.offspring.providers.service.CSVStructureException
+	at com.dgex.offspring.providers.bitcoinaverage.PerMinute24HSliding.doRun(PerMinute24HSliding.java:148)
+	at com.dgex.offspring.dataprovider.internal.DataProvider.run(DataProvider.java:37)
+	at com.dgex.offspring.dataprovider.internal.DataProviderPool$1.run(DataProviderPool.java:53)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:304)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$301(ScheduledThreadPoolExecutor.java:178)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements page=1 size=300
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements returns ELEMENTS.size=70
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=70
+INFO  com.dgex.offspring.ui.controls.MessagingControl: Link text=<A>1479195156480445561</A>
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
+INFO  com.dgex.offspring.nxtCore.core.TransactionDB: LazyList.dispose
+INFO  com.dgex.offspring.nxtCore.core.TransactionDB: LazyList.dispose

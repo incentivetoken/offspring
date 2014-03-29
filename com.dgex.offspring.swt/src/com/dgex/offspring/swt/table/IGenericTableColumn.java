@@ -1,5 +1,6 @@
 package com.dgex.offspring.swt.table;
 
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 
 public interface IGenericTableColumn {
@@ -22,7 +23,7 @@ public interface IGenericTableColumn {
 
   public boolean getEditable();
 
-  public EditingSupport getEditingSupport(GenerericTableViewer viewer);
+  public EditingSupport getEditingSupport(ColumnViewer viewer);
 
   public ICellActivateHandler getCellActivateHandler();
 }

@@ -29,6 +29,7 @@ import com.dgex.offspring.config.CSSClasses;
 import com.dgex.offspring.config.Clipboards;
 import com.dgex.offspring.messages.Messages;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.ui.SendMessageWizard;
 import com.dgex.offspring.ui.SendMoneyWizard;
 import com.dgex.offspring.user.service.IUser;
 import com.dgex.offspring.user.service.IUserService;
@@ -138,6 +139,24 @@ public class AccountButtonComposite extends Composite {
         }
         WizardDialog dialog = new WizardDialog(shell, new SendMoneyWizard(
             userService, nxt, user.getAccount().getId()));
+        dialog.open();
+      }
+    });
+
+    item = new MenuItem(menu, SWT.PUSH);
+    item.setText("Send Message");
+    item.addSelectionListener(new SelectionAdapter() {
+
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        Shell shell = getShell();
+        if (shell != null) {
+          while (shell.getParent() != null) {
+            shell = shell.getParent().getShell();
+          }
+        }
+        WizardDialog dialog = new WizardDialog(shell, new SendMessageWizard(
+            userService, nxt, user.getAccount().getId(), null));
         dialog.open();
       }
     });

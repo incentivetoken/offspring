@@ -274,11 +274,11 @@ public class NXTService implements INxtService {
 
   @Override
   public Transaction createSendMessageTransaction(IAccount sender,
-      IAccount _recipient, byte[] message, short deadline, int fee,
+      Long recipient, byte[] message, short deadline, int fee,
       Long referencedTransaction) throws ValidationException,
       TransactionException {
 
-    Transaction transaction = TransactionSendMessage.create(sender, _recipient,
+    Transaction transaction = TransactionSendMessage.create(sender, recipient,
         message, deadline, fee, referencedTransaction, this);
 
     broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,

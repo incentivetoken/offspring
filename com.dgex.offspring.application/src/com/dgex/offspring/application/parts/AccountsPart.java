@@ -264,6 +264,17 @@ public class AccountsPart {
 
   @Inject
   @Optional
+  private void onBlockScanFinished(
+      @UIEventTopic(INxtService.TOPIC_BLOCK_SCANNER_FINISHED) int dummy) {
+    AccountTabFolder tabFolder = findAccountTabFolder(userService
+        .getActiveUser());
+    if (tabFolder != null) {
+      tabFolder.refresh();
+    }
+  }
+
+  @Inject
+  @Optional
   private void onAccountUpdateBalance(
       @UIEventTopic(INxtService.TOPIC_ACCOUNT_UPDATE_BALANCE) IAccount account,
       IUserService userService) {
