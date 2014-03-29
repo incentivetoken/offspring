@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.BusyIndicator;
@@ -23,7 +23,7 @@ public class PaginationContainer extends Composite {
   static Logger logger = Logger.getLogger(PaginationContainer.class);
   private final Label pageLabel;
   private PaginatedContentProvider contentProvider;
-  private TableViewer viewer;
+  private ColumnViewer viewer;
   private final Link previousLink;
   private final Link nextLink;
   private final Composite viewerComposite;
@@ -227,9 +227,9 @@ public class PaginationContainer extends Composite {
    * 
    * @param viewer
    */
-  public void setTableViewer(TableViewer viewer, int pageSize) {
+  public void setTableViewer(ColumnViewer viewer, int pageSize) {
     this.viewer = viewer;
-    IStructuredContentProvider inner = ((IGenericTableViewer) viewer)
+    IStructuredContentProvider inner = ((IGenericViewer) viewer)
         .getGenericTable().getContentProvider();
 
     if (inner instanceof IPageableStructeredContentProvider) {

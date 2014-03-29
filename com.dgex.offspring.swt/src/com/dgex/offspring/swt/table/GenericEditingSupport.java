@@ -1,18 +1,21 @@
 package com.dgex.offspring.swt.table;
 
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.swt.widgets.Composite;
 
 public class GenericEditingSupport extends EditingSupport {
 
   private final CellEditor editor;
   private final IGenericTableColumn column;
 
-  public GenericEditingSupport(GenerericTableViewer viewer,
+  public GenericEditingSupport(ColumnViewer viewer,
       IGenericTableColumn column) {
     super(viewer);
-    this.editor = new TextCellEditor(viewer.getTable(), column.getAlignMent());
+    this.editor = new TextCellEditor((Composite) viewer.getControl(),
+        column.getAlignMent());
     this.column = column;
   }
 

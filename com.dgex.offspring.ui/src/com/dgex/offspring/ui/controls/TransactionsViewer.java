@@ -55,7 +55,7 @@ public class TransactionsViewer extends GenerericTableViewer {
   static final Image MONEY = Images.getImage("money.png");
 
   final IGenericTableColumn columnType = new GenericTableColumnBuilder("")
-      .align(SWT.CENTER).textExtent("XXXX").editable(false)
+      .align(SWT.CENTER).textExtent("XXX").editable(false)
       .provider(new ICellDataProvider() {
 
         @Override
@@ -375,6 +375,7 @@ public class TransactionsViewer extends GenerericTableViewer {
 
       int timestamp = 0;
       Boolean orderAscending = Boolean.FALSE;
+      Object referencedTransaction = null;
       TransactionType[] recipientTypes = { TransactionType.Payment.ORDINARY, };
       TransactionType[] senderTypes = { TransactionType.Payment.ORDINARY,
           TransactionType.Messaging.ALIAS_ASSIGNMENT,
@@ -388,7 +389,7 @@ public class TransactionsViewer extends GenerericTableViewer {
           TransactionType.ColoredCoins.BID_ORDER_PLACEMENT };
 
       this.list = TransactionDB.getTransactions(accountId, recipientTypes,
-          senderTypes, timestamp, orderAscending,
+          senderTypes, timestamp, orderAscending, referencedTransaction,
           ((TransactionsViewer) viewer).nxt);
       this.currentPage = 1;
     }

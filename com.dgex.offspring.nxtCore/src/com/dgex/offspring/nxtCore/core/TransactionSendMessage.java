@@ -14,12 +14,11 @@ import com.dgex.offspring.nxtCore.service.TransactionException;
 
 public class TransactionSendMessage {
 
-  public static Transaction create(IAccount sender, IAccount _recipient,
+  public static Transaction create(IAccount sender, Long recipient,
       byte[] message, short deadline, int fee, Long referencedTransaction,
       INxtService nxt) throws ValidationException, TransactionException {
 
     String secretPhrase = sender.getPrivateKey();
-    Long recipient = _recipient.getId();
 
     if (message.length == 0
         || message.length > Constants.MAX_ARBITRARY_MESSAGE_LENGTH) {

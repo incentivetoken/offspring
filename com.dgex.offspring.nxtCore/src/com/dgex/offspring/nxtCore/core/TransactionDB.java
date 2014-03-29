@@ -108,12 +108,14 @@ public class TransactionDB {
    * @param senderTypes
    * @param timestamp
    * @param orderAscending
+   * @param referencedTransactionNull
    * @param nxt
    * @return
    */
   public static LazyList getTransactions(Long accountId,
       TransactionType[] recipientTypes, TransactionType[] senderTypes,
-      int timestamp, Boolean orderAscending, INxtService nxt) {
+      int timestamp, Boolean orderAscending, Object referencedTransaction,
+      INxtService nxt) {
 
     Connection con = null;
     int available = 0;
@@ -122,7 +124,8 @@ public class TransactionDB {
     try {
       con = Db.getConnection();
       PreparedStatement pstmt = createTransactionStatement(con, accountId,
-          recipientTypes, senderTypes, timestamp, orderAscending, true);
+          recipientTypes, senderTypes, timestamp, orderAscending,
+          referencedTransaction, true);
       ResultSet rs = pstmt.executeQuery();
       rs.next();
       available = rs.getInt(1);
@@ -143,7 +146,8 @@ public class TransactionDB {
     try {
       con = Db.getConnection();
       PreparedStatement pstmt = createTransactionStatement(con, accountId,
-          recipientTypes, senderTypes, timestamp, orderAscending, false);
+          recipientTypes, senderTypes, timestamp, orderAscending,
+          referencedTransaction, false);
 
       DbIterator<? extends Transaction> iterator = Nxt.getBlockchain()
           .getTransactions(con, pstmt);
@@ -159,9 +163,93 @@ public class TransactionDB {
     return null;
   }
 
+  public static List<ITransaction> getMessageTransactions(Long accountId,
+      int timestamp, Boolean orderAscending, Object referencedTransaction,
+      INxtService nxt) {
+
+    Connection con = null;
+    TransactionType[] recipientTypes = { TransactionType.Messaging.ARBITRARY_MESSAGE };
+    TransactionType[] senderTypes = { TransactionType.Messaging.ARBITRARY_MESSAGE };
+
+    /* Create the record iterator */
+    try {
+      con = Db.getConnection();
+      PreparedStatement pstmt = createTransactionStatement(con, accountId,
+          recipientTypes, senderTypes, timestamp, orderAscending,
+          referencedTransaction, false);
+
+      DbIterator<? extends Transaction> iterator = Nxt.getBlockchain()
+          .getTransactions(con, pstmt);
+      List<ITransaction> list = new ArrayList<ITransaction>();
+
+      int max = 200;
+      int count = 0;
+      while (iterator.hasNext()) {
+        count++;
+        list.add(new TransactionHelper(nxt, iterator.next()));
+        if (count > max) {
+          DbUtils.close(con);
+          break;
+        }
+      }
+      return list;
+    }
+    catch (SQLException e) {
+      logger.error("SQL Error", e);
+      if (con != null) {
+        DbUtils.close(con);
+      }
+    }
+    catch (Throwable e) {
+      logger.error("TransactionDB Error", e);
+      if (con != null) {
+        DbUtils.close(con);
+      }
+      throw e;
+    }
+    return null;
+  }
+
+  public static int getMessageTransactionCount(Long accountId, int timestamp,
+      Object referencedTransaction, INxtService nxt) {
+
+    Connection con = null;
+    TransactionType[] recipientTypes = { TransactionType.Messaging.ARBITRARY_MESSAGE };
+    TransactionType[] senderTypes = { TransactionType.Messaging.ARBITRARY_MESSAGE };
+
+    /* Create the record counter */
+    try {
+      con = Db.getConnection();
+      PreparedStatement pstmt = createTransactionStatement(con, accountId,
+          recipientTypes, senderTypes, timestamp, null,
+          referencedTransaction, true);
+      ResultSet rs = pstmt.executeQuery();
+      rs.next();
+      int count = rs.getInt(1);
+      DbUtils.close(con);
+      con = null;
+      return count;
+    }
+    catch (SQLException e) {
+      logger.error("SQL Error", e);
+      if (con != null) {
+        DbUtils.close(con);
+      }
+    }
+    catch (Throwable e) {
+      logger.error("TransactionDB Error", e);
+      if (con != null) {
+        DbUtils.close(con);
+      }
+      throw e;
+    }
+    return 0;
+  }
+
   static PreparedStatement createTransactionStatement(Connection con,
       Long accountId, TransactionType[] recipientTypes,
       TransactionType[] senderTypes, int timestamp, Boolean orderAscending,
+      Object referencedTransaction,
       boolean countOnly) throws SQLException {
 
     if (recipientTypes.length == 0 && senderTypes.length == 0) {
@@ -179,6 +267,17 @@ public class TransactionDB {
       buf.append("SELECT * FROM transaction WHERE recipient_id = ? ");
       if (timestamp > 0) {
         buf.append("AND timestamp >= ? ");
+      }
+      if (referencedTransaction != null) {
+        if (referencedTransaction.equals(Boolean.TRUE)) {
+          buf.append("AND referenced_transaction_id IS NULL ");
+        }
+        else if (referencedTransaction.equals(Boolean.FALSE)) {
+          buf.append("AND referenced_transaction_id IS NOT NULL ");
+        }
+        else {
+          buf.append("AND referenced_transaction_id = ? ");
+        }
       }
       if (recipientTypes.length > 0) {
         buf.append("AND ( ");
@@ -198,6 +297,17 @@ public class TransactionDB {
       buf.append("SELECT * FROM transaction WHERE sender_id = ? ");
       if (timestamp > 0) {
         buf.append("AND timestamp >= ? ");
+      }
+      if (referencedTransaction != null) {
+        if (referencedTransaction.equals(Boolean.TRUE)) {
+          buf.append("AND referenced_transaction_id IS NULL ");
+        }
+        else if (referencedTransaction.equals(Boolean.FALSE)) {
+          buf.append("AND referenced_transaction_id IS NOT NULL ");
+        }
+        else {
+          buf.append("AND referenced_transaction_id = ? ");
+        }
       }
       if (senderTypes.length > 0) {
         buf.append("AND ( ");
@@ -222,7 +332,7 @@ public class TransactionDB {
       }
     }
 
-    logger.info(buf.toString());
+    // logger.info(buf.toString());
     int i = 0;
     PreparedStatement pstmt = con.prepareStatement(buf.toString());
 
@@ -230,6 +340,9 @@ public class TransactionDB {
       pstmt.setLong(++i, accountId);
       if (timestamp > 0) {
         pstmt.setInt(++i, timestamp);
+      }
+      if (referencedTransaction instanceof Long) {
+        pstmt.setLong(++i, (long) referencedTransaction);
       }
       if (recipientTypes.length > 0) {
         for (int j = 0; j < recipientTypes.length; j++) {
@@ -244,6 +357,9 @@ public class TransactionDB {
       if (timestamp > 0) {
         pstmt.setInt(++i, timestamp);
       }
+      if (referencedTransaction instanceof Long) {
+        pstmt.setLong(++i, (long) referencedTransaction);
+      }
       if (senderTypes.length > 0) {
         for (int j = 0; j < senderTypes.length; j++) {
           TransactionType type = senderTypes[j];
@@ -252,7 +368,7 @@ public class TransactionDB {
         }
       }
     }
-    logger.info(pstmt.toString());
+    // logger.info(pstmt.toString());
     return pstmt;
   }
 }

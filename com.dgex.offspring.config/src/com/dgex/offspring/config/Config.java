@@ -15,10 +15,15 @@ import org.eclipse.swt.widgets.Display;
 
 public class Config {
 
-  public static final String VERSION = "0.4.0";
+  public static final String VERSION = "0.4.1";
   public static final String TITLE = "Offspring v" + VERSION;
 
   static Logger logger = Logger.getLogger(Config.class);
+
+  /* Encrypted messages start with this number */
+  public static byte[] MAGIC_ENCRYPTION_NUMBER = new byte[] { (byte) 66,
+      (byte) 69, (byte) 76, (byte) 76, (byte) 65, (byte) 50, (byte) 48,
+      (byte) 48, (byte) 49, (byte) 50, (byte) 48, (byte) 49, (byte) 49 };
 
   /* NXT config settings */
   public static boolean nxtIsTestNet = false;

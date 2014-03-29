@@ -1,5 +1,6 @@
 package com.dgex.offspring.swt.table;
 
+import org.eclipse.jface.viewers.ColumnViewer;
 import org.eclipse.jface.viewers.EditingSupport;
 
 public class GenericTableColumn implements IGenericTableColumn {
@@ -32,7 +33,7 @@ public class GenericTableColumn implements IGenericTableColumn {
   }
 
   @Override
-  public EditingSupport getEditingSupport(GenerericTableViewer viewer) {
+  public EditingSupport getEditingSupport(ColumnViewer viewer) {
     return new GenericEditingSupport(viewer, this);
   }
 

@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jface.layout.TableColumnLayout;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ColumnViewerEditor;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationEvent;
 import org.eclipse.jface.viewers.ColumnViewerEditorActivationStrategy;
-import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.TableViewerEditor;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.TreeViewerColumn;
+import org.eclipse.jface.viewers.TreeViewerEditor;
 import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -26,20 +24,20 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TreeColumn;
 import org.eclipse.swt.widgets.Widget;
 
 import com.dgex.offspring.config.Colors;
 
-public class GenerericTableViewer extends TableViewer implements
+public class GenerericTreeViewer extends TreeViewer implements
     IGenericViewer {
 
-  static final Logger logger = Logger.getLogger(GenerericTableViewer.class);
+  static final Logger logger = Logger.getLogger(GenerericTreeViewer.class);
   static final String FONT_KEY = "com.dgex.offspring.swt.table.GenerericTableViewer.FONT.";
   static final String COLOR_KEY = "com.dgex.offspring.swt.table.GenerericTableViewer.COLOR.";
 
   private IGenericTable table = null;
-  private GenericComparator comparator = null;
+  private final GenericComparator comparator = null;
 
   private final MouseListener mouseListener = new MouseListener() {
 
@@ -107,7 +105,7 @@ public class GenerericTableViewer extends TableViewer implements
           widget.setData(font_key, null);
           widget.setData(color_key, null);
         }
-        getTable().setCursor(null);
+        getTree().setCursor(null);
       }
 
       if (cell != null) {
@@ -130,7 +128,7 @@ public class GenerericTableViewer extends TableViewer implements
           cell.setForeground(Colors.getColor(Colors.BLUE));
           cell.setFont(JFaceResources.getFontRegistry().getBold(""));
 
-          getTable().setCursor(
+          getTree().setCursor(
               cell.getControl().getDisplay().getSystemCursor(SWT.CURSOR_HAND));
         }
       }
@@ -138,22 +136,8 @@ public class GenerericTableViewer extends TableViewer implements
   };
   private Object lazyInput;
 
-  public GenerericTableViewer(Composite parent, int style) {
+  public GenerericTreeViewer(Composite parent, int style) {
     super(parent, style | SWT.FULL_SELECTION);
-    // getTable().addListener(SWT.Resize, new Listener() {
-    //
-    // @Override
-    // public void handleEvent(Event event) {
-    // try {
-    // getTable().setRedraw(false);
-    // calculateSizes();
-    // }
-    // finally {
-    // getTable().setRedraw(true);
-    // }
-    // getTable().layout();
-    // }
-    // });
   }
 
   @Override
@@ -162,10 +146,11 @@ public class GenerericTableViewer extends TableViewer implements
 
     setUseHashlookup(true);
     setContentProvider(table.getContentProvider());
-    if (!(table.getContentProvider() instanceof IPageableStructeredContentProvider)) {
-      this.comparator = new GenericComparator(table);
-      setComparator(comparator);
-    }
+    // if (!(table.getContentProvider() instanceof
+    // IPageableStructeredContentProvider)) {
+    // this.comparator = new GenericComparator(table);
+    // setComparator(comparator);
+    // }
 
     ColumnViewerEditorActivationStrategy actSupport = new ColumnViewerEditorActivationStrategy(
         this) {
@@ -179,30 +164,23 @@ public class GenerericTableViewer extends TableViewer implements
       }
     };
 
-    TableViewerEditor.create(this, actSupport,
+    TreeViewerEditor.create(this, actSupport,
         ColumnViewerEditor.TABBING_HORIZONTAL
             | ColumnViewerEditor.TABBING_MOVE_TO_ROW_NEIGHBOR
             | ColumnViewerEditor.TABBING_VERTICAL
             | ColumnViewerEditor.KEYBOARD_ACTIVATION);
 
     createColumns();
-    // try {
-    // getTable().setRedraw(false);
-    // calculateSizes();
-    // }
-    // finally {
-    // getTable().setRedraw(true);
-    // }
 
     // setInput(null);
-    getTable().setHeaderVisible(true);
-    getTable().setLinesVisible(true);
-    getTable().layout();
+    getTree().setHeaderVisible(true);
+    getTree().setLinesVisible(true);
+    getTree().layout();
 
     for (final IGenericTableColumn c : table.getColumns()) {
       if (c.getCellActivateHandler() != null) {
-        getTable().addMouseMoveListener(mouseMoveListener);
-        getTable().addMouseListener(mouseListener);
+        getTree().addMouseMoveListener(mouseMoveListener);
+        getTree().addMouseListener(mouseListener);
         break;
       }
     }
@@ -213,20 +191,13 @@ public class GenerericTableViewer extends TableViewer implements
     return this.table;
   }
 
-  // @Override
-  // public void autoResizeColumns() {
-  // if (getTable() != null && !getTable().isDisposed()) {
-  // calculateSizes();
-  // }
-  // }
-
   private void createColumns() {
-    GC gc = new GC(getTable().getParent());
+    GC gc = new GC(getTree().getParent());
 
     List<Integer> widths = new ArrayList<Integer>();
 
     for (final IGenericTableColumn c : table.getColumns()) {
-      TableViewerColumn viewerColumn = new TableViewerColumn(this, SWT.NONE);
+      TreeViewerColumn viewerColumn = new TreeViewerColumn(this, SWT.NONE);
 
       viewerColumn.setLabelProvider(new GenericLabelProvider(c
           .getDataProvider()));
@@ -235,7 +206,7 @@ public class GenerericTableViewer extends TableViewer implements
         viewerColumn.setEditingSupport(c.getEditingSupport(this));
       }
 
-      TableColumn column = viewerColumn.getColumn();
+      TreeColumn column = viewerColumn.getColumn();
 
       if (c.getSortable() && comparator != null) {
         column.addSelectionListener(getSelectionAdapter(column, c));
@@ -261,16 +232,16 @@ public class GenerericTableViewer extends TableViewer implements
     }
     gc.dispose();
 
-    /* All columns have their prefered width set now calculate percentages */
-    TableColumnLayout layout = new TableColumnLayout();
-    for (int i = 0; i < widths.size(); i++) {
-      layout.setColumnData(getTable().getColumns()[i], new ColumnWeightData(
-          widths.get(i), widths.get(i), true));
-    }
-    getTable().getParent().setLayout(layout);
+    // /* All columns have their prefered width set now calculate percentages */
+    // TreeColumnLayout layout = new TreeColumnLayout();
+    // for (int i = 0; i < widths.size(); i++) {
+    // layout.setColumnData(getTree().getColumns()[i], new ColumnWeightData(
+    // widths.get(i), widths.get(i), true));
+    // }
+    // getTree().getParent().setLayout(layout);
   }
 
-  private SelectionAdapter getSelectionAdapter(final TableColumn column,
+  private SelectionAdapter getSelectionAdapter(final TreeColumn column,
       final IGenericTableColumn c) {
     SelectionAdapter selectionAdapter = new SelectionAdapter() {
 
@@ -278,8 +249,8 @@ public class GenerericTableViewer extends TableViewer implements
       public void widgetSelected(SelectionEvent e) {
         comparator.setColumn(c);
         int dir = comparator.getDirection();
-        getTable().setSortDirection(dir);
-        getTable().setSortColumn(column);
+        getTree().setSortDirection(dir);
+        getTree().setSortColumn(column);
         refresh();
       }
     };

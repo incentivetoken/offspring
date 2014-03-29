@@ -206,6 +206,22 @@ public class InspectAccountDialog extends TitleAreaDialog {
     GridDataFactory.swtDefaults().align(SWT.BEGINNING, SWT.CENTER)
         .applyTo(sendMessageButton);
 
+    sendMessageButton.addSelectionListener(new SelectionAdapter() {
+
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        Shell shell = getShell();
+        if (shell != null) {
+          while (shell.getParent() != null) {
+            shell = shell.getParent().getShell();
+          }
+        }
+        WizardDialog dialog = new WizardDialog(shell, new SendMessageWizard(
+            userService, nxt, accountId, null));
+        dialog.open();
+      }
+    });
+
     Label filler = new Label(container, SWT.NONE);
     GridDataFactory.swtDefaults().grab(true, false).applyTo(filler);
 

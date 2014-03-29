@@ -220,18 +220,20 @@ public class AccountsPart {
    * TOPIC_ADD_UNCONFIRMED_TRANSACTION
    */
   private void addTransaction(ITransaction transaction) {
-    IUser active = userService.getActiveUser();
-    if (active != null) {
-      IUser sender = userService.getUser(transaction.getSender());
-      IUser receiver = userService.getUser(transaction.getReceiver());
+    // if (!nxt.isScanning()) {
+      IUser active = userService.getActiveUser();
+      if (active != null) {
+        IUser sender = userService.getUser(transaction.getSender());
+        IUser receiver = userService.getUser(transaction.getReceiver());
 
-      if (active.equals(sender) || active.equals(receiver)) {
-        setActiveUserBalance(active.getAccount().getBalance());
-        if (activeAccountTabFolder != null) {
-          activeAccountTabFolder.lazyRefresh();
+        if (active.equals(sender) || active.equals(receiver)) {
+          setActiveUserBalance(active.getAccount().getBalance());
+          if (activeAccountTabFolder != null) {
+            activeAccountTabFolder.lazyRefresh();
+          }
         }
       }
-    }
+    // }
   }
 
   @Inject
