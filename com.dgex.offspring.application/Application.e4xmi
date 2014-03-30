@@ -77,6 +77,7 @@
       <children xsi:type="menu:Menu" xmi:id="_I02VFXltEeOoea91ep9utA" label="File">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_p78wMHoaEeOUi-pJkBwF3A" elementId="com.dgex.offspring.application.handledmenuitem.createAccount" label="Add Account" tooltip="" command="_9I5cUHoREeOUi-pJkBwF3A"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_xk79UIndEeOmcYbB4uWWMA" elementId="com.dgex.offspring.application.handledmenuitem.sendMoney" label="Send Money" tooltip="" command="_TRFTsIOPEeOxK7cQPCvwmg"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_VfzQ4Lg7EeODSdzFOjCRcQ" elementId="com.dgex.offspring.application.handledmenuitem.sendMoney" label="Send Message" tooltip="" command="_rB2H8Lg5EeODSdzFOjCRcQ"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_4sZvQIndEeOmcYbB4uWWMA" elementId="com.dgex.offspring.application.handledmenuitem.assignAlias" toBeRendered="false" visible="false" label="Assign Alias" tooltip="" enabled="false"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_LooL4IniEeOmcYbB4uWWMA" elementId="com.dgex.offspring.application.handledmenuitem.0" label="Authentication Token" command="_tJT7wIgKEeO-jqreS2ZtTw"/>
         <children xsi:type="menu:HandledMenuItem" xmi:id="_SYINgI83EeOkapEF6vHroA" elementId="com.dgex.offspring.application.handledmenuitem.2" label="Delete Blockchain" enabled="false" command="_-6fJEI82EeOkapEF6vHroA"/>
@@ -143,6 +144,7 @@
   <handlers xmi:id="_uCTiELEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.handler.lookupAccount" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.LookupAccountHandler" command="_lAzsYLEDEeOcifaxly-V0A"/>
   <handlers xmi:id="_uGKHULEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.handler.lookupTransaction" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.LookupTransactionHandler" command="_lIC80LEDEeOcifaxly-V0A"/>
   <handlers xmi:id="_uJYacLEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.handler.lookupBlock" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.LookupBlockHandler" command="_lOp7ILEDEeOcifaxly-V0A"/>
+  <handlers xmi:id="_uOUD8Lg5EeODSdzFOjCRcQ" elementId="com.dgex.offspring.application.handler.sendMessage" contributionURI="bundleclass://com.dgex.offspring.application/com.dgex.offspring.application.handlers.SendMessageHandler" command="_rB2H8Lg5EeODSdzFOjCRcQ"/>
   <bindingTables xmi:id="_I01uDnltEeOoea91ep9utA" bindingContext="_I01uCXltEeOoea91ep9utA">
     <bindings xmi:id="_I01uD3ltEeOoea91ep9utA" keySequence="M1+Q" command="_I01uDHltEeOoea91ep9utA"/>
     <bindings xmi:id="_I01uEnltEeOoea91ep9utA" keySequence="M1+O"/>
@@ -174,6 +176,7 @@
   <commands xmi:id="_lAzsYLEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.command.lookupAccount" commandName="lookupAccount" description="Lookup Account"/>
   <commands xmi:id="_lIC80LEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.command.lookupTransaction" commandName="lookupTransaction" description="Lookup Transaction"/>
   <commands xmi:id="_lOp7ILEDEeOcifaxly-V0A" elementId="com.dgex.offspring.application.command.lookupBlock" commandName="lookupBlock" description="Lookup Block"/>
+  <commands xmi:id="_rB2H8Lg5EeODSdzFOjCRcQ" elementId="com.dgex.offspring.application.command.sendmessage" commandName="sendMessage" description="Send Message"/>
   <addons xmi:id="_I01uAnltEeOoea91ep9utA" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_I01uA3ltEeOoea91ep9utA" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_I01uBHltEeOoea91ep9utA" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
