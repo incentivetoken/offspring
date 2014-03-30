@@ -69,7 +69,7 @@ public class InspectTransactionDialog extends TitleAreaDialog {
   static InspectTransactionDialog INSTANCE = null;
 
   static final SimpleDateFormat dateFormat = new SimpleDateFormat(
-      "dd MMM yy hh:mm:ss");
+      "dd MMM yy H:mm:ss");
 
   public InspectTransactionDialog(Shell shell, Long transactionId,
       INxtService nxt, IStylingEngine engine, IUserService userService,

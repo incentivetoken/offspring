@@ -44,7 +44,7 @@ public class MessagingViewer extends GenerericTableViewer {
 
   static Logger logger = Logger.getLogger(MessagingViewer.class);
   static final SimpleDateFormat dateFormat = new SimpleDateFormat(
-      "dd MMM yy hh:mm:ss");
+      "dd MMM yy H:mm:ss");
   static final Image MESSAGE_RECEIVED = Images.getImage("bullet_go.png");
   static final Image MESSAGE_SEND = Images.getImage("resultset_previous.png");
   static final Image ENCRYPTED_OPENED = Images.getImage("lock_open.png");

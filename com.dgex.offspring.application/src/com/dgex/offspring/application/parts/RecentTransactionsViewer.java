@@ -44,7 +44,7 @@ public class RecentTransactionsViewer extends GenerericTableViewer {
   static final RGB DARK_RED = new RGB(139, 0, 19);
   static final String EMPTY_STRING = "";
   static final SimpleDateFormat dateFormat = new SimpleDateFormat(
-      "dd MMM yy hh:mm:ss");
+      "dd MMM yy H:mm:ss");
 
   final IGenericTableColumn columnAmount = new GenericTableColumnBuilder(
       "Amount").align(SWT.RIGHT).textExtent("1000000000")

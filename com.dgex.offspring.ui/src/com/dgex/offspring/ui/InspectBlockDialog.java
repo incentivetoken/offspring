@@ -75,7 +75,7 @@ public class InspectBlockDialog extends TitleAreaDialog {
   static InspectBlockDialog INSTANCE = null;
 
   static final SimpleDateFormat dateFormat = new SimpleDateFormat(
-      "dd MMM yy hh:mm:ss");
+      "dd MMM yy H:mm:ss");
 
   public InspectBlockDialog(Shell shell, Long blockId, INxtService nxt,
       IStylingEngine engine, IUserService userService, UISynchronize sync,
@@ -221,7 +221,7 @@ public class InspectBlockDialog extends TitleAreaDialog {
     layout.marginTop = 10;
     layout.marginLeft = 10;
 
-    GridData gd = new GridData(GridData.FILL, GridData.FILL, false, true);
+    GridData gd = new GridData(GridData.FILL, GridData.FILL, true, true);
     gd.widthHint = Math
         .round((convertHorizontalDLUsToPixels(IDialogConstants.MINIMUM_MESSAGE_AREA_WIDTH) / 2) * 3);
 

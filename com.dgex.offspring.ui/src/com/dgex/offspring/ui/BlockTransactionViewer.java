@@ -46,7 +46,7 @@ public class BlockTransactionViewer extends GenerericTableViewer {
       .provider(new ICellDataProvider() {
 
         private final SimpleDateFormat dateFormat = new SimpleDateFormat(
-            "dd MMM yy hh:mm:ss");
+            "dd MMM yy H:mm:ss");
 
         @Override
         public Object getCellValue(Object element) {

@@ -36,11 +36,11 @@ public class RecentBlocksViewer extends GenerericTableViewer {
   static Logger logger = Logger.getLogger(RecentBlocksViewer.class);
 
   final IGenericTableColumn columnDate = new GenericTableColumnBuilder("Date")
-      .align(SWT.LEFT).textExtent("dd MMM yy hh:mm:ss ")
+      .align(SWT.LEFT).textExtent("dd MMM yy HH:mm:ss ")
       .provider(new ICellDataProvider() {
 
         private final SimpleDateFormat dateFormat = new SimpleDateFormat(
-            "dd MMM yy hh:mm:ss");
+            "dd MMM yy H:mm:ss");
 
         @Override
         public Object getCellValue(Object element) {

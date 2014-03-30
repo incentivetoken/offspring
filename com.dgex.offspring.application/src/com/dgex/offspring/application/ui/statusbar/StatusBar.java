@@ -272,7 +272,7 @@ public class StatusBar {
   }
 
   private final SimpleDateFormat dateFormat = new SimpleDateFormat(
-      "dd MMM yy hh:mm:ss");
+      "dd MMM yy H:mm:ss");
 
   private String createBlockAgeText(Block block) {
     Date date = new Date(nxt.convertTimestamp(block.getTimestamp()));
