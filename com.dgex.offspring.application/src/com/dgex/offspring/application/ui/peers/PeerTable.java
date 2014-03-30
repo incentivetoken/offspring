@@ -19,11 +19,11 @@ public class PeerTable {
   public final static int COLUMN_DOWNLOADED = 39;
   public final static int COLUMN_UPLOADED = 40;
   public final static int COLUMN_SOFTWARE = 41;
-  public final static int COLUMN_REMOVE_BUTTON = 42;
+  public final static int COLUMN_HALLMARK_BUTTON = 42;
 
   private final static int[] active_peers_columns = new int[] {
 
-  COLUMN_REMOVE_BUTTON,
+  COLUMN_HALLMARK_BUTTON,
 
   COLUMN_DISCONNECTED,
 
@@ -39,7 +39,7 @@ public class PeerTable {
 
   private final static int[] known_peers_columns = new int[] {
 
-  COLUMN_REMOVE_BUTTON,
+  COLUMN_HALLMARK_BUTTON,
 
   COLUMN_ANNOUNCED_ADDRESS,
 
@@ -53,7 +53,7 @@ public class PeerTable {
 
   private final static int[] blacklisted_peers_columns = new int[] {
 
-  COLUMN_REMOVE_BUTTON,
+  COLUMN_HALLMARK_BUTTON,
 
   COLUMN_ANNOUNCED_ADDRESS,
 
@@ -79,7 +79,7 @@ public class PeerTable {
 
   public static CellLabelProvider createLabelProvider(int id, int peerType) {
     switch (id) {
-    case COLUMN_REMOVE_BUTTON:
+    case COLUMN_HALLMARK_BUTTON:
     case COLUMN_DISCONNECTED:
     case COLUMN_WELLKNOWN:
     case COLUMN_ANNOUNCED_ADDRESS:
@@ -100,7 +100,7 @@ public class PeerTable {
 
   public static String getColumnLabel(int id) {
     switch (id) {
-    case COLUMN_REMOVE_BUTTON:
+    case COLUMN_HALLMARK_BUTTON:
       return " "; //$NON-NLS-1$
     case COLUMN_DISCONNECTED:
       return " "; //$NON-NLS-1$
@@ -124,7 +124,7 @@ public class PeerTable {
 
   public static int getColumnWidth(int id) {
     switch (id) {
-    case COLUMN_REMOVE_BUTTON:
+    case COLUMN_HALLMARK_BUTTON:
     case COLUMN_DISCONNECTED:
     case COLUMN_WELLKNOWN:
       return 30;
@@ -143,7 +143,7 @@ public class PeerTable {
 
   public static int getColumnAlignment(int id) {
     switch (id) {
-    case COLUMN_REMOVE_BUTTON:
+    case COLUMN_HALLMARK_BUTTON:
     case COLUMN_WELLKNOWN:
     case COLUMN_DISCONNECTED:
       return SWT.CENTER;
@@ -157,7 +157,7 @@ public class PeerTable {
 
   public static boolean getColumnResizable(int id) {
     switch (id) {
-    case COLUMN_REMOVE_BUTTON:
+    case COLUMN_HALLMARK_BUTTON:
     case COLUMN_DISCONNECTED:
     case COLUMN_WELLKNOWN:
     case COLUMN_WEIGHT:

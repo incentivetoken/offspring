@@ -21,7 +21,9 @@ public class PeerLabelProvider extends ColumnLabelProvider {
 
   private static final Image ANNOUNCED_PEER = Images.getImage("user.png");
 
-  private static final Image TRASHCAN = Images.getImage("trashcan.png");
+  private static final Image HALLMARK = Images.getImage("shield.png");
+
+  private static final Image NO_HALLMARK = Images.getImage("shield_delete.png");
 
   public PeerLabelProvider(int peerType) {
     this.peerType = peerType;
@@ -32,8 +34,14 @@ public class PeerLabelProvider extends ColumnLabelProvider {
     super.update(cell);
     Peer p = (Peer) cell.getElement();
     switch (PeerTable.getColumns(peerType)[cell.getColumnIndex()]) {
-    case PeerTable.COLUMN_REMOVE_BUTTON:
-      cell.setImage(TRASHCAN);
+
+    case PeerTable.COLUMN_HALLMARK_BUTTON:
+      if (p.getHallmark() == null) {
+        cell.setImage(NO_HALLMARK);
+      }
+      else {
+        cell.setImage(HALLMARK);
+      }
       cell.setText(EMPTY_STRING);
       break;
 
