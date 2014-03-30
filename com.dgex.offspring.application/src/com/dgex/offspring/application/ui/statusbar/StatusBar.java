@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import nxt.Block;
+import nxt.Nxt;
 import nxt.peer.Peer;
 
 import org.apache.log4j.Logger;
@@ -43,7 +44,10 @@ public class StatusBar {
   private PixelConverter pixelConverter;
   private final BlockchainDownloadMonitor downloadMonitor = new BlockchainDownloadMonitor();
 
-  private String messageTextValue = "";
+  static final String INITIALIZING_TEXT = "Initializing NXT " + Nxt.VERSION
+      + " (might take several minutes)";
+
+  private String messageTextValue = INITIALIZING_TEXT;
   private Block lastBlock = null;
   private long messageTime = 0l;
 
@@ -157,7 +161,7 @@ public class StatusBar {
   @Optional
   private void onInitializationStart(
       @UIEventTopic(INxtService.TOPIC_INITIALIZATION_START) int dummy) {
-    setStatusText("Intializing", true);
+    setStatusText(INITIALIZING_TEXT, true);
   }
 
   @Inject

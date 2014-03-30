@@ -124,7 +124,8 @@ public class StartHandlerAddon {
 
       /* Kick off NXT startup */
 
-      monitor.beginTask("Initializing NXT " + Nxt.VERSION,
+      monitor.beginTask("Initializing NXT " + Nxt.VERSION
+          + " (might take several minutes)",
           IProgressMonitor.UNKNOWN);
       nxt.initialize(broker, sync);
 
