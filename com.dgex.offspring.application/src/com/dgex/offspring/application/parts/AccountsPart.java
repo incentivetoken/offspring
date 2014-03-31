@@ -128,19 +128,12 @@ public class AccountsPart {
   };
 
   private Link sendMoneyLink;
-
   private Link issueAssetLink;
-
   private Link createAuthTokenLink;
-
   private Link lookupAccountLink;
-
   private Link lookupTransactionLink;
-
   private Link lookupBlockLink;
-
   private Link showTraderPerspectiveLink;
-
   private Link showBlockExplorerLink;
 
   @Inject

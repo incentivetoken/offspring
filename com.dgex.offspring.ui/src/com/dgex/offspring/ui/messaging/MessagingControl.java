@@ -1,4 +1,4 @@
-package com.dgex.offspring.ui.controls;
+package com.dgex.offspring.ui.messaging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -309,9 +309,9 @@ public class MessagingControl extends Composite {
     Menu contextMenu = new Menu(treeViewer.getTree());
     treeViewer.getTree().setMenu(contextMenu);
 
-    MenuItem itemReply = new MenuItem(contextMenu, SWT.PUSH);
-    itemReply.setText("Reply");
-    itemReply.addSelectionListener(new SelectionAdapter() {
+    MenuItem item = new MenuItem(contextMenu, SWT.PUSH);
+    item.setText("Reply To Sender");
+    item.addSelectionListener(new SelectionAdapter() {
 
       @Override
       public void widgetSelected(SelectionEvent e) {
@@ -321,14 +321,25 @@ public class MessagingControl extends Composite {
         if (element instanceof MessageWrapper) {
           MessageWrapper message = (MessageWrapper) element;
           Long transactionId = message.getId();
-          Long recipientId;
-          if (message.getSenderId().equals(accountId)) {
-            recipientId = message.getReceipientId();
-          }
-          else {
-            recipientId = message.getSenderId();
-          }
-          openReplyDialog(recipientId, transactionId);
+          openReplyDialog(message.getSenderId(), transactionId);
+          refresh();
+        }
+      }
+    });
+
+    item = new MenuItem(contextMenu, SWT.PUSH);
+    item.setText("Reply To Recipient");
+    item.addSelectionListener(new SelectionAdapter() {
+
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        IStructuredSelection selection = (IStructuredSelection) treeViewer
+            .getSelection();
+        Object element = selection.getFirstElement();
+        if (element instanceof MessageWrapper) {
+          MessageWrapper message = (MessageWrapper) element;
+          Long transactionId = message.getId();
+          openReplyDialog(message.getReceipientId(), transactionId);
           refresh();
         }
       }

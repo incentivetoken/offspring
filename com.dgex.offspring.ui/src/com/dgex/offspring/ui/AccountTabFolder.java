@@ -16,8 +16,8 @@ import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.ui.controls.AliasControl;
 import com.dgex.offspring.ui.controls.AssetsControl;
 import com.dgex.offspring.ui.controls.GeneratedBlocksControl;
-import com.dgex.offspring.ui.controls.MessagingControl;
 import com.dgex.offspring.ui.controls.TransactionsControl;
+import com.dgex.offspring.ui.messaging.MessagingControl;
 import com.dgex.offspring.user.service.IUserService;
 
 public class AccountTabFolder extends Composite {

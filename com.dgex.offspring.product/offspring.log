@@ -1549,10 +1549,10 @@ com.dgex.offspring.providers.service.CSVStructureException
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
 	at java.lang.Thread.run(Thread.java:744)
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
-INFO  com.dgex.offspring.ui.controls.MessagingControl: Link text=<A>6635869272840226493</A>
+INFO  com.dgex.offspring.ui.messaging.MessagingControl: Link text=<A>6635869272840226493</A>
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
-INFO  com.dgex.offspring.ui.controls.MessagingControl: Link text=<A>6635869272840226493</A>
-INFO  com.dgex.offspring.ui.controls.MessagingControl: Link text=<A>6635869272840226493</A>
+INFO  com.dgex.offspring.ui.messaging.MessagingControl: Link text=<A>6635869272840226493</A>
+INFO  com.dgex.offspring.ui.messaging.MessagingControl: Link text=<A>6635869272840226493</A>
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
@@ -1617,7 +1617,7 @@ INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
 INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements page=1 size=300
 INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements returns ELEMENTS.size=70
 INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=70
-INFO  com.dgex.offspring.ui.controls.MessagingControl: Link text=<A>1479195156480445561</A>
+INFO  com.dgex.offspring.ui.messaging.MessagingControl: Link text=<A>1479195156480445561</A>
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD

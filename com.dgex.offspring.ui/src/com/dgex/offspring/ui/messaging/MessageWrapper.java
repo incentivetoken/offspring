@@ -1,4 +1,4 @@
-package com.dgex.offspring.ui.controls;
+package com.dgex.offspring.ui.messaging;
 
 import java.io.UnsupportedEncodingException;
 

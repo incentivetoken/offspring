@@ -27,7 +27,7 @@ import com.dgex.offspring.swt.wizard.GenericTransactionWizard;
 import com.dgex.offspring.swt.wizard.IGenericTransaction;
 import com.dgex.offspring.swt.wizard.IGenericTransactionField;
 import com.dgex.offspring.swt.wizard.IMultiLineTextTransactionField;
-import com.dgex.offspring.ui.controls.MessageCrypto;
+import com.dgex.offspring.ui.messaging.MessageCrypto;
 import com.dgex.offspring.user.service.IUserService;
 
 public class SendMessageWizard extends GenericTransactionWizard {

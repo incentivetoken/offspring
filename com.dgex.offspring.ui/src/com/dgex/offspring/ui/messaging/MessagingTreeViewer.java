@@ -1,4 +1,4 @@
-package com.dgex.offspring.ui.controls;
+package com.dgex.offspring.ui.messaging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
