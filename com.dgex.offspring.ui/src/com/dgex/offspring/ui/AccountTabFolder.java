@@ -55,8 +55,6 @@ public class AccountTabFolder extends Composite {
     }
   };
 
-
-
   public AccountTabFolder(Composite parent, int style, final Long accountId,
       final INxtService nxt, final IStylingEngine engine,
       final IUserService userService, final UISynchronize sync,
@@ -164,8 +162,15 @@ public class AccountTabFolder extends Composite {
   }
 
   public void lazyRefresh() {
-    logger.info("lazyRefresh");
+    // logger.info("lazyRefresh");
     getDisplay().timerExec(-1, lazyRefresh);
     getDisplay().timerExec(3000, lazyRefresh);
+  }
+
+  public void showMessagesTab() {
+    if (tabFolder != null && messagesTab != null) {
+      tabFolder.setSelection(messagesTab);
+      refresh();
+    }
   }
 }

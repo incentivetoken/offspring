@@ -30,7 +30,7 @@ public class Config {
 
   /* NXT config settings */
   public static boolean nxtIsTestNet = false;
-  public static String testNetPeers = "bug.airdns.org; tn01.nxtsolaris.info";
+  public static String testNetPeers = "bug.airdns.org; tn01.nxtsolaris.info; node10.mynxtcoin.org; node9.mynxtcoin.org; testnxt-jp.cloudapp.net; testnxt-ne.cloudapp.net; testnxt-we.cloudapp.net";
 
   public static File certificate;
   public static String offspring_charset = "UTF-8";

@@ -28,7 +28,8 @@ public class SendMessageHandler {
   @Execute
   public void execute(Shell shell, INxtService nxt, IUserService userService,
       UISynchronize sync, IStylingEngine engine) {
-    new WizardDialog(shell, new SendMessageWizard(userService, nxt, null, null))
+    new WizardDialog(shell, new SendMessageWizard(userService, nxt, null, null,
+        true))
         .open();
   }
 		

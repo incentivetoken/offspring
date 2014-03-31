@@ -2,15 +2,12 @@ package com.dgex.offspring.ui.messaging;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import nxt.Account;
 import nxt.Constants;
-import nxt.Transaction;
-import nxt.TransactionType;
 import nxt.util.Convert;
 
 import org.apache.log4j.Logger;
@@ -27,10 +24,7 @@ import org.eclipse.swt.widgets.Composite;
 import com.dgex.offspring.config.CompareMe;
 import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.config.Images;
-import com.dgex.offspring.nxtCore.core.TransactionDB;
-import com.dgex.offspring.nxtCore.core.TransactionHelper;
 import com.dgex.offspring.nxtCore.service.INxtService;
-import com.dgex.offspring.nxtCore.service.ITransaction;
 import com.dgex.offspring.swt.table.GenerericTreeViewer;
 import com.dgex.offspring.swt.table.GenericTableColumnBuilder;
 import com.dgex.offspring.swt.table.ICellDataProvider;
@@ -61,7 +55,8 @@ public class MessagingTreeViewer extends GenerericTreeViewer {
 
         @Override
         public Object getCellValue(Object element) {
-          MessageWrapper message = (MessageWrapper) element;
+          IMessageNode node = (IMessageNode) element;
+          MessageWrapper message = node.getMessage();
           Date date = new Date(((message.getTimestamp()) * 1000L)
               + (Constants.EPOCH_BEGINNING - 500L));
           return date;
@@ -69,16 +64,15 @@ public class MessagingTreeViewer extends GenerericTreeViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          MessageWrapper message = (MessageWrapper) element;
+          IMessageNode node = (IMessageNode) element;
+          MessageWrapper message = node.getMessage();
+
           StringBuilder sb = new StringBuilder();
           boolean received = message.getReceipientId().equals(accountId);
           boolean[] recent = new boolean[] { false };
 
-          sb.append(received ? "[IN] " : "[OUT] ");
-          sb.append("[")
-              .append(
-                  formatToYesterdayOrToday((Date) getCellValue(element), recent))
-              .append("] ");
+          sb.append(formatToYesterdayOrToday((Date) getCellValue(element),
+              recent));
           sb.append(" (")
               .append(
                   Convert.toUnsignedLong(received ? message.getSenderId()
@@ -104,15 +98,9 @@ public class MessagingTreeViewer extends GenerericTreeViewer {
 
           data[TEXT] = sb.toString().replaceAll("\\r\\n|\\r|\\n", " ");
 
-          if (!received) {
-            // messages we send
-            data[FONT] = JFaceResources.getFontRegistry().getItalic("");
-          }
-          else if (recent[0]) {
-            // messages received in last two days
+          if (received) {
             data[FONT] = JFaceResources.getFontRegistry().getBold("");
           }
-
         }
 
         @Override
@@ -127,46 +115,46 @@ public class MessagingTreeViewer extends GenerericTreeViewer {
     public void dispose() {}
 
     @Override
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-      account = Account.getAccount(accountId);
-      IUser user = userService.findUser(accountId);
-      if (user != null) {
-        secretPhrase = user.getAccount().getPrivateKey();
-      }
-    }
+    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {}
 
     @Override
     public Object[] getElements(Object inputElement) {
       if (accountId == null) {
         return new Object[0];
       }
+
+      account = Account.getAccount(accountId);
+      IUser user = userService.findUser(accountId);
+      if (user != null) {
+        secretPhrase = user.getAccount().getPrivateKey();
+      }
+
+      if (account == null) {
+        return new Object[0];
+      }
       
-      List<MessageWrapper> elements = getMessages(null);
-      // logger.info("getElements returns ELEMENTS.size=" + elements.size());
+      MessageScanner scanner = new MessageScanner(account, secretPhrase, nxt);
+      scanner.scan();
+      IMessageNode rootNode = scanner.getNode();
+      List<IMessageNode> elements = rootNode.getChildren();
       return elements.toArray(new Object[elements.size()]);
     }
 
     @Override
     public Object[] getChildren(Object parentElement) {
-      MessageWrapper parent = (MessageWrapper) parentElement;
-      List<MessageWrapper> elements = getMessages(parent.getId());
-      // logger.info("getChildren returns ELEMENTS.size=" + elements.size());
+      List<IMessageNode> elements = ((IMessageNode) parentElement)
+          .getChildren();
       return elements.toArray(new Object[elements.size()]);
     }
 
     @Override
     public Object getParent(Object element) {
-      return null;
+      return ((IMessageNode) element).getParent();
     }
 
     @Override
     public boolean hasChildren(Object element) {
-      MessageWrapper parent = (MessageWrapper) element;
-      if (parent.isMessage()) {
-        int count = getMessageCount(parent.getId());
-        return count > 0;
-      }
-      return false;
+      return ((IMessageNode) element).hasChildren();
     }
   };
   
@@ -213,66 +201,6 @@ public class MessagingTreeViewer extends GenerericTreeViewer {
       }
     });
     setInput(accountId);
-  }
-
-  private int getMessageCount(Long referencedTransactionId) {
-    int count = TransactionDB.getMessageTransactionCount(accountId, 0,
-        referencedTransactionId == null ? Boolean.TRUE
-            : referencedTransactionId, nxt);
-
-    List<ITransaction> pending = new ArrayList<ITransaction>();
-    addPendingTransactions(pending, referencedTransactionId);
-    return count + pending.size();
-  }
-
-  private List<MessageWrapper> getMessages(Long referencedTransactionId) {
-    List<ITransaction> transactions = TransactionDB.getMessageTransactions(
-        accountId, 0, Boolean.FALSE,
-        referencedTransactionId == null ? Boolean.TRUE
-            : referencedTransactionId, nxt);
-
-    addPendingTransactions(transactions, referencedTransactionId);
-
-    List<MessageWrapper> elements = new ArrayList<MessageWrapper>();
-    for (ITransaction t : transactions) {
-      elements.add(new MessageWrapper(t.getNative(), account, secretPhrase));
-    }
-    return elements;
-  }
-
-  private void addPendingTransactions(List<ITransaction> transactions, Long referencedTransactionId) {
-    List<Transaction> pending = new ArrayList<Transaction>();
-    for (Transaction t : nxt.getPendingTransactions()) {
-      if (accountId.equals(t.getSenderId())
-          || accountId.equals(t.getRecipientId())) {
-        if (t.getType().equals(TransactionType.Messaging.ARBITRARY_MESSAGE)) {
-          if ((referencedTransactionId == null && t
-              .getReferencedTransactionId() == null)
-              || (referencedTransactionId != null && referencedTransactionId
-                  .equals(t.getReferencedTransactionId()))) {
-            pending.add(t);
-          }
-        }
-      }
-    }
-    if (pending.size() > 0) {
-      List<Transaction> remove = new ArrayList<Transaction>();
-      for (Transaction t : pending) {
-        for (ITransaction it : transactions) {
-          if (t.getId().equals(it.getNative().getId())) {
-            remove.add(t);
-            break;
-          }
-        }
-      }
-      for (Transaction t : remove) {
-        nxt.getPendingTransactions().remove(t);
-        pending.remove(t);
-      }
-      for (Transaction t : pending) {
-        transactions.add(0, new TransactionHelper(nxt, t));
-      }
-    }
   }
 
   public static String formatToYesterdayOrToday(Date date, boolean recent[]) {

@@ -21,6 +21,7 @@ import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.e4.ui.services.IStylingEngine;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.StackLayout;
@@ -39,6 +40,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Shell;
 
 import com.dgex.offspring.application.ui.accounts.AccountButtonComposite;
 import com.dgex.offspring.application.ui.accounts.AccountTotalsComposite;
@@ -53,6 +55,7 @@ import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.ITransaction;
 import com.dgex.offspring.ui.AccountTabFolder;
+import com.dgex.offspring.ui.SendMessageWizard;
 import com.dgex.offspring.user.service.IUser;
 import com.dgex.offspring.user.service.IUserService;
 import com.dgex.offspring.wallet.IWallet;
@@ -135,6 +138,9 @@ public class AccountsPart {
   private Link lookupBlockLink;
   private Link showTraderPerspectiveLink;
   private Link showBlockExplorerLink;
+  private Link showMessagesLink;
+  private Link sendEncryptedMessage;
+  private Link sendPlainMessage;
 
   @Inject
   @Optional
@@ -467,7 +473,7 @@ public class AccountsPart {
 
   private Composite createSummaryComposite(final Composite parent) {
     Composite composite = new Composite(parent, SWT.NONE);
-    GridLayoutFactory.fillDefaults().numColumns(5).spacing(15, 0)
+    GridLayoutFactory.fillDefaults().numColumns(6).spacing(15, 0)
         .margins(15, 15).applyTo(composite);
 
     summaryLeftComposite = new Composite(composite, SWT.NONE);
@@ -496,6 +502,10 @@ public class AccountsPart {
     Composite rightComposite_4 = new Composite(composite, SWT.NONE);
     GridDataFactory.fillDefaults().grab(false, true).applyTo(rightComposite_4);
     GridLayoutFactory.fillDefaults().numColumns(1).applyTo(rightComposite_4);
+
+    Composite rightComposite_5 = new Composite(composite, SWT.NONE);
+    GridDataFactory.fillDefaults().grab(false, true).applyTo(rightComposite_5);
+    GridLayoutFactory.fillDefaults().numColumns(1).applyTo(rightComposite_5);
 
     /* LEFT */
 
@@ -645,6 +655,68 @@ public class AccountsPart {
         ParameterizedCommand cmd = commandService.createCommand(
             Commands.SHOW_NXT_PERSPECTIVE_COMMAND, null);
         handlerService.executeHandler(cmd);
+      }
+    });
+
+    /* RIGHT (4) */
+
+    showMessagesLink = new Link(rightComposite_5, SWT.NONE);
+    showMessagesLink.setText("<A>Show Messages</A>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    GridDataFactory.swtDefaults().grab(true, true).applyTo(showMessagesLink);
+    showMessagesLink.addSelectionListener(new SelectionAdapter() {
+
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        if (activeAccountTabFolder != null) {
+         activeAccountTabFolder.showMessagesTab();
+        }
+      }
+    });
+
+    sendEncryptedMessage = new Link(rightComposite_5, SWT.NONE);
+    sendEncryptedMessage.setText("<A>Send Encrypted Message</A>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    GridDataFactory.swtDefaults().grab(true, true)
+        .applyTo(sendEncryptedMessage);
+    sendEncryptedMessage.addSelectionListener(new SelectionAdapter() {
+
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        for (IUser user : userService.getUsers()) {
+          if (!user.getAccount().isReadOnly()) {
+            Shell shell = parent.getShell();
+            if (shell != null) {
+              while (shell.getParent() != null) {
+                shell = shell.getParent().getShell();
+              }
+            }
+            new WizardDialog(shell, new SendMessageWizard(userService, nxt,
+                null, null, true)).open();
+            break;
+          }
+        }
+      }
+    });
+
+    sendPlainMessage = new Link(rightComposite_5, SWT.NONE);
+    sendPlainMessage.setText("<A>Send Plain Message</A>"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+    GridDataFactory.swtDefaults().grab(true, true).applyTo(sendPlainMessage);
+    sendPlainMessage.addSelectionListener(new SelectionAdapter() {
+
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        for (IUser user : userService.getUsers()) {
+          if (!user.getAccount().isReadOnly()) {
+            Shell shell = parent.getShell();
+            if (shell != null) {
+              while (shell.getParent() != null) {
+                shell = shell.getParent().getShell();
+              }
+            }
+            new WizardDialog(shell, new SendMessageWizard(userService, nxt,
+                null, null, false)).open();
+            break;
+          }
+        }
       }
     });
 

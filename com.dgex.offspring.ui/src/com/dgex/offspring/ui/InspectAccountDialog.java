@@ -217,7 +217,7 @@ public class InspectAccountDialog extends TitleAreaDialog {
           }
         }
         WizardDialog dialog = new WizardDialog(shell, new SendMessageWizard(
-            userService, nxt, accountId, null));
+            userService, nxt, accountId, null, true));
         dialog.open();
       }
     });

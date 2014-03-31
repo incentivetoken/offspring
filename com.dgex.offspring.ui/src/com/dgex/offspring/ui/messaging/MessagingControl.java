@@ -23,6 +23,8 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.MenuEvent;
+import org.eclipse.swt.events.MenuListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -251,8 +253,9 @@ public class MessagingControl extends Composite {
         IStructuredSelection selection = (IStructuredSelection) treeViewer
             .getSelection();
         Object element = selection.getFirstElement();
-        if (element instanceof MessageWrapper) {
-          MessageWrapper message = (MessageWrapper) element;
+        if (element instanceof IMessageNode) {
+          IMessageNode node = (IMessageNode) element;
+          MessageWrapper message = node.getMessage();
 
           /* remove the old controls */
           while (recipientsComposite.getChildren().length > 0) {
@@ -306,47 +309,65 @@ public class MessagingControl extends Composite {
       }
     });
 
-    Menu contextMenu = new Menu(treeViewer.getTree());
+    final Menu contextMenu = new Menu(treeViewer.getTree());
     treeViewer.getTree().setMenu(contextMenu);
 
-    MenuItem item = new MenuItem(contextMenu, SWT.PUSH);
-    item.setText("Reply To Sender");
-    item.addSelectionListener(new SelectionAdapter() {
+    contextMenu.addMenuListener(new MenuListener() {
 
       @Override
-      public void widgetSelected(SelectionEvent e) {
+      public void menuShown(MenuEvent e) {
+        while (contextMenu.getItemCount() > 0)
+          contextMenu.getItem(0).dispose();
+
         IStructuredSelection selection = (IStructuredSelection) treeViewer
             .getSelection();
         Object element = selection.getFirstElement();
-        if (element instanceof MessageWrapper) {
-          MessageWrapper message = (MessageWrapper) element;
-          Long transactionId = message.getId();
-          openReplyDialog(message.getSenderId(), transactionId);
-          refresh();
+        if (element instanceof IMessageNode) {
+          IMessageNode node = (IMessageNode) element;
+          MessageWrapper message = node.getMessage();
+
+          if (accountReadonly) {
+            createMenuItem(contextMenu, "Reply to Sender",
+                message.getSenderId(), message.getId(), message.isEncrypted());
+            createMenuItem(contextMenu, "Reply to Recipient",
+                message.getReceipientId(), message.getId(),
+                message.isEncrypted());
+          }
+          else {
+            if (accountId.equals(message.getSenderId())) {
+              createMenuItem(contextMenu, "Reply", message.getReceipientId(),
+                  message.getId(), message.isEncrypted());
+            }
+            else {
+              createMenuItem(contextMenu, "Reply", message.getSenderId(),
+                  message.getId(), message.isEncrypted());
+            }
+          }
         }
       }
-    });
 
-    item = new MenuItem(contextMenu, SWT.PUSH);
-    item.setText("Reply To Recipient");
+      @Override
+      public void menuHidden(MenuEvent e) {}
+    });
+  }
+
+  private void createMenuItem(Menu contextMenu, String label,
+      final Long receipientId, final Long referencedTransactionId,
+      final boolean useEncryption) {
+    MenuItem item = new MenuItem(contextMenu, SWT.PUSH);
+    item.setText(label);
     item.addSelectionListener(new SelectionAdapter() {
 
       @Override
       public void widgetSelected(SelectionEvent e) {
-        IStructuredSelection selection = (IStructuredSelection) treeViewer
-            .getSelection();
-        Object element = selection.getFirstElement();
-        if (element instanceof MessageWrapper) {
-          MessageWrapper message = (MessageWrapper) element;
-          Long transactionId = message.getId();
-          openReplyDialog(message.getReceipientId(), transactionId);
-          refresh();
-        }
+        openReplyDialog(receipientId, referencedTransactionId, useEncryption);
+        refresh();
       }
     });
   }
 
-  private void openReplyDialog(Long recipientId, Long transactionId) {
+  private void openReplyDialog(Long recipientId, Long transactionId,
+      boolean useEncryption) {
     Shell shell = getShell();
     if (shell != null) {
       while (shell.getParent() != null) {
@@ -354,7 +375,7 @@ public class MessagingControl extends Composite {
       }
     }
     WizardDialog dialog = new WizardDialog(shell, new SendMessageWizard(
-        userService, nxt, recipientId, transactionId));
+        userService, nxt, recipientId, transactionId, useEncryption));
     dialog.open();
   }
 
@@ -392,8 +413,10 @@ public class MessagingControl extends Composite {
         IStructuredSelection selection = (IStructuredSelection) treeViewer
             .getSelection();
         Object element = selection.getFirstElement();
-        if (element instanceof MessageWrapper) {
-          MessageWrapper message = (MessageWrapper) element;
+        if (element instanceof IMessageNode) {
+          IMessageNode node = (IMessageNode) element;
+          MessageWrapper message = node.getMessage();
+
           Long transactionId = message.getId();
           Long recipientId;
           if (accountReadonly) {
@@ -407,7 +430,7 @@ public class MessagingControl extends Composite {
               recipientId = message.getSenderId();
             }
           }
-          openReplyDialog(recipientId, transactionId);
+          openReplyDialog(recipientId, transactionId, message.isEncrypted());
         }
       }
     });

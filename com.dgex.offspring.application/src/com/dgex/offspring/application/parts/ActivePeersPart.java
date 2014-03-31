@@ -82,7 +82,7 @@ public class ActivePeersPart {
             }
             WizardDialog dialog = new WizardDialog(shell,
                 new SendMessageWizard(userService, nxt, peer.getHallmark()
-                    .getAccountId(), null));
+                    .getAccountId(), null, true));
             dialog.open();
           }
         }

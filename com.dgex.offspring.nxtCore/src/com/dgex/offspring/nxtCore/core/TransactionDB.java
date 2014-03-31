@@ -163,6 +163,30 @@ public class TransactionDB {
     return null;
   }
 
+  public static DbIterator<? extends Transaction> getTransactionIterator(
+      Long accountId, TransactionType[] recipientTypes,
+      TransactionType[] senderTypes, int timestamp, Boolean orderAscending,
+      Object referencedTransaction) {
+    Connection con = null;
+    try {
+      con = Db.getConnection();
+      PreparedStatement pstmt = createTransactionStatement(con, accountId,
+          recipientTypes, senderTypes, timestamp, orderAscending,
+          referencedTransaction, false);
+
+      DbIterator<? extends Transaction> iterator = Nxt.getBlockchain()
+          .getTransactions(con, pstmt);
+      return iterator;
+    }
+    catch (SQLException e) {
+      logger.error("SQL Error", e);
+      if (con != null) {
+        DbUtils.close(con);
+      }
+    }
+    return null;
+  }
+
   public static List<ITransaction> getMessageTransactions(Long accountId,
       int timestamp, Boolean orderAscending, Object referencedTransaction,
       INxtService nxt) {

@@ -144,7 +144,7 @@ public class AccountButtonComposite extends Composite {
     });
 
     item = new MenuItem(menu, SWT.PUSH);
-    item.setText("Send Message");
+    item.setText("Send Encrypted Message");
     item.addSelectionListener(new SelectionAdapter() {
 
       @Override
@@ -156,7 +156,25 @@ public class AccountButtonComposite extends Composite {
           }
         }
         WizardDialog dialog = new WizardDialog(shell, new SendMessageWizard(
-            userService, nxt, user.getAccount().getId(), null));
+            userService, nxt, user.getAccount().getId(), null, true));
+        dialog.open();
+      }
+    });
+
+    item = new MenuItem(menu, SWT.PUSH);
+    item.setText("Send Plain Message");
+    item.addSelectionListener(new SelectionAdapter() {
+
+      @Override
+      public void widgetSelected(SelectionEvent e) {
+        Shell shell = getShell();
+        if (shell != null) {
+          while (shell.getParent() != null) {
+            shell = shell.getParent().getShell();
+          }
+        }
+        WizardDialog dialog = new WizardDialog(shell, new SendMessageWizard(
+            userService, nxt, user.getAccount().getId(), null, false));
         dialog.open();
       }
     });

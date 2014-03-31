@@ -59,6 +59,7 @@ public class SendMessageWizard extends GenericTransactionWizard {
     @Override
     public Control createControl(Composite parent) {
       textRecipient = new Text(parent, SWT.BORDER);
+      textRecipient.setMessage("account number");
       if (accountId != null)
         textRecipient.setText(Convert.toUnsignedLong(accountId));
       else
@@ -88,7 +89,6 @@ public class SendMessageWizard extends GenericTransactionWizard {
         message[0] = "Missing recipient";
         return false;
       }
-
       try {
         Convert.parseUnsignedLong(recipientValue);
       }
@@ -129,6 +129,7 @@ public class SendMessageWizard extends GenericTransactionWizard {
     @Override
     public Control createControl(Composite parent) {
       textReferenced = new Text(parent, SWT.BORDER);
+      textReferenced.setMessage("transaction id or empty");
       if (referencedTransactionId != null)
         textReferenced.setText(Convert.toUnsignedLong(referencedTransactionId));
       else
@@ -193,7 +194,7 @@ public class SendMessageWizard extends GenericTransactionWizard {
       buttonEncrypt = new Button(parent, SWT.CHECK);
       buttonEncrypt
           .setText("Encrypt message (only you and recipient can read this message)");
-      buttonEncrypt.setSelection(true);
+      buttonEncrypt.setSelection(useEncryption);
       buttonEncrypt.addSelectionListener(new SelectionAdapter() {
 
         @Override
@@ -289,12 +290,15 @@ public class SendMessageWizard extends GenericTransactionWizard {
 
   private Long accountId = null;
   private Long referencedTransactionId = null;
+  private boolean useEncryption = true;
 
   public SendMessageWizard(final IUserService userService, final INxtService nxt,
- Long accountId, Long referencedTransactionId) {
+ Long accountId, Long referencedTransactionId,
+      boolean useEncryption) {
     super(userService);
     this.accountId = accountId;
     this.referencedTransactionId = referencedTransactionId;
+    this.useEncryption = useEncryption;
     setWindowTitle("Send Message");
     setTransaction(new IGenericTransaction() {
 

@@ -37,7 +37,7 @@ public class TransactionTransferAsset {
     }
 
     Attachment attachment = new Attachment.ColoredCoinsAssetTransfer(asset,
-        quantity, null);
+        quantity/* , null */);
 
     Transaction transaction = Nxt.getTransactionProcessor().newTransaction(
         deadline, publicKey, recipient, 0, fee, referencedTransaction,
