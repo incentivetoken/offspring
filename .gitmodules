@@ -1,3 +1,0 @@
-[submodule "com.dgex.offspring.nxtCore/nxt"]
-	path = com.dgex.offspring.nxtCore/nxt
-	url = ssh://git@bitbucket.org/incentivetoken/nxt.git
