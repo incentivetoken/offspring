@@ -40,6 +40,8 @@ public class TransactionException extends Exception {
 
   public static final String UNKNOWN_ORDER = "Unknown order";
 
+  public static final String UNKNOWN_ACCOUNT = "Unknown account";
+
   private final String type;
 
   public TransactionException(String type) {

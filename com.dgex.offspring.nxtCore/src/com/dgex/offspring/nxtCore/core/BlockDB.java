@@ -63,7 +63,7 @@ public class BlockDB {
 
     /* Count number of records */
     // int available = nxt.getSmartBlockCount();
-    int available = Nxt.getBlockchain().getBlockCount();
+    int available = Nxt.getBlockchain().getLastBlock().getHeight();
 
     /* Create the record iterator */
     try {
