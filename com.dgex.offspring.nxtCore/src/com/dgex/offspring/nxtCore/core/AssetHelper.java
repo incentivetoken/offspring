@@ -17,18 +17,18 @@ public class AssetHelper implements IAsset {
   private final Long issuerId;
   private final String name;
   private final String description;
-  private final int quantity;
+  private final long quantity;
   private final Long id;
   private Asset asset = null;
 
   public AssetHelper(Asset asset) {
     this(asset.getId(), asset.getAccountId(), asset.getName(), asset
-        .getDescription(), asset.getQuantity());
+        .getDescription(), asset.getQuantityQNT());
     this.asset = asset;
   }
 
   public AssetHelper(Long id, Long issuerId, String name, String description,
-      int quantity) {
+      long quantity) {
     this.id = id;
     this.issuerId = issuerId;
     this.name = name;
@@ -71,7 +71,7 @@ public class AssetHelper implements IAsset {
   }
 
   @Override
-  public int getQuantity() {
+  public long getQuantityQNT() {
     return quantity;
   }
 
@@ -91,28 +91,28 @@ public class AssetHelper implements IAsset {
   }
 
   @Override
-  public int getAssetIssuerBalance() {
+  public long getAssetIssuerBalanceQNT() {
     Account a = getIssuer();
     if (a == null)
       return 0;
 
-    Integer balance = a.getAssetBalances().get(id);
+    Long balance = a.getAssetBalancesQNT().get(id);
     if (balance == null)
       return 0;
 
-    return balance.intValue();
+    return balance.longValue();
   }
 
   @Override
-  public int getAssetIssuerUnconfirmedBalance() {
+  public long getAssetIssuerUnconfirmedBalanceQNT() {
     Account a = getIssuer();
     if (a == null)
       return 0;
 
-    Integer balance = a.getUnconfirmedAssetBalance(id);
+    Long balance = a.getUnconfirmedAssetBalanceQNT(id);
     if (balance == null)
       return 0;
 
-    return balance.intValue();
+    return balance.longValue();
   }
 }

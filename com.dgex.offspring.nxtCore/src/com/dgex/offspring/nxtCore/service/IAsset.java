@@ -15,21 +15,21 @@ public interface IAsset {
 
   public Long getId();
 
-  public int getQuantity();
+  public long getQuantityQNT();
 
   /**
    * Returns the number of assets owned by the issuer
    * 
    * @return
    */
-  public int getAssetIssuerBalance();
+  public long getAssetIssuerBalanceQNT();
 
   /**
    * Returns the unconfirmed number of assets owned by the issuer
    * 
    * @return
    */
-  public int getAssetIssuerUnconfirmedBalance();
+  public long getAssetIssuerUnconfirmedBalanceQNT();
 
   public Account getIssuer();
 

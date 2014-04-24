@@ -95,30 +95,30 @@ public class AccountHelper implements IAccount {
   }
 
   @Override
-  public long getBalance() {
+  public long getBalanceNQT() {
     Account a = getNative();
     if (a == null)
       return 0l;
 
-    return (a.getGuaranteedBalance(42) / 100L);
+    return (a.getGuaranteedBalanceNQT(42));
   }
 
   @Override
-  public long getUnconfirmedBalance() {
+  public long getUnconfirmedBalanceNQT() {
     Account a = getNative();
     if (a == null)
       return 0l;
 
-    return a.getUnconfirmedBalance() / 100L;
+    return a.getUnconfirmedBalanceNQT();
   }
 
   @Override
-  public long getAssetBalance(Long assetId) {
+  public long getAssetBalanceQNT(Long assetId) {
     Account a = getNative();
     if (a == null)
       return 0l;
 
-    Integer balance = a.getAssetBalances().get(assetId);
+    Long balance = a.getAssetBalancesQNT().get(assetId);
     if (balance == null)
       return 0l;
 
@@ -126,12 +126,12 @@ public class AccountHelper implements IAccount {
   }
 
   @Override
-  public long getUnconfirmedAssetBalance(Long assetId) {
+  public long getUnconfirmedAssetBalanceQNT(Long assetId) {
     Account a = getNative();
     if (a == null)
       return 0l;
 
-    Integer balance = a.getUnconfirmedAssetBalance(assetId);
+    Long balance = a.getUnconfirmedAssetBalanceQNT(assetId);
     if (balance == null)
       return 0l;
 
@@ -223,19 +223,6 @@ public class AccountHelper implements IAccount {
       }
     }
     return result;
-  }
-
-  @Override
-  public int getForgedFee() {
-    int fee = 0;
-    Account a = getNative();
-    if (a != null) {
-      DbIterator<? extends Block> iter = Nxt.getBlockchain().getBlocks(a, 0);
-      while (iter.hasNext()) {
-        fee += iter.next().getTotalFee();
-      }
-    }
-    return fee;
   }
 
   @Override
@@ -337,7 +324,7 @@ public class AccountHelper implements IAccount {
     List<IAsset> result = new ArrayList<IAsset>();
     if (account != null) {
       logger.info("Get issued assets for " + getStringId());
-      for (Long assetId : account.getAssetBalances().keySet()) {
+      for (Long assetId : account.getAssetBalancesQNT().keySet()) {
 
         logger.info("Found one " + Convert.toUnsignedLong(assetId));
 

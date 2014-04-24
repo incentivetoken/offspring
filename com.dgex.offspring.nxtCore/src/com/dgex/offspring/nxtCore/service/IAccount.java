@@ -17,13 +17,13 @@ public interface IAccount {
 
   public String getStringId();
 
-  public long getBalance();
+  public long getBalanceNQT();
 
-  public long getUnconfirmedBalance();
+  public long getUnconfirmedBalanceNQT();
 
-  public long getAssetBalance(Long assetId);
+  public long getAssetBalanceQNT(Long assetId);
 
-  public long getUnconfirmedAssetBalance(Long assetId);
+  public long getUnconfirmedAssetBalanceQNT(Long assetId);
 
   public String getPrivateKey();
 
@@ -42,8 +42,6 @@ public interface IAccount {
   public List<IMessage> getMessages();
 
   public List<IAsset> getIssuedAssets();
-
-  public int getForgedFee();
 
   public boolean startForging();
 

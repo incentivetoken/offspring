@@ -121,18 +121,18 @@ public class RecentBlocksViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Block block = (Block) element;
-          return Integer.valueOf(block.getTotalFee());
+          return Long.valueOf(block.getTotalFeeNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -143,18 +143,18 @@ public class RecentBlocksViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Block block = (Block) element;
-          return Integer.valueOf(block.getTotalAmount());
+          return Long.valueOf(block.getTotalAmountNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
