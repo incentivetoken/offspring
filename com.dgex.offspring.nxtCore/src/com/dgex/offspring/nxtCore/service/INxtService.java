@@ -394,7 +394,7 @@ public interface INxtService {
    * @param account
    * @return
    */
-  public Long getBalanceForAccount(String account);
+  public Long getBalanceForAccountNQT(String account);
 
   /**
    * Generates an authorizatoin token
@@ -474,24 +474,5 @@ public interface INxtService {
    * @return
    */
   public List<IAsset> getPendingAssets();
-
-  /**
-   * Asking the database to each time count all transactions is very demanding.
-   * Instead we now count the transactions once and then rely on event listeners
-   * that add or remove transactions from the count on BLOCK_PUSHED and
-   * BLOCK_POPPED
-   * 
-   * @return
-   */
-  public int getSmartTransactionCount();
-
-  /**
-   * Asking the database to each time count all blocks is very demanding.
-   * Instead we now count the blocks once and then rely on event listeners that
-   * add or remove transactions from the count on BLOCK_PUSHED and BLOCK_POPPED
-   * 
-   * @return
-   */
-  public int getSmartBlockCount();
 
 }

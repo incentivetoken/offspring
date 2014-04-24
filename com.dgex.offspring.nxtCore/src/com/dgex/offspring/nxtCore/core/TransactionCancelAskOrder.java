@@ -12,24 +12,16 @@ import nxt.crypto.Crypto;
 import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.TransactionException;
 
-public class TransactionCancelAskOrder {
+public class TransactionCancelAskOrder extends TransactionBase {
 
   public static Transaction create(IAccount sender, Long order, short deadline,
-      int fee, Long referencedTransaction, NXTService nxt)
+      long feeNQT, String referencedTransactionFullHash, NXTService nxt)
       throws TransactionException, ValidationException {
 
     String secretPhrase = sender.getPrivateKey();
     byte[] publicKey = Crypto.getPublicKey(secretPhrase);
-
-    if ((fee <= 0) || (fee >= 1000000000L))
-      throw new TransactionException(TransactionException.INCORRECT_FEE);
-
-    if ((deadline < 1) || (deadline > 1440))
-      throw new TransactionException(TransactionException.INCORRECT_DEADLINE);
-
     Account account = Account.getAccount(publicKey);
-    if (account == null)
-      throw new TransactionException(TransactionException.INTERNAL_ERROR);
+    validate(account, 0, feeNQT, deadline);
 
     Order.Ask orderData = Order.Ask.getAskOrder(order);
     if (orderData == null
@@ -40,8 +32,8 @@ public class TransactionCancelAskOrder {
         order);
 
     Transaction transaction = Nxt.getTransactionProcessor().newTransaction(
-        deadline, publicKey, Genesis.CREATOR_ID, 0, fee, referencedTransaction,
-        attachment);
+        deadline, publicKey, Genesis.CREATOR_ID, 0, feeNQT,
+        referencedTransactionFullHash, attachment);
     transaction.sign(secretPhrase);
 
     nxt.broacastTransaction(transaction);

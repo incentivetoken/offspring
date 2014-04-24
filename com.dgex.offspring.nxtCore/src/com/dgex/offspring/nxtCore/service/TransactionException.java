@@ -42,6 +42,8 @@ public class TransactionException extends Exception {
 
   public static final String UNKNOWN_ACCOUNT = "Unknown account";
 
+  public static final String INCORRECT_DECIMALS = "Incorrect decimals";
+
   private final String type;
 
   public TransactionException(String type) {

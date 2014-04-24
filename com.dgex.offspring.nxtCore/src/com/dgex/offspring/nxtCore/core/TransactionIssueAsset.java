@@ -13,14 +13,15 @@ import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.TransactionException;
 
-public class TransactionIssueAsset {
+public class TransactionIssueAsset extends TransactionBase {
 
   public static Transaction create(IAccount sender, String name,
-      String description, int quantity, short deadline, int fee,
-      Long referencedTransaction, INxtService nxt) throws TransactionException,
+      String description, long quantityQNT, byte decimals, short deadline,
+      long feeNQT,
+ String referencedTransactionFullHash, INxtService nxt)
+      throws TransactionException,
       ValidationException {
 
-    String secretPhrase = sender.getPrivateKey();
     if (name == null) {
       throw new TransactionException(TransactionException.MISSING_NAME);
     }
@@ -44,28 +45,26 @@ public class TransactionIssueAsset {
           TransactionException.INCORRECT_ASSET_DESCRIPTION);
     }
 
-    if (quantity <= 0 || quantity > Constants.MAX_ASSET_QUANTITY) {
+    if (quantityQNT <= 0 || quantityQNT > Constants.MAX_ASSET_QUANTITY_QNT) {
       throw new TransactionException(
           TransactionException.INCORRECT_ASSET_QUANTITY);
     }
 
-    if ((fee <= 0) || (fee >= 1000000000L))
-      throw new TransactionException(TransactionException.INCORRECT_FEE);
-
-    if ((deadline < 1) || (deadline > 1440))
-      throw new TransactionException(TransactionException.INCORRECT_DEADLINE);
-
-    byte[] publicKey = Crypto.getPublicKey(secretPhrase);
-    Account account = Account.getAccount(publicKey);
-    if ((account == null) || (fee * 100L > account.getUnconfirmedBalance())) {
-      throw new TransactionException(TransactionException.NOT_ENOUGH_FUNDS);
+    if (decimals < 0 || decimals > 8) {
+      throw new TransactionException(TransactionException.INCORRECT_DECIMALS);
     }
 
+    String secretPhrase = sender.getPrivateKey();
+    byte[] publicKey = Crypto.getPublicKey(secretPhrase);
+    Account account = Account.getAccount(publicKey);
+    validate(account, 0, feeNQT, Constants.ASSET_ISSUANCE_FEE_NQT, deadline);
+
     Attachment attachment = new Attachment.ColoredCoinsAssetIssuance(name,
-        description, quantity);
+        description, quantityQNT, decimals);
 
     Transaction transaction = Nxt.getTransactionProcessor().newTransaction(
-        deadline, publicKey, Genesis.CREATOR_ID, 0, fee, referencedTransaction,
+        deadline, publicKey, Genesis.CREATOR_ID, 0, feeNQT,
+        referencedTransactionFullHash,
         attachment);
 
     transaction.sign(secretPhrase);
