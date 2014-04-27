@@ -41,12 +41,13 @@ public class TestGenesisTransactions {
     DbIterator<? extends Transaction> iter = Nxt.getBlockchain()
         .getTransactions(account, (byte) -1, (byte) -1, 0);
 
-    int totalAmount = 0;
+    long totalAmount = 0;
     while (iter.hasNext()) {
       Transaction txn = iter.next();
       String recipient = Convert.toUnsignedLong(txn.getRecipientId());
-      totalAmount += txn.getAmount();
-      System.out.println(recipient + " => " + txn.getAmount() + "("
+      totalAmount += txn.getAmountNQT();
+      System.out.println(recipient + " => " + Convert.toNXT(txn.getAmountNQT())
+          + "("
           + totalAmount + ")");
     }
   }

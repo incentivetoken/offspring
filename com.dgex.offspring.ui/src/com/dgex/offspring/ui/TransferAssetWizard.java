@@ -2,6 +2,7 @@ package com.dgex.offspring.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import nxt.Account;
 import nxt.Asset;
@@ -26,6 +27,7 @@ import org.eclipse.swt.widgets.Text;
 import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.TransactionException;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.wizard.GenericTransactionWizard;
 import com.dgex.offspring.swt.wizard.IGenericTransaction;
 import com.dgex.offspring.swt.wizard.IGenericTransactionField;
@@ -136,16 +138,21 @@ public class TransferAssetWizard extends GenericTransactionWizard {
     private void populateAssets(Account account) {
       comboAsset.removeAll();
       assets.clear();
-      for (Long assetId : account.getAssetBalances().keySet()) {
-        Asset asset = Asset.getAsset(assetId);
-        comboAsset.add(createLabel(account, asset));
-        assets.add(asset);
+      Map<Long, Long> map = account.getAssetBalancesQNT();
+      if (map != null) {
+        for (Long assetId : map.keySet()) {
+          Asset asset = Asset.getAsset(assetId);
+          comboAsset.add(createLabel(account, asset));
+          assets.add(asset);
+        }
       }
     }
 
     private String createLabel(Account account, Asset asset) {
-      int balance = account.getAssetBalances().get(asset.getId());
-      return "Asset: " + asset.getName() + " Balance: " + balance;
+      Map<Long, Long> map = account.getAssetBalancesQNT();
+      long balanceNQT = map != null ? map.get(asset.getId()) : 0l;
+      return "Asset: " + asset.getName() + " Balance: "
+          + Utils.quantToString(balanceNQT);
     }
 
     @Override
@@ -197,57 +204,100 @@ public class TransferAssetWizard extends GenericTransactionWizard {
     }
   };
 
-  final IGenericTransactionField fieldAmount = new IGenericTransactionField() {
+  final IGenericTransactionField fieldQuantity = new IGenericTransactionField() {
 
-    private Text textAmount;
-    private Text textAmountReadonly;
+    private Text textQuantity;
+    private Text textQuantityReadonly;
 
     @Override
     public String getLabel() {
-      return "Amount";
+      return "Quantity";
     }
 
     @Override
     public Object getValue() {
-      return Integer.parseInt(textAmount.getText().trim());
+      return Utils.getQuantityQNT(textQuantity.getText().trim());
     }
 
     @Override
     public Control createControl(Composite parent) {
-      textAmount = new Text(parent, SWT.BORDER);
-      textAmount.setText("0");
-      textAmount.addModifyListener(new ModifyListener() {
+      textQuantity = new Text(parent, SWT.BORDER);
+      textQuantity.setText("0");
+      textQuantity.addModifyListener(new ModifyListener() {
 
         @Override
         public void modifyText(ModifyEvent e) {
           requestVerification();
         }
       });
-      return textAmount;
+      return textQuantity;
     }
 
     @Override
     public Control createReadonlyControl(Composite parent) {
-      textAmountReadonly = new Text(parent, SWT.BORDER);
-      textAmountReadonly.setEditable(false);
-      return textAmountReadonly;
+      textQuantityReadonly = new Text(parent, SWT.BORDER);
+      textQuantityReadonly.setEditable(false);
+      return textQuantityReadonly;
     }
 
     @Override
     public boolean verify(String[] message) {
-      String amountValue = textAmount.getText().trim();
-      try {
-        int amount = Integer.parseInt(amountValue);
-        if (amount <= 0 || amount >= Constants.MAX_ASSET_QUANTITY) {
-          message[0] = "Incorrect amount";
-          return false;
-        }
-      }
-      catch (NumberFormatException e) {
-        message[0] = "Amount must be numeric";
+      String quantityValue = textQuantity.getText().trim();
+      Long quantityQNT = Utils.getQuantityQNT(quantityValue);
+      if (quantityQNT == null) {
+        message[0] = "Incorrect quantity";
         return false;
       }
-      textAmountReadonly.setText(amountValue);
+      textQuantityReadonly.setText(quantityValue);
+      return true;
+    }
+  };
+
+  final IGenericTransactionField fieldComment = new IGenericTransactionField() {
+
+    private Text textComment;
+    private Text textCommentReadonly;
+
+    @Override
+    public String getLabel() {
+      return "Comment";
+    }
+
+    @Override
+    public Object getValue() {
+      return textComment.getText().trim();
+    }
+
+    @Override
+    public Control createControl(Composite parent) {
+      textComment = new Text(parent, SWT.BORDER);
+      textComment.setText("");
+      textComment.addModifyListener(new ModifyListener() {
+
+        @Override
+        public void modifyText(ModifyEvent e) {
+          requestVerification();
+        }
+      });
+      return textComment;
+    }
+
+    @Override
+    public Control createReadonlyControl(Composite parent) {
+      textCommentReadonly = new Text(parent, SWT.BORDER);
+      textCommentReadonly.setText("");
+      textCommentReadonly.setEditable(false);
+      return textCommentReadonly;
+    }
+
+    @Override
+    public boolean verify(String[] message) {
+      String comment = textComment.getText().trim();
+      if (comment.length() > Constants.MAX_ASSET_TRANSFER_COMMENT_LENGTH) {
+        message[0] = "Incorrect comment";
+        return false;
+      }
+      textCommentReadonly.setText(comment);
       return true;
     }
   };
@@ -263,7 +313,7 @@ public class TransferAssetWizard extends GenericTransactionWizard {
 
         IAccount sender = user.getAccount();
         Long recipient = (Long) fieldRecipient.getValue();
-        int amount = (Integer) fieldAmount.getValue();
+        long quantityQNT = (Long) fieldQuantity.getValue();
         Asset asset = (Asset) fieldAsset.getValue();
 
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
@@ -271,12 +321,12 @@ public class TransferAssetWizard extends GenericTransactionWizard {
           message[0] = "Invalid fee and deadline";
           return null;
         }
-        int fee = dialog.getFee();
+        long feeNQT = dialog.getFeeNQT();
         short deadline = dialog.getDeadline();
 
         try {
           Transaction t = nxt.createTransferAssetTransaction(sender, recipient,
-              asset.getId(), amount, deadline, fee, null);
+              asset.getId(), quantityQNT, "", deadline, feeNQT, null);
           return t.getStringId();
         }
         catch (ValidationException e) {
@@ -291,7 +341,7 @@ public class TransferAssetWizard extends GenericTransactionWizard {
       @Override
       public IGenericTransactionField[] getFields() {
         return new IGenericTransactionField[] { fieldSender, fieldRecipient,
-            fieldAsset, fieldAmount };
+            fieldAsset, fieldQuantity, fieldComment };
       }
 
       @Override
@@ -307,17 +357,17 @@ public class TransferAssetWizard extends GenericTransactionWizard {
 
         Account account = user.getAccount().getNative();
         Asset asset = (Asset) fieldAsset.getValue();
-        int amount = (Integer) fieldAmount.getValue();
-        if (asset != null) {
-          Integer assetBalance = account.getUnconfirmedAssetBalance(asset
+        Long quantityQNT = (Long) fieldQuantity.getValue();
+        if (asset != null && quantityQNT != null) {
+          Long assetBalanceQNT = account.getUnconfirmedAssetBalanceQNT(asset
               .getId());
-          if (assetBalance == null || amount > assetBalance) {
+          if (assetBalanceQNT == null || quantityQNT > assetBalanceQNT) {
             message[0] = "Insufficient Asset Balance";
             return false;
           }
         }
 
-        if (user.getAccount().getBalance() < 1) {
+        if (user.getAccount().getBalanceNQT() < Constants.ONE_NXT) {
           message[0] = "Insufficient Balance";
           return false;
         }

@@ -68,11 +68,11 @@ public class AskOrdersPart {
         if (order instanceof Order.Ask) {
           Shell shell = parent.getShell();
           Long assetId = ((Order.Ask) order).getAssetId();
-          int quantity = ((Order.Ask) order).getQuantity();
-          long price = ((Order.Ask) order).getPrice();
+          long quantityQNT = ((Order.Ask) order).getQuantityQNT();
+          long priceNQT = ((Order.Ask) order).getPriceNQT();
 
           new WizardDialog(shell, new PlaceBidOrderWizard(userService, nxt,
-              assetId, quantity, price)).open();
+              assetId, quantityQNT, priceNQT)).open();
         }
       }
     });

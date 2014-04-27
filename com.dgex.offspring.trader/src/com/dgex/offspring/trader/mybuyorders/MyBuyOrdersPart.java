@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
 import nxt.Asset;
+import nxt.Constants;
 import nxt.NxtException.ValidationException;
 import nxt.Transaction;
 
@@ -75,19 +76,19 @@ public class MyBuyOrdersPart {
           IAccount sender = userService.getActiveUser().getAccount();
 
           PromptFeeDeadline dialog = new PromptFeeDeadline(shell);
-          dialog.setMinimumFee(1);
-          dialog.setFee(1);
+          dialog.setMinimumFeeNQT(Constants.ONE_NXT);
+          dialog.setFeeNQT(Constants.ONE_NXT);
           if (dialog.open() != Window.OK) {
             showErrorMessage(shell, "Invalid fee and deadline");
             return;
           }
 
-          int fee = dialog.getFee();
+          long feeNQT = dialog.getFeeNQT();
           short deadline = dialog.getDeadline();
 
           try {
             Transaction t = nxt.createCancelBidOrderTransaction(sender,
-                ((OrderWrapper) order).getId(), deadline, fee, null);
+                ((OrderWrapper) order).getId(), deadline, feeNQT, null);
 
             showMessage(
                 shell,

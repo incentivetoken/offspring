@@ -38,7 +38,7 @@ public class TickerAllProvider extends RateProvider {
 
   private static Logger logger = Logger.getLogger(TickerAllProvider.class);
 
-  private static final String url = "http://api.bitcoinaverage.com/ticker/all";
+  private static final String url = "https://api.bitcoinaverage.com/ticker/all";
 
   private static final String _24HOUR_AVERAGE = "24h_avg";
   private static final String ASK = "ask";
@@ -50,24 +50,25 @@ public class TickerAllProvider extends RateProvider {
   private final Map<ICurrencyPair, List<IRate>> rates = new HashMap<ICurrencyPair, List<IRate>>();
 
   private static final ICurrencyPair[] supportedPairs = {
-      Currencies.AUD.getPair(Currencies.BTC),
-      Currencies.BRL.getPair(Currencies.BTC),
-      Currencies.CAD.getPair(Currencies.BTC),
-      Currencies.CHF.getPair(Currencies.BTC),
+      // Currencies.AUD.getPair(Currencies.BTC),
+      // Currencies.BRL.getPair(Currencies.BTC),
+      // Currencies.CAD.getPair(Currencies.BTC),
+      // Currencies.CHF.getPair(Currencies.BTC),
       Currencies.CNY.getPair(Currencies.BTC),
       Currencies.EUR.getPair(Currencies.BTC),
-      Currencies.GBP.getPair(Currencies.BTC),
-      Currencies.ILS.getPair(Currencies.BTC),
-      Currencies.JPY.getPair(Currencies.BTC),
-      Currencies.NOK.getPair(Currencies.BTC),
-      Currencies.NZD.getPair(Currencies.BTC),
-      Currencies.PLN.getPair(Currencies.BTC),
-      Currencies.RUB.getPair(Currencies.BTC),
-      Currencies.SEK.getPair(Currencies.BTC),
-      Currencies.SGD.getPair(Currencies.BTC),
-      Currencies.TRY.getPair(Currencies.BTC),
+      // Currencies.GBP.getPair(Currencies.BTC),
+      // Currencies.ILS.getPair(Currencies.BTC),
+      // Currencies.JPY.getPair(Currencies.BTC),
+      // Currencies.NOK.getPair(Currencies.BTC),
+      // Currencies.NZD.getPair(Currencies.BTC),
+      // Currencies.PLN.getPair(Currencies.BTC),
+      // Currencies.RUB.getPair(Currencies.BTC),
+      // Currencies.SEK.getPair(Currencies.BTC),
+      // Currencies.SGD.getPair(Currencies.BTC),
+      // Currencies.TRY.getPair(Currencies.BTC),
       Currencies.USD.getPair(Currencies.BTC),
-      Currencies.ZAR.getPair(Currencies.BTC) };
+  // Currencies.ZAR.getPair(Currencies.BTC)
+  };
 
   @Override
   public String getLabel() {

@@ -1,6 +1,7 @@
 package com.dgex.offspring.ui;
 
 import nxt.Constants;
+import nxt.Nxt;
 import nxt.NxtException.ValidationException;
 import nxt.Transaction;
 import nxt.util.Convert;
@@ -17,6 +18,7 @@ import org.eclipse.swt.widgets.Text;
 import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.TransactionException;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.wizard.GenericTransactionWizard;
 import com.dgex.offspring.swt.wizard.IGenericTransaction;
 import com.dgex.offspring.swt.wizard.IGenericTransactionField;
@@ -105,7 +107,7 @@ public class SendMoneyWizard extends GenericTransactionWizard {
 
     @Override
     public Object getValue() {
-      return Integer.parseInt(textAmount.getText().trim());
+      return Utils.getAmountNQT(textAmount.getText().trim());
     }
 
     @Override
@@ -132,18 +134,82 @@ public class SendMoneyWizard extends GenericTransactionWizard {
     @Override
     public boolean verify(String[] message) {
       String amountValue = textAmount.getText().trim();
-      try {
-        int amount = Integer.parseInt(amountValue);
-        if (amount <= 0 || amount >= Constants.MAX_BALANCE) {
-          message[0] = "Incorrect amount";
-          return false;
-        }
-      }
-      catch (NumberFormatException e) {
-        message[0] = "Amount must be numeric";
+      Long amountNQT = Utils.getAmountNQT(amountValue);
+      if (amountNQT == null) {
+        message[0] = "Incorrect amount";
         return false;
       }
       textAmountReadonly.setText(amountValue);
+      return true;
+    }
+  };
+
+  final IGenericTransactionField fieldReferenced = new IGenericTransactionField() {
+
+    private Text textReferenced;
+    private Text textReferencedReadonly;
+
+    @Override
+    public String getLabel() {
+      return "In-reply to";
+    }
+
+    @Override
+    public Object getValue() {
+      String referencedValue = textReferenced.getText().trim();
+      if (referencedValue.isEmpty()) {
+        return null;
+      }
+      try {
+        return Convert.parseUnsignedLong(referencedValue);
+      }
+      catch (RuntimeException e) {
+        logger.error("Parse Recipient ID", e);
+      }
+      return null;
+    }
+
+    @Override
+    public Control createControl(Composite parent) {
+      textReferenced = new Text(parent, SWT.BORDER);
+      textReferenced.setMessage("transaction id or empty");
+      textReferenced.setText("");
+      textReferenced.addModifyListener(new ModifyListener() {
+
+        @Override
+        public void modifyText(ModifyEvent e) {
+          requestVerification();
+        }
+      });
+      return textReferenced;
+    }
+
+    @Override
+    public Control createReadonlyControl(Composite parent) {
+      textReferencedReadonly = new Text(parent, SWT.BORDER);
+      textReferencedReadonly.setText("");
+      textReferencedReadonly.setEditable(false);
+      return textReferencedReadonly;
+    }
+
+    @Override
+    public boolean verify(String[] message) {
+      String referencedValue = textReferenced.getText().trim();
+      if (!referencedValue.isEmpty()) {
+        try {
+          Long id = Convert.parseUnsignedLong(referencedValue);
+          Transaction t = Nxt.getBlockchain().getTransaction(id);
+          if (t == null) {
+            message[0] = "Referenced transaction does not exist";
+            return false;
+          }
+        }
+        catch (RuntimeException e) {
+          message[0] = "Incorrect referenced transaction";
+          return false;
+        }
+      }
+      textReferencedReadonly.setText(referencedValue);
       return true;
     }
   };
@@ -162,19 +228,19 @@ public class SendMoneyWizard extends GenericTransactionWizard {
 
         IAccount sender = user.getAccount();
         Long recipient = (Long) fieldRecipient.getValue();
-        int amount = (Integer) fieldAmount.getValue();
+        long amountNQT = (Long) fieldAmount.getValue();
 
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
         if (dialog.open() != Window.OK) {
           message[0] = "Invalid fee and deadline";
           return null;
         }
-        int fee = dialog.getFee();
+        long feeNQT = dialog.getFeeNQT();
         short deadline = dialog.getDeadline();
 
         try {
           Transaction t = nxt.createPaymentTransaction(sender, recipient,
-              amount, deadline, fee, 0l);
+              amountNQT, deadline, feeNQT, null);
           return t.getStringId();
         }
         catch (TransactionException e) {
@@ -189,7 +255,7 @@ public class SendMoneyWizard extends GenericTransactionWizard {
       @Override
       public IGenericTransactionField[] getFields() {
         return new IGenericTransactionField[] { fieldSender, fieldRecipient,
-            fieldAmount };
+            fieldAmount, fieldReferenced };
       }
 
       @Override
@@ -202,7 +268,7 @@ public class SendMoneyWizard extends GenericTransactionWizard {
           message[0] = "This is a readonly account";
           return false;
         }
-        if (user.getAccount().getBalance() < 1) {
+        if (user.getAccount().getBalanceNQT() <= Constants.ONE_NXT) {
           message[0] = "Insufficient balance";
           return false;
         }

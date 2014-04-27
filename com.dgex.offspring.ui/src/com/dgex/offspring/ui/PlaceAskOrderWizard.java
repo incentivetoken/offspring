@@ -2,6 +2,7 @@ package com.dgex.offspring.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import nxt.Account;
 import nxt.Asset;
@@ -24,6 +25,7 @@ import org.eclipse.swt.widgets.Text;
 import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.TransactionException;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.wizard.GenericTransactionWizard;
 import com.dgex.offspring.swt.wizard.IGenericTransaction;
 import com.dgex.offspring.swt.wizard.IGenericTransactionField;
@@ -61,17 +63,22 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
       comboAsset.removeAll();
       assets.clear();
       if (account != null) {
-        for (Long assetId : account.getAssetBalances().keySet()) {
-          Asset asset = Asset.getAsset(assetId);
-          comboAsset.add(createLabel(account, asset));
-          assets.add(asset);
+        Map<Long, Long> map = account.getAssetBalancesQNT();
+        if (map != null) {
+          for (Long assetId : map.keySet()) {
+            Asset asset = Asset.getAsset(assetId);
+            comboAsset.add(createLabel(account, asset));
+            assets.add(asset);
+          }
         }
       }
     }
 
     private String createLabel(Account account, Asset asset) {
-      int balance = account.getAssetBalances().get(asset.getId());
-      return "Asset: " + asset.getName() + " Balance: " + balance;
+      Map<Long, Long> map = account.getAssetBalancesQNT();
+      long balanceQNT = map != null ? map.get(asset.getId()) : 0l;
+      return "Asset: " + asset.getName() + " Balance: "
+          + Utils.quantToString(balanceQNT);
     }
 
     @Override
@@ -143,18 +150,13 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
 
     @Override
     public Object getValue() {
-      try {
-        return Integer.parseInt(textQuantity.getText().trim());
-      }
-      catch (NumberFormatException e) {
-        return -1;
-      }
+      return Utils.getQuantityQNT(textQuantity.getText().trim());
     };
 
     @Override
     public Control createControl(Composite parent) {
       textQuantity = new Text(parent, SWT.BORDER);
-      textQuantity.setText(Integer.toString(presetQuantity));
+      textQuantity.setText(Utils.quantToString(presetQuantityQNT));
       textQuantity.addModifyListener(new ModifyListener() {
 
         @Override
@@ -175,24 +177,21 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
     @Override
     public boolean verify(String[] message) {
       String text = textQuantity.getText().trim();
-      int quantity;
-      try {
-        quantity = Integer.parseInt(text);
-      }
-      catch (NumberFormatException nfe) {
+      Long quantityQNT = Utils.getQuantityQNT(text);
+      if (quantityQNT == null) {
         message[0] = "Value must be numeric";
         return false;
       }
-
-      if (quantity < 1) {
-        message[0] = "Value must be greater than 1";
+      if (quantityQNT < 1) {
+        message[0] = "Value to small";
         return false;
       }
 
       Asset asset = (Asset) fieldAsset.getValue();
       if (asset != null) {
-        if (quantity > asset.getQuantity()) {
-          message[0] = "There where only " + asset.getQuantity()
+        if (quantityQNT > asset.getQuantityQNT()) {
+          message[0] = "There where only "
+              + Utils.quantToString(asset.getQuantityQNT())
               + " assets issued";
           return false;
         }
@@ -207,14 +206,11 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
 
     private Text textPrice;
     private Text textPriceReadonly;
-    private boolean ignore = false;
     private final ModifyListener modificationListener = new ModifyListener() {
 
       @Override
       public void modifyText(ModifyEvent e) {
-        ignore = true;
         requestVerification();
-        ignore = false;
       }
     };
 
@@ -225,24 +221,14 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
 
     @Override
     public Object getValue() {
-      try {
-        double p = Double.parseDouble(textPrice.getText().trim());
-        p = (double) Math.round(p * 100) / 100; // round to two decimals
-        return (long) (p * 100); // price in cents
-      }
-      catch (NumberFormatException e) {
-        return -1;
-      }
+      return Utils.getAmountNQT(textPrice.getText().trim());
     };
 
     @Override
     public Control createControl(Composite parent) {
       textPrice = new Text(parent, SWT.BORDER);
-
-      if (presetAssetId != null && presetPrice > 0) {
-        Double p = new Long(presetPrice).doubleValue() / 100;
-        p = (double) Math.round(p * 100) / 100;
-        textPrice.setText(Double.toString(p));
+      if (presetAssetId != null && presetPriceNQT > 0) {
+        textPrice.setText(Utils.quantToString(presetPriceNQT));
       }
       else {
         textPrice.setText("0");
@@ -262,33 +248,9 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
     @Override
     public boolean verify(String[] message) {
       String text = textPrice.getText().trim();
-      long priceInCents; // in NXT cents
-      try {
-        Double p = Double.parseDouble(text);
-
-        // round the double to two places after comma
-        p = (double) Math.round(p * 100) / 100;
-
-        // correct the user input to remove the to high precision
-        if (ignore == false) {
-          textPrice.removeModifyListener(modificationListener);
-          textPrice.setText(Double.toString(p));
-          textPrice.addModifyListener(modificationListener);
-        }
-        priceInCents = (long) (p * 100);
-      }
-      catch (NumberFormatException e) {
-        message[0] = "Value must be numeric";
-        return false;
-      }
-
-      if (priceInCents < 1) {
-        message[0] = "Value must be greater than 0.01";
-        return false;
-      }
-
-      if (priceInCents > Constants.MAX_BALANCE * 100L) {
-        message[0] = "Value must be less than " + Constants.MAX_BALANCE;
+      Long priceNQT = Utils.getAmountNQT(text);
+      if (priceNQT == null) {
+        message[0] = "Incorrect value";
         return false;
       }
       textPriceReadonly.setText(text);
@@ -297,16 +259,16 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
   };
 
   private Long presetAssetId;
-  private int presetQuantity;
-  private long presetPrice; // in cents per asset
+  private long presetQuantityQNT;
+  private long presetPriceNQT;
 
   public PlaceAskOrderWizard(final IUserService userService,
-      final INxtService nxt, Long assetId, int quantity, long price) {
+      final INxtService nxt, Long assetId, long quantityQNT, long priceNQT) {
     super(userService);
 
     this.presetAssetId = assetId;
-    this.presetQuantity = quantity;
-    this.presetPrice = price;
+    this.presetQuantityQNT = quantityQNT;
+    this.presetPriceNQT = priceNQT;
 
     setWindowTitle("Place Sell Order");
     setTransaction(new IGenericTransaction() {
@@ -315,22 +277,22 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
       public String sendTransaction(String[] message) {
         IAccount sender = user.getAccount();
         Asset asset = (Asset) fieldAsset.getValue();
-        int quantity = (int) fieldQuantity.getValue();
-        long price = (long) fieldPrice.getValue(); // price is in cents
+        long quantityQNT = (long) fieldQuantity.getValue();
+        long priceNQT = (long) fieldPrice.getValue();
 
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
-        dialog.setMinimumFee(1);
-        dialog.setFee(1);
+        dialog.setMinimumFeeNQT(Constants.ONE_NXT);
+        dialog.setFeeNQT(Constants.ONE_NXT);
         if (dialog.open() != Window.OK) {
           message[0] = "Invalid fee and deadline";
           return null;
         }
-        int fee = dialog.getFee();
+        long feeNQT = dialog.getFeeNQT();
         short deadline = dialog.getDeadline();
 
         try {
           Transaction t = nxt.createPlaceAskOrderTransaction(sender,
-              asset.getId(), quantity, price, deadline, fee, null);
+              asset.getId(), quantityQNT, priceNQT, deadline, feeNQT, null);
           return t.getStringId();
         }
         catch (ValidationException e) {
@@ -361,17 +323,17 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
 
         Account account = user.getAccount().getNative();
         Asset asset = (Asset) fieldAsset.getValue();
-        int amount = (int) fieldQuantity.getValue();
-        if (asset != null) {
-          Integer assetBalance = account.getUnconfirmedAssetBalance(asset
+        Long quantityQNT = (Long) fieldQuantity.getValue();
+        if (asset != null && quantityQNT != null) {
+          Long assetBalanceQNT = account.getUnconfirmedAssetBalanceQNT(asset
               .getId());
-          if (assetBalance == null || amount > assetBalance) {
+          if (assetBalanceQNT == null || quantityQNT > assetBalanceQNT) {
             message[0] = "Insufficient Asset Balance";
             return false;
           }
         }
 
-        if (user.getAccount().getBalance() < 1) {
+        if (user.getAccount().getBalanceNQT() < Constants.ONE_NXT) {
           message[0] = "Insufficient Balance";
           return false;
         }

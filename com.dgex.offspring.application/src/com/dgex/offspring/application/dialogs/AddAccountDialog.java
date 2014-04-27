@@ -5,6 +5,8 @@ import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.Random;
 
+import nxt.util.Convert;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -71,11 +73,11 @@ public class AddAccountDialog extends TitleAreaDialog {
       String account = nxt.getAccountForPrivateKey(textPrivateKey.getText());
       textAccountNumber.setText(account);
 
-      Long balance = nxt.getBalanceForAccount(account);
+      Long balance = nxt.getBalanceForAccountNQT(account);
       if (balance == null)
         textBalance.setText("");
       else
-        textBalance.setText(Long.toString(balance));
+        textBalance.setText(Convert.toNXT(balance.longValue()));
       verifyInput();
     }
   };
@@ -84,12 +86,12 @@ public class AddAccountDialog extends TitleAreaDialog {
 
     @Override
     public void modifyText(ModifyEvent e) {
-      Long balance = nxt.getBalanceForAccount(textAccountNumber.getText()
+      Long balance = nxt.getBalanceForAccountNQT(textAccountNumber.getText()
           .trim());
       if (balance == null)
         textBalance.setText("");
       else
-        textBalance.setText(Long.toString(balance));
+        textBalance.setText(Convert.toNXT(balance.longValue()));
       verifyInput();
     }
   };

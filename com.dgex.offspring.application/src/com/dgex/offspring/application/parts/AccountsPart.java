@@ -9,6 +9,7 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import nxt.Generator;
+import nxt.util.Convert;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.commands.ParameterizedCommand;
@@ -111,7 +112,7 @@ public class AccountsPart {
   private Label totalEUR;
   private Link addAccountLink;
 
-  private Long totalNxtBalanceValue = 0l;
+  private long totalNxtBalanceValueNQT = 0l;
   private Double totalBTCBalanceValue = (double) 0;
   private Double totalEURBalanceValue = (double) 0;
 
@@ -225,7 +226,7 @@ public class AccountsPart {
       IUser receiver = userService.getUser(transaction.getReceiver());
 
       if (active.equals(sender) || active.equals(receiver)) {
-        setActiveUserBalance(active.getAccount().getBalance());
+        setActiveUserBalanceNQT(active.getAccount().getBalanceNQT());
         if (activeAccountTabFolder != null) {
           activeAccountTabFolder.lazyRefresh();
         }
@@ -285,10 +286,11 @@ public class AccountsPart {
       if (user != null) {
         AccountButtonComposite c = findAccountButtonComposite(user);
         if (c != null) {
-          c.setBalance(account.getBalance(), account.getUnconfirmedBalance());
+          c.setBalanceNQT(account.getBalanceNQT(),
+              account.getUnconfirmedBalanceNQT());
         }
         if (user.equals(active)) {
-          setActiveUserBalance(account.getBalance());
+          setActiveUserBalanceNQT(account.getBalanceNQT());
         }
       }
     }
@@ -305,8 +307,8 @@ public class AccountsPart {
   private void updateTotalBalance() {
     long total = 0l;
     for (IUser user : userService.getUsers())
-      total += user.getAccount().getBalance();
-    accountTotalsComposite.setTotal(total);
+      total += user.getAccount().getBalanceNQT();
+    accountTotalsComposite.setTotalNQT(total);
   }
 
   @Focus
@@ -737,7 +739,7 @@ public class AccountsPart {
       @Override
       public void widgetSelected(SelectionEvent e) {
         Clipboards.copy(parent.getDisplay(),
-            Long.toString(totalNxtBalanceValue));
+            Convert.toNXT(totalNxtBalanceValueNQT));
       }
     });
 
@@ -800,8 +802,8 @@ public class AccountsPart {
         user, userService, wallet, engine, nxt);
     c.pack();
     c.setLayoutData(gd);
-    c.setBalance(user.getAccount().getBalance(), user.getAccount()
-        .getUnconfirmedBalance());
+    c.setBalanceNQT(user.getAccount().getBalanceNQT(), user.getAccount()
+        .getUnconfirmedBalanceNQT());
     accountButtonComposites.add(c);
 
     c.moveAbove(accountTotalsComposite);
@@ -815,7 +817,7 @@ public class AccountsPart {
   }
 
   private void setActiveUser(IUser user) {
-    boolean visible = user.getAccount().getBalance() > 0l;
+    boolean visible = user.getAccount().getBalanceNQT() > 0l;
 
     AccountTabFolder tabFolder = findAccountTabFolder(user);
     if (tabFolder != null) {
@@ -832,14 +834,14 @@ public class AccountsPart {
 
     AccountButtonComposite comp = findAccountButtonComposite(user);
     if (comp != null) {
-      comp.setBalance(user.getAccount().getBalance(), user.getAccount()
-          .getUnconfirmedBalance());
+      comp.setBalanceNQT(user.getAccount().getBalanceNQT(), user.getAccount()
+          .getUnconfirmedBalanceNQT());
       comp.setActive(true);
     }
 
     // summaryMiddleComposite.setActiveUser(user);
 
-    setActiveUserBalance(user.getAccount().getBalance());
+    setActiveUserBalanceNQT(user.getAccount().getBalanceNQT());
 
     topComposite.pack();
     bottomLeftComposite.pack();
@@ -847,12 +849,12 @@ public class AccountsPart {
     mainComposite.layout();
   }
 
-  private void setActiveUserBalance(Long balance) {
-    totalNxtBalanceValue = balance;
-    totalBTCBalanceValue = ExchangeRates.convertNxtToBtc(balance.doubleValue());
-    totalEURBalanceValue = ExchangeRates.convertNxtToEur(balance.doubleValue());
+  private void setActiveUserBalanceNQT(long balance) {
+    totalNxtBalanceValueNQT = balance;
+    totalBTCBalanceValue = ExchangeRates.convertNqtToBtc(balance);
+    totalEURBalanceValue = ExchangeRates.convertNqtToEur(balance);
 
-    String nxtStr = "NXT " + totalNxtBalanceValue.toString();  //$NON-NLS-1$
+    String nxtStr = "NXT " + Convert.toNXT(balance);  //$NON-NLS-1$
     String btcStr = "BTC " + String.format("%.5f", totalBTCBalanceValue);  //$NON-NLS-1$  //$NON-NLS-1$
     String eurStr = "EUR " + String.format("%.2f", totalEURBalanceValue);   //$NON-NLS-1$  //$NON-NLS-1$
 

@@ -74,14 +74,14 @@ public class BlockTransactionViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Transaction t = (Transaction) element;
-          return Integer.valueOf(t.getAmount());
+          return Long.valueOf(t.getAmountNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          Integer amount = (Integer) getCellValue(element);
+          Long amount = (Long) getCellValue(element);
           data[FONT] = JFaceResources.getFontRegistry().getBold("");
-          data[TEXT] = Long.toString(amount);
+          data[TEXT] = Convert.toNXT(amount);
           if (amount > 0)
             data[FOREGROUND] = Colors.getColor(DARK_GREEN);
           else if (amount < 0)
@@ -92,7 +92,7 @@ public class BlockTransactionViewer extends GenerericTableViewer {
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -102,17 +102,17 @@ public class BlockTransactionViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Transaction t = (Transaction) element;
-          return Integer.valueOf(t.getFee());
+          return Long.valueOf(t.getFeeNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[TEXT] = Integer.toString((Integer) getCellValue(element));
+          data[TEXT] = Convert.toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 

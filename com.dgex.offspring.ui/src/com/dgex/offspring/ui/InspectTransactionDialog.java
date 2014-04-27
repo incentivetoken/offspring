@@ -170,8 +170,8 @@ public class InspectTransactionDialog extends TitleAreaDialog {
         + Convert.toUnsignedLong(transaction.getSenderId()) + "</A>");
     receiverLink.setText("<A>"
         + Convert.toUnsignedLong(transaction.getRecipientId()) + "</A>");
-    amountLabel.setText(Integer.toString(transaction.getAmount()));
-    feeLabel.setText(Integer.toString(transaction.getFee()));
+    amountLabel.setText(Convert.toNXT(transaction.getAmountNQT()));
+    feeLabel.setText(Convert.toNXT(transaction.getFeeNQT()));
     heightLabel.setText(Integer.toString(transaction.getHeight()));
     deadlineLabel.setText(Integer.toString(transaction.getDeadline()));
     hashText.setText(transaction.getHash());

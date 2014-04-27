@@ -159,7 +159,7 @@ public class AuthTokenDialog extends TitleAreaDialog {
     for (int i = 0; i < users.size(); i++) {
       IUser user = users.get(i);
       comboSender.add(user.getAccount().getStringId() + " "
-          + Long.toString(user.getAccount().getBalance()) + " "
+          + Convert.toNXT(user.getAccount().getBalanceNQT()) + " "
           + user.getName());
       if (user.equals(userService.getActiveUser())) {
         selected_index = i;

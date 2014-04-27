@@ -3,6 +3,7 @@ package com.dgex.offspring.nxtCore.core;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import nxt.Account;
 import nxt.Alias;
@@ -100,7 +101,7 @@ public class AccountHelper implements IAccount {
     if (a == null)
       return 0l;
 
-    return (a.getGuaranteedBalanceNQT(42));
+    return (a.getGuaranteedBalanceNQT(10));
   }
 
   @Override
@@ -118,7 +119,11 @@ public class AccountHelper implements IAccount {
     if (a == null)
       return 0l;
 
-    Long balance = a.getAssetBalancesQNT().get(assetId);
+    Map<Long, Long> map = a.getAssetBalancesQNT();
+    if (map == null)
+      return 0l;
+
+    Long balance = map.get(assetId);
     if (balance == null)
       return 0l;
 
@@ -323,30 +328,32 @@ public class AccountHelper implements IAccount {
     Account account = getNative();
     List<IAsset> result = new ArrayList<IAsset>();
     if (account != null) {
-      logger.info("Get issued assets for " + getStringId());
-      for (Long assetId : account.getAssetBalancesQNT().keySet()) {
+      Map<Long, Long> map = account.getAssetBalancesQNT();
+      if (map != null) {
+        logger.info("Get issued assets for " + getStringId());
+        for (Long assetId : account.getAssetBalancesQNT().keySet()) {
 
-        logger.info("Found one " + Convert.toUnsignedLong(assetId));
+          logger.info("Found one " + Convert.toUnsignedLong(assetId));
 
-        Asset asset = Asset.getAsset(assetId);
-        result.add(new AssetHelper(asset));
-      }
+          Asset asset = Asset.getAsset(assetId);
+          result.add(new AssetHelper(asset));
+        }
 
-      List<IAsset> remove = new ArrayList<IAsset>();
-      for (IAsset asset : nxt.getPendingAssets()) {
-        if (asset.getIssuer().equals(getNative())) {
-          if (result.indexOf(asset) != -1) {
-            remove.add(asset);
-          }
-          else {
-            result.add(0, asset);
+        List<IAsset> remove = new ArrayList<IAsset>();
+        for (IAsset asset : nxt.getPendingAssets()) {
+          if (asset.getIssuer().equals(getNative())) {
+            if (result.indexOf(asset) != -1) {
+              remove.add(asset);
+            }
+            else {
+              result.add(0, asset);
+            }
           }
         }
+        for (IAsset a : remove) {
+          nxt.getPendingAssets().remove(a);
+        }
       }
-      for (IAsset a : remove) {
-        nxt.getPendingAssets().remove(a);
-      }
-
       //
 
       //

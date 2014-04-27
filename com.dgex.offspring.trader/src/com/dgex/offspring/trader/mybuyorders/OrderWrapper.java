@@ -4,31 +4,31 @@ import nxt.Order;
 
 public class OrderWrapper {
 
-  private final long price;
-  private final int quantity;
+  private final long priceNQT;
+  private final long quantityQNT;
   private final Long id;
 
   public OrderWrapper(Order.Bid order) {
     this.id = order.getId();
-    this.price = order.getPrice();
-    this.quantity = order.getQuantity();
+    this.priceNQT = order.getPriceNQT();
+    this.quantityQNT = order.getQuantityQNT();
   }
 
-  public OrderWrapper(Long id, long price, int quantity) {
+  public OrderWrapper(Long id, long priceNQT, long quantityQNT) {
     this.id = id;
-    this.price = price;
-    this.quantity = quantity;
+    this.priceNQT = priceNQT;
+    this.quantityQNT = quantityQNT;
   }
 
   public Long getId() {
     return id;
   }
 
-  public long getPrice() {
-    return price;
+  public long getPriceNQT() {
+    return priceNQT;
   }
 
-  public int getQuantity() {
-    return quantity;
+  public long getQuantityQNT() {
+    return quantityQNT;
   }
 }

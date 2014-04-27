@@ -5,6 +5,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 
 import nxt.Generator;
+import nxt.util.Convert;
 
 import org.apache.log4j.Logger;
 import org.eclipse.e4.ui.services.IStylingEngine;
@@ -118,7 +119,7 @@ public class AccountButtonComposite extends Composite {
       }
     });
 
-    setBalance(0l, 0l);
+    setBalanceNQT(0l, 0l);
 
     Menu menu = new Menu(parent.getShell(), SWT.POP_UP);
     nameLabel.setMenu(menu);
@@ -206,7 +207,7 @@ public class AccountButtonComposite extends Composite {
       @Override
       public void widgetSelected(SelectionEvent e) {
         Clipboards.copy(parent.getDisplay(),
-            Long.toString(user.getAccount().getBalance()));
+            Convert.toNXT(user.getAccount().getBalanceNQT()));
       }
     });
 
@@ -234,7 +235,7 @@ public class AccountButtonComposite extends Composite {
 
         IWalletAccount walletAccount = NXTAccount.create(user.getName(), user
             .getAccount().getStringId(), user.getAccount().getPrivateKey(),
-            user.getAccount().getBalance());
+            Long.valueOf(user.getAccount().getBalanceNQT()));
 
         try {
           wallet.removeAccount(walletAccount);
@@ -270,14 +271,14 @@ public class AccountButtonComposite extends Composite {
     return user;
   }
 
-  public void setBalance(Long balance, Long unconfirmedBalance) {
+  public void setBalanceNQT(Long balance, Long unconfirmedBalance) {
     String text = "NXT ";
     if ((unconfirmedBalance - balance) > 1
         || (unconfirmedBalance - balance) < -1)
-      text += Long.toString(balance) + " (" + Long.toString(unconfirmedBalance)
+      text += Convert.toNXT(balance) + " (" + Convert.toNXT(unconfirmedBalance)
           + ")";
     else
-      text += Long.toString(balance);
+      text += Convert.toNXT(balance);
 
     balanceLabel.setText(text);
     layout();

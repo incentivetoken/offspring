@@ -72,18 +72,18 @@ public class TradesViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Trade trade = (Trade) element;
-          return Double.valueOf((Long.valueOf(trade.getPrice()).doubleValue() / 100));
+          return Long.valueOf(trade.getPriceNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = formatDouble
-              .format(getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Double) v1, (Double) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -94,18 +94,18 @@ public class TradesViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Trade trade = (Trade) element;
-          return Integer.valueOf(trade.getQuantity());
+          return Long.valueOf(trade.getQuantityQNT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 

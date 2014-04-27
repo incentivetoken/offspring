@@ -157,7 +157,7 @@ public class AliasControl extends Composite {
       return;
     }
 
-    final int fee = dialog.getFee();
+    final long feeNQT = dialog.getFeeNQT();
     final short deadline = dialog.getDeadline();
     final String name = aliasNameText.getText().trim();
     final String uri = aliasURIText.getText().trim();
@@ -168,7 +168,7 @@ public class AliasControl extends Composite {
       public void run() {
         try {
           nxt.createAssignAliasTransaction(user.getAccount(), name, uri,
-              deadline, fee, 0l);
+              deadline, feeNQT, null);
 
           aliasRegisterButton.setEnabled(true);
           decoAliasNameText.show();

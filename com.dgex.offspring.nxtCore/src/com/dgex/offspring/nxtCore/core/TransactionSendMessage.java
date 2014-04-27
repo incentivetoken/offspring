@@ -12,13 +12,17 @@ import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.TransactionException;
 
-public class TransactionSendMessage {
+public class TransactionSendMessage extends TransactionBase {
 
   public static Transaction create(IAccount sender, Long recipient,
-      byte[] message, short deadline, int fee, Long referencedTransaction,
+      byte[] message, short deadline, long feeNQT,
+      String referencedTransactionFullHash,
       INxtService nxt) throws ValidationException, TransactionException {
 
     String secretPhrase = sender.getPrivateKey();
+    byte[] publicKey = Crypto.getPublicKey(secretPhrase);
+    Account account = Account.getAccount(publicKey);
+    validate(account, 0, feeNQT, deadline);
 
     if (message.length == 0
         || message.length > Constants.MAX_ARBITRARY_MESSAGE_LENGTH) {
@@ -26,22 +30,11 @@ public class TransactionSendMessage {
           TransactionException.INCORRECT_ARBITRARY_MESSAGE);
     }
 
-    if ((fee <= 0) || (fee >= 1000000000L))
-      throw new TransactionException(TransactionException.INCORRECT_FEE);
-
-    if ((deadline < 1) || (deadline > 1440))
-      throw new TransactionException(TransactionException.INCORRECT_DEADLINE);
-
-    byte[] publicKey = Crypto.getPublicKey(secretPhrase);
-    Account account = Account.getAccount(publicKey);
-
-    if ((account == null) || (fee * 100L > account.getUnconfirmedBalance()))
-      throw new TransactionException(TransactionException.NOT_ENOUGH_FUNDS);
-
     Attachment attachment = new Attachment.MessagingArbitraryMessage(message);
 
     Transaction transaction = Nxt.getTransactionProcessor().newTransaction(
-        deadline, publicKey, recipient, 0, fee, referencedTransaction,
+        deadline, publicKey, recipient, 0, feeNQT,
+        referencedTransactionFullHash,
         attachment);
 
     transaction.sign(secretPhrase);

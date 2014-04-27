@@ -2,6 +2,7 @@ package com.dgex.offspring.nxtCore.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import nxt.Account;
 import nxt.Asset;
@@ -96,9 +97,13 @@ public class AssetHelper implements IAsset {
     if (a == null)
       return 0;
 
-    Long balance = a.getAssetBalancesQNT().get(id);
+    Map<Long, Long> map = a.getAssetBalancesQNT();
+    if (map == null)
+      return 0l;
+
+    Long balance = map.get(id);
     if (balance == null)
-      return 0;
+      return 0l;
 
     return balance.longValue();
   }

@@ -12,6 +12,7 @@ import nxt.Nxt;
 import nxt.Order;
 import nxt.Transaction;
 import nxt.TransactionType;
+import nxt.util.Convert;
 
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -69,20 +70,28 @@ public class MySellOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           OrderWrapper order = (OrderWrapper) element;
-          Double price = Double.valueOf((Long.valueOf(order.getPrice())
-              .doubleValue() / 100));
-          return Double.valueOf(price * order.getQuantity());
+          try {
+            long total = Convert.safeMultiply(order.getPriceNQT(),
+                order.getQuantityQNT());
+            return Long.valueOf(total);
+          }
+          catch (ArithmeticException e) {
+            return null;
+          }
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = formatDouble
-              .format(getCellValue(element));
+          Long total = (Long) getCellValue(element);
+          if (total == null)
+            data[ICellDataProvider.TEXT] = "-";
+          else
+            data[ICellDataProvider.TEXT] = Convert.toNXT(total);
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Double) v1, (Double) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -93,18 +102,18 @@ public class MySellOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           OrderWrapper order = (OrderWrapper) element;
-          return Double.valueOf((Long.valueOf(order.getPrice()).doubleValue() / 100));
+          return Long.valueOf(order.getPriceNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = formatDouble
-              .format(getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Double) v1, (Double) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -115,13 +124,13 @@ public class MySellOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           OrderWrapper order = (OrderWrapper) element;
-          return Long.valueOf(order.getQuantity());
+          return Long.valueOf(order.getQuantityQNT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Long
-              .toString((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
@@ -191,8 +200,8 @@ public class MySellOrdersViewer extends GenerericTableViewer {
               .getAttachment();
           if (attachment.getAssetId().equals(asset.getId())) {
             if (t.getSenderId().equals(account.getId())) {
-              elements.add(new OrderWrapper(t.getId(), attachment.getPrice(),
-                  attachment.getQuantity()));
+              elements.add(new OrderWrapper(t.getId(),
+                  attachment.getPriceNQT(), attachment.getQuantityQNT()));
             }
           }
         }

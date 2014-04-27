@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Text;
 import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.TransactionException;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.wizard.GenericTransactionWizard;
 import com.dgex.offspring.swt.wizard.IGenericTransaction;
 import com.dgex.offspring.swt.wizard.IGenericTransactionField;
@@ -165,7 +166,7 @@ public class IssueAssetWizard extends GenericTransactionWizard {
 
     @Override
     public Object getValue() {
-      return Integer.parseInt(textQuantity.getText().trim());
+      return Utils.getQuantityQNT(textQuantity.getText().trim());
     }
 
     @Override
@@ -192,19 +193,61 @@ public class IssueAssetWizard extends GenericTransactionWizard {
     @Override
     public boolean verify(String[] message) {
       String quantityValue = textQuantity.getText().trim();
-      int quantity;
-      try {
-        quantity = Integer.parseInt(quantityValue);
-        if (quantity <= 0 || quantity > Constants.MAX_ASSET_QUANTITY) {
-          message[0] = "Incorect asset quantity";
-          return false;
-        }
-      }
-      catch (NumberFormatException e) {
-        message[0] = "Value must be numeric";
+      Long quantityQNT = Utils.getQuantityQNT(quantityValue);
+      if (quantityQNT == null) {
+        message[0] = "Incorect asset quantity";
         return false;
       }
       textQuantityReadonly.setText(quantityValue);
+      return true;
+    }
+  };
+
+  final IGenericTransactionField fieldDecimals = new IGenericTransactionField() {
+
+    private Text textDecimals;
+    private Text textDecimalsReadonly;
+
+    @Override
+    public String getLabel() {
+      return "Decimals";
+    }
+
+    @Override
+    public Object getValue() {
+      return Utils.parseDecimals(textDecimals.getText().trim());
+    }
+
+    @Override
+    public Control createControl(Composite parent) {
+      textDecimals = new Text(parent, SWT.BORDER);
+      textDecimals.setText("8");
+      textDecimals.addModifyListener(new ModifyListener() {
+
+        @Override
+        public void modifyText(ModifyEvent e) {
+          requestVerification();
+        }
+      });
+      return textDecimals;
+    }
+
+    @Override
+    public Control createReadonlyControl(Composite parent) {
+      textDecimalsReadonly = new Text(parent, SWT.BORDER);
+      textDecimalsReadonly.setEditable(false);
+      return textDecimalsReadonly;
+    }
+
+    @Override
+    public boolean verify(String[] message) {
+      String decimalValue = textDecimals.getText().trim();
+      Byte decimals = Utils.parseDecimals(decimalValue);
+      if (decimals == null) {
+        message[0] = "Incorect asset decimals";
+        return false;
+      }
+      textDecimalsReadonly.setText(decimalValue);
       return true;
     }
   };
@@ -219,21 +262,22 @@ public class IssueAssetWizard extends GenericTransactionWizard {
         IAccount sender = user.getAccount();
         String name = (String) fieldName.getValue();
         String description = (String) fieldDescription.getValue();
-        int quantity = (Integer) fieldQuantity.getValue();
+        long quantityQNT = (Long) fieldQuantity.getValue();
+        byte decimals = (Byte) fieldDecimals.getValue();
 
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
-        dialog.setMinimumFee(1000);
-        dialog.setFee(1000);
+        dialog.setMinimumFeeNQT(1000 * Constants.ONE_NXT);
+        dialog.setFeeNQT(1000 * Constants.ONE_NXT);
         if (dialog.open() != Window.OK) {
           message[0] = "Invalid fee and deadline";
           return null;
         }
-        int fee = dialog.getFee();
+        long feeNQT = dialog.getFeeNQT();
         short deadline = dialog.getDeadline();
 
         try {
           Transaction t = nxt.createIssueAssetTransaction(sender, name,
-              description, quantity, deadline, fee, null);
+              description, quantityQNT, decimals, deadline, feeNQT, null);
           return t.getStringId();
         }
         catch (TransactionException e) {
@@ -248,7 +292,7 @@ public class IssueAssetWizard extends GenericTransactionWizard {
       @Override
       public IGenericTransactionField[] getFields() {
         return new IGenericTransactionField[] { fieldSender, fieldName,
-            fieldDescription, fieldQuantity };
+            fieldDescription, fieldQuantity, fieldDecimals };
       }
 
       @Override
@@ -261,7 +305,7 @@ public class IssueAssetWizard extends GenericTransactionWizard {
           message[0] = "This is a readonly account";
           return false;
         }
-        if (user.getAccount().getBalance() <= 1000) {
+        if (user.getAccount().getBalanceNQT() < (1000 * Constants.ONE_NXT)) {
           message[0] = "Insufficient balance";
           return false;
         }

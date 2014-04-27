@@ -54,7 +54,7 @@ public class AEChartComposite extends Composite {
 
   private JFreeChart createChart(Asset asset, String title) {
     XYDataset priceDataset = createPriceDataset();
-    JFreeChart jfreechart = ChartFactory.createTimeSeriesChart(title, // title
+    JFreeChart jfreechart = ChartFactory.createTimeSeriesChart(title,        // title
         "Date",       // x title
         "Price",      // y title
         priceDataset, // dataset
@@ -79,8 +79,8 @@ public class AEChartComposite extends Composite {
     for (Trade trade : trades) {
       Date date = new Date(((trade.getTimestamp()) * 1000l)
           + (Constants.EPOCH_BEGINNING - 500L));
-      series.addOrUpdate(new Minute(date),
-          Double.valueOf(trade.getPrice()) / 100);
+      series.addOrUpdate(new Minute(date), (double) trade.getPriceNQT()
+          / Constants.ONE_NXT);
     }
     TimeSeriesCollection dataset = new TimeSeriesCollection(series);
     dataset.setDomainIsPointsInTime(true);

@@ -2,6 +2,8 @@ package com.dgex.offspring.application.utils;
 
 import java.util.List;
 
+import nxt.Constants;
+
 import org.apache.log4j.Logger;
 
 import com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider;
@@ -15,18 +17,18 @@ public class ExchangeRates {
 
   private static final Logger logger = Logger.getLogger(ExchangeRates.class);
 
-  public static Double convertNxtToBtc(double value) {
-    return value
+  public static Double convertNqtToBtc(long value) {
+    return (value / Constants.ONE_NXT)
         * getRate(DGEXCurrentRateProvider.getInstance(), Currencies.BTC,
             Currencies.NXT);
   }
 
-  public static Double convertNxtToEur(double value) {
-    return convertBtcToEur(convertNxtToBtc(value));
+  public static Double convertNqtToEur(long value) {
+    return convertBtcToEur(convertNqtToBtc(value));
   }
 
-  public static Double convertNxtToDollar(double value) {
-    return convertBtcToDollar(convertNxtToBtc(value));
+  public static Double convertNqtToDollar(long value) {
+    return convertBtcToDollar(convertNqtToBtc(value));
   }
 
   public static Double convertEurToBtc(double value) {

@@ -93,18 +93,18 @@ public class AssetsViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Asset asset = (Asset) element;
-          return Integer.valueOf(asset.getQuantity());
+          return Long.valueOf(asset.getQuantityQNT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 

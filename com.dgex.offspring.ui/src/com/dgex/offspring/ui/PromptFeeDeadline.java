@@ -1,5 +1,8 @@
 package com.dgex.offspring.ui;
 
+import nxt.Constants;
+import nxt.util.Convert;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.fieldassist.ControlDecoration;
@@ -26,16 +29,16 @@ public class PromptFeeDeadline extends Dialog {
   private Text deadlineText;
   private ControlDecoration decoFee;
   private ControlDecoration decoDeadline;
-  private int fee = 1;
-  private int minimumFee = 1;
+  private long feeNQT = 1 * Constants.ONE_NXT;
+  private long minimumFeeNQT = 1 * Constants.ONE_NXT;
   private short deadline = 1440;
 
   public PromptFeeDeadline(Shell shell) {
     super(shell);
   }
 
-  public void setMinimumFee(int fee) {
-    this.minimumFee = fee;
+  public void setMinimumFeeNQT(long feeNQT) {
+    this.minimumFeeNQT = feeNQT;
   }
 
   @Override
@@ -52,7 +55,7 @@ public class PromptFeeDeadline extends Dialog {
     feeText = new Text(container, SWT.BORDER);
     feeText
         .setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-    feeText.setText(Integer.toString(minimumFee));
+    feeText.setText(Convert.toNXT(minimumFeeNQT));
 
     decoFee = new ControlDecoration(feeText, SWT.TOP | SWT.RIGHT);
     decoFee.setImage(errorImage);
@@ -94,12 +97,12 @@ public class PromptFeeDeadline extends Dialog {
         IDialogConstants.CANCEL_LABEL, false);
   }
 
-  public void setFee(int fee) {
-    this.fee = fee;
+  public void setFeeNQT(long feeNQT) {
+    this.feeNQT = feeNQT;
   }
 
-  public int getFee() {
-    return this.fee;
+  public long getFeeNQT() {
+    return this.feeNQT;
   }
 
   public void setDeadline(short deadline) {
@@ -112,20 +115,22 @@ public class PromptFeeDeadline extends Dialog {
 
   private boolean verifyInput() {
     boolean verified = true;
-    if (!isInteger(feeText.getText())) {
+    if (!isNXT(feeText.getText())) {
       decoFee.setDescriptionText("Fee must be numeric");
       decoFee.show();
       verified = false;
     }
     else {
-      fee = Integer.parseInt(feeText.getText());
-      if ((fee <= 0) || (fee >= 1000000000L)) {
+      feeNQT = Convert.parseNXT(feeText.getText());
+      if ((feeNQT <= Constants.ONE_NXT)
+          || (feeNQT >= Constants.MAX_BALANCE_NQT)) {
         decoFee.setDescriptionText("Must be at least 1");
         decoFee.show();
         verified = false;
       }
-      else if (fee < minimumFee) {
-        decoFee.setDescriptionText("Must be at least " + minimumFee);
+      else if (feeNQT < minimumFeeNQT) {
+        decoFee.setDescriptionText("Must be at least "
+            + Convert.toNXT(minimumFeeNQT));
         decoFee.show();
         verified = false;
       }
@@ -152,11 +157,11 @@ public class PromptFeeDeadline extends Dialog {
     return verified;
   }
 
-  private static boolean isInteger(String str) {
+  private static boolean isNXT(String str) {
     try {
-      Integer.parseInt(str);
+      Convert.parseNXT(str);
     }
-    catch (NumberFormatException nfe) {
+    catch (Exception nfe) {
       return false;
     }
     return true;

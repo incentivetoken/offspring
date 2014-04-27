@@ -44,6 +44,14 @@ public class TransactionException extends Exception {
 
   public static final String INCORRECT_DECIMALS = "Incorrect decimals";
 
+  public static final String NOT_ENOUGH_ASSETS = "Not enough assets";
+
+  public static final String INCORRECT_ASSET_TRANSFER_COMMENT = "Incorrect asset transfer comment";
+
+  public static final String UNKNOWN_ASSET = "Unknown asset";
+
+  public static final String INCORRECT_ASSET = "Incorrect asset";
+
   private final String type;
 
   public TransactionException(String type) {

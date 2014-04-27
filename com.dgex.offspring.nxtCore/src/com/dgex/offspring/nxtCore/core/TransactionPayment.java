@@ -10,31 +10,21 @@ import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.TransactionException;
 
-public class TransactionPayment {
+public class TransactionPayment extends TransactionBase {
 
-  public static Transaction create(IAccount sender, Long recipient, int amount,
-      short deadline, int fee, Long referencedTransaction, INxtService nxt)
+  public static Transaction create(IAccount sender, Long recipient,
+      long amountNQT, short deadline, long feeNQT,
+      String referencedTransactionFullHash, INxtService nxt)
       throws ValidationException, TransactionException {
 
     String secretPhrase = sender.getPrivateKey();
-
-    if ((amount <= 0) || (amount >= 1000000000L))
-      throw new TransactionException(TransactionException.INCORRECT_AMOUNT);
-
-    if ((fee <= 0) || (fee >= 1000000000L))
-      throw new TransactionException(TransactionException.INCORRECT_FEE);
-
-    if ((deadline < 1) || (deadline > 1440))
-      throw new TransactionException(TransactionException.INCORRECT_DEADLINE);
-
     byte[] publicKey = Crypto.getPublicKey(secretPhrase);
     Account account = Account.getAccount(publicKey);
-    if ((account == null)
-        || ((amount + fee) * 100L > account.getUnconfirmedBalance()))
-      throw new TransactionException(TransactionException.NOT_ENOUGH_FUNDS);
+    validate(account, amountNQT, feeNQT, deadline);
 
     Transaction transaction = Nxt.getTransactionProcessor().newTransaction(
-        deadline, publicKey, recipient, amount, fee, referencedTransaction);
+        deadline, publicKey, recipient, amountNQT, feeNQT,
+        referencedTransactionFullHash);
     transaction.sign(secretPhrase);
 
     nxt.broacastTransaction(transaction);

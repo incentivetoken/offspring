@@ -17,8 +17,7 @@ public class TransactionIssueAsset extends TransactionBase {
 
   public static Transaction create(IAccount sender, String name,
       String description, long quantityQNT, byte decimals, short deadline,
-      long feeNQT,
- String referencedTransactionFullHash, INxtService nxt)
+      long feeNQT, String referencedTransactionFullHash, INxtService nxt)
       throws TransactionException,
       ValidationException {
 
@@ -45,11 +44,6 @@ public class TransactionIssueAsset extends TransactionBase {
           TransactionException.INCORRECT_ASSET_DESCRIPTION);
     }
 
-    if (quantityQNT <= 0 || quantityQNT > Constants.MAX_ASSET_QUANTITY_QNT) {
-      throw new TransactionException(
-          TransactionException.INCORRECT_ASSET_QUANTITY);
-    }
-
     if (decimals < 0 || decimals > 8) {
       throw new TransactionException(TransactionException.INCORRECT_DECIMALS);
     }
@@ -58,6 +52,7 @@ public class TransactionIssueAsset extends TransactionBase {
     byte[] publicKey = Crypto.getPublicKey(secretPhrase);
     Account account = Account.getAccount(publicKey);
     validate(account, 0, feeNQT, Constants.ASSET_ISSUANCE_FEE_NQT, deadline);
+    validateQuantityQNT(quantityQNT);
 
     Attachment attachment = new Attachment.ColoredCoinsAssetIssuance(name,
         description, quantityQNT, decimals);

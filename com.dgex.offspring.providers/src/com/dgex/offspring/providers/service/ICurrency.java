@@ -22,6 +22,9 @@ public interface ICurrency {
   public static final String TRY = "TRY";
   public static final String USD = "USD";
   public static final String ZAR = "ZAR";
+  public static final String RON = "RON";
+  public static final String HKD = "HKD";
+  public static final String MXN = "MXN";
 
   /* Crypto Currencies */
 
@@ -34,6 +37,7 @@ public interface ICurrency {
   public static final String NMC = "NMC";
   public static final String QRK = "QRK";
   public static final String XPM = "XPM";
+
 
   public String getId();
 

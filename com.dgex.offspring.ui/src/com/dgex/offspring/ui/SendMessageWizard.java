@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 
 import nxt.Account;
 import nxt.Constants;
+import nxt.Nxt;
 import nxt.NxtException.ValidationException;
 import nxt.Transaction;
 import nxt.util.Convert;
@@ -113,12 +114,12 @@ public class SendMessageWizard extends GenericTransactionWizard {
 
     @Override
     public Object getValue() {
-      String recipientValue = textReferenced.getText().trim();
-      if (recipientValue.isEmpty()) {
+      String referencedValue = textReferenced.getText().trim();
+      if (referencedValue.isEmpty()) {
         return null;
       }
       try {
-        return Convert.parseUnsignedLong(recipientValue);
+        return Convert.parseUnsignedLong(referencedValue);
       }
       catch (RuntimeException e) {
         logger.error("Parse Recipient ID", e);
@@ -154,22 +155,22 @@ public class SendMessageWizard extends GenericTransactionWizard {
 
     @Override
     public boolean verify(String[] message) {
-      String recipientValue = textReferenced.getText().trim();
-      if (!recipientValue.isEmpty()) {
+      String referencedValue = textReferenced.getText().trim();
+      if (!referencedValue.isEmpty()) {
         try {
-          /* Long id = */Convert.parseUnsignedLong(recipientValue);
-          // Transaction t = Nxt.getBlockchain().getTransaction(id);
-          // if (t == null) {
-          // message[0] = "Referenced transaction does not exist";
-          // return false;
-          // }
+          Long id = Convert.parseUnsignedLong(referencedValue);
+          Transaction t = Nxt.getBlockchain().getTransaction(id);
+          if (t == null) {
+            message[0] = "Referenced transaction does not exist";
+            return false;
+          }
         }
         catch (RuntimeException e) {
           message[0] = "Incorrect referenced transaction";
           return false;
         }
       }
-      textReferencedReadonly.setText(recipientValue);
+      textReferencedReadonly.setText(referencedValue);
       return true;
     }
   };
@@ -316,7 +317,7 @@ public class SendMessageWizard extends GenericTransactionWizard {
           message[0] = "Invalid fee and deadline";
           return null;
         }
-        int fee = dialog.getFee();
+        long feeNQT = dialog.getFeeNQT();
         short deadline = dialog.getDeadline();
 
         try {
@@ -336,8 +337,11 @@ public class SendMessageWizard extends GenericTransactionWizard {
             System.arraycopy(bytes, 0, data, magic.length, bytes.length);
           }
 
+          Transaction transaction = Nxt.getBlockchain().getTransaction(
+              referencedId);
+          
           Transaction t = nxt.createSendMessageTransaction(sender, recipient,
-              data, deadline, fee, referencedId);
+              data, deadline, feeNQT, transaction.getFullHash());
           return t.getStringId();
         }
         catch (TransactionException e) {
@@ -368,7 +372,7 @@ public class SendMessageWizard extends GenericTransactionWizard {
           message[0] = "This is a readonly account";
           return false;
         }
-        if (user.getAccount().getBalance() < 1) {
+        if (user.getAccount().getBalanceNQT() < Constants.ONE_NXT) {
           message[0] = "Insufficient balance";
           return false;
         }

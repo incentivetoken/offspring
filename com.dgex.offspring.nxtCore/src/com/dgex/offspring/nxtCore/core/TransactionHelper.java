@@ -69,8 +69,9 @@ public class TransactionHelper implements ITransaction {
   @Override
   public String toString() {
     return new StringBuilder().append("Txn ").append(getStringId())
-        .append(" amount=").append(getAmount()).append(" fee=")
-        .append(getFee()).append(" sender=").append(getSender().getStringId())
+        .append(" amount=").append(Convert.toNXT(getAmountNQT())).append(" fee=")
+.append(Convert.toNXT(getFeeNQT())).append(" sender=")
+        .append(getSender().getStringId())
         .append(" receiver=").append(getReceiver().getStringId())
         .append(" timestamp=").append(transaction.getTimestamp())
         .append(" epoch=").append(Convert.getEpochTime()).toString();
@@ -93,13 +94,13 @@ public class TransactionHelper implements ITransaction {
   }
 
   @Override
-  public int getAmount() {
-    return transaction.getAmount();
+  public long getAmountNQT() {
+    return transaction.getAmountNQT();
   }
 
   @Override
-  public int getFee() {
-    return transaction.getFee();
+  public long getFeeNQT() {
+    return transaction.getFeeNQT();
   }
 
   @Override
@@ -135,43 +136,43 @@ public class TransactionHelper implements ITransaction {
   }
 
   @Override
-  public long getAmountReceived(Long accountId) {
-    int total = 0;
+  public long getAmountReceivedNQT(Long accountId) {
+    long total = 0;
     if (accountId.equals(transaction.getSenderId())) {
-      total -= transaction.getAmount() + transaction.getFee();
+      total -= transaction.getAmountNQT() + transaction.getFeeNQT();
     }
     if (accountId.equals(transaction.getRecipientId())) {
-      total += transaction.getAmount();
+      total += transaction.getAmountNQT();
     }
     return total < 0 ? 0 : total;
   }
 
   @Override
-  public long getAmountSpend(Long accountId) {
-    int total = 0;
+  public long getAmountSpendNQT(Long accountId) {
+    long total = 0;
     if (accountId.equals(transaction.getSenderId())) {
-      total += transaction.getAmount() + transaction.getFee();
+      total += transaction.getAmountNQT() + transaction.getFeeNQT();
     }
     if (accountId.equals(transaction.getRecipientId())) {
-      total -= transaction.getAmount();
+      total -= transaction.getAmountNQT();
     }
     return total < 0 ? 0 : total;
   }
 
   @Override
-  public long getFeePaid(Long accountId) {
+  public long getFeePaidNQT(Long accountId) {
     if (accountId.equals(transaction.getSenderId())) {
-      return transaction.getFee();
+      return transaction.getFeeNQT();
     }
     return 0l;
   }
 
   @Override
-  public long getRunningTotal() {
+  public long getRunningTotalNQT() {
     return runningTotal;
   }
 
-  public void setRunningTotal(long total) {
+  public void setRunningTotalNQT(long total) {
     runningTotal = total;
   }
 

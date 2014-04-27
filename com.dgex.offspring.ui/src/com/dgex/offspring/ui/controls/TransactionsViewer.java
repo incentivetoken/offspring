@@ -30,6 +30,7 @@ import com.dgex.offspring.nxtCore.core.TransactionDB;
 import com.dgex.offspring.nxtCore.core.TransactionHelper;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.ITransaction;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.table.GenerericTableViewer;
 import com.dgex.offspring.swt.table.GenericComparator;
 import com.dgex.offspring.swt.table.GenericTableColumnBuilder;
@@ -95,20 +96,27 @@ public class TransactionsViewer extends GenerericTableViewer {
         public Object getCellValue(Object element) {
           // NOT OK
           ITransaction t = (ITransaction) element;
-          long received = t.getAmountReceived(accountId);
-          long spend = t.getAmountSpend(accountId);
-          return Long.valueOf(received - spend);
+          long receivedNQT = t.getAmountReceivedNQT(accountId);
+          long spendNQT = t.getAmountSpendNQT(accountId);
+
+          try {
+            long amountNQT = Convert.safeSubtract(receivedNQT, spendNQT);
+            return amountNQT;
+          }
+          catch (ArithmeticException e) {
+            return 0l;
+          }
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          Long amount = (Long) getCellValue(element);
+          Long amountNQT = (Long) getCellValue(element);
 
           data[FONT] = JFaceResources.getFontRegistry().getBold("");
-          data[TEXT] = Long.toString(amount);
-          if (amount > 0)
+          data[TEXT] = Utils.quantToString(amountNQT);
+          if (amountNQT > 0)
             data[FOREGROUND] = Colors.getColor(DARK_GREEN);
-          else if (amount < 0)
+          else if (amountNQT < 0)
             data[FOREGROUND] = Colors.getColor(DARK_RED);
           else
             data[FOREGROUND] = null;
@@ -128,16 +136,16 @@ public class TransactionsViewer extends GenerericTableViewer {
         public Object getCellValue(Object element) {
           // NOT OK
           ITransaction t = (ITransaction) element;
-          return Long.valueOf(t.getRunningTotal()); // Long
+          return Long.valueOf(t.getRunningTotalNQT()); // Long
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          Long balance = (Long) getCellValue(element);
-          if (balance < 0l)
+          Long balanceNQT = (Long) getCellValue(element);
+          if (balanceNQT < 0l)
             data[TEXT] = EMPTY_STRING;
           else
-            data[TEXT] = Long.toString(balance);
+            data[TEXT] = Utils.quantToString(balanceNQT);
         }
 
         @Override
@@ -299,17 +307,17 @@ public class TransactionsViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           ITransaction t = (ITransaction) element;
-          return Integer.valueOf(t.getFee());
+          return Long.valueOf(t.getFeeNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[TEXT] = Integer.toString((Integer) getCellValue(element));
+          data[TEXT] = Utils.quantToString((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 

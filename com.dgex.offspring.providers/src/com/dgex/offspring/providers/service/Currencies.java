@@ -142,6 +142,13 @@ public class Currencies {
   public static ICurrency ZAR = new Currency(ICurrency.ZAR, "00.00", "ZAR",
       "South African Rand", "");
 
+  public static ICurrency RON = new Currency(ICurrency.RON, "00.00", "RON",
+      "New Romanian leu", "");
+  public static ICurrency HKD = new Currency(ICurrency.HKD, "00.00", "HKD",
+      "Hong Kong Dollar", "");
+  public static ICurrency MXN = new Currency(ICurrency.MXN, "00.00", "MXN",
+      "Mexican Peso", "");
+
   /* Crypto Currencies */
 
   public static ICurrency BTC = new Currency(ICurrency.BTC, "00.00", "Bitcoin",

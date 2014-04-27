@@ -15,6 +15,8 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
+import au.com.bytecode.opencsv.CSVReader;
+
 import com.dgex.offspring.dataprovider.service.HTTPDataProviderException;
 import com.dgex.offspring.providers.service.CSVStructureException;
 import com.dgex.offspring.providers.service.Currencies;
@@ -24,8 +26,6 @@ import com.dgex.offspring.providers.service.IRate;
 import com.dgex.offspring.providers.service.IRateSink;
 import com.dgex.offspring.providers.service.Rate;
 import com.dgex.offspring.providers.service.RateProvider;
-
-import au.com.bytecode.opencsv.CSVReader;
 
 public class PerMinute24HSliding extends RateProvider {
 
@@ -44,23 +44,38 @@ public class PerMinute24HSliding extends RateProvider {
 
   private final Map<ICurrencyPair, List<IRate>> rates = new HashMap<ICurrencyPair, List<IRate>>();
 
+  // private static final String[] headers = { "datetime", "USD volume",
+  // "USD average", "USD rate", "EUR volume", "EUR average", "EUR rate",
+  // "CNY volume", "CNY average", "CNY rate", "GBP volume", "GBP average",
+  // "GBP rate", "CAD volume", "CAD average", "CAD rate", "PLN volume",
+  // "PLN average", "PLN rate", "JPY volume", "JPY average", "JPY rate",
+  // "RUB volume", "RUB average", "RUB rate", "AUD volume", "AUD average",
+  // "AUD rate", "SEK volume", "SEK average", "SEK rate", "BRL volume",
+  // "BRL average", "BRL rate", "NZD volume", "NZD average", "NZD rate",
+  // "SGD volume", "SGD average", "SGD rate", "ZAR volume", "ZAR average",
+  // "ZAR rate", "NOK volume", "NOK average", "NOK rate", "ILS volume",
+  // "ILS average", "ILS rate", "CHF volume", "CHF average", "CHF rate",
+  // "TRY volume", "TRY average", "TRY rate", "USD global average" };
+
   private static final String[] headers = { "datetime", "USD volume",
       "USD average", "USD rate", "EUR volume", "EUR average", "EUR rate",
       "CNY volume", "CNY average", "CNY rate", "GBP volume", "GBP average",
       "GBP rate", "CAD volume", "CAD average", "CAD rate", "PLN volume",
-      "PLN average", "PLN rate", "JPY volume", "JPY average", "JPY rate",
-      "RUB volume", "RUB average", "RUB rate", "AUD volume", "AUD average",
-      "AUD rate", "SEK volume", "SEK average", "SEK rate", "BRL volume",
-      "BRL average", "BRL rate", "NZD volume", "NZD average", "NZD rate",
-      "SGD volume", "SGD average", "SGD rate", "ZAR volume", "ZAR average",
-      "ZAR rate", "NOK volume", "NOK average", "NOK rate", "ILS volume",
-      "ILS average", "ILS rate", "CHF volume", "CHF average", "CHF rate",
-      "TRY volume", "TRY average", "TRY rate", "USD global average" };
+      "PLN average", "PLN rate", "RUB volume", "RUB average", "RUB rate",
+      "AUD volume", "AUD average", "AUD rate", "SEK volume", "SEK average",
+      "SEK rate", "BRL volume", "BRL average", "BRL rate", "NZD volume",
+      "NZD average", "NZD rate", "SGD volume", "SGD average", "SGD rate",
+      "ZAR volume", "ZAR average", "ZAR rate", "NOK volume", "NOK average",
+      "NOK rate", "ILS volume", "ILS average", "ILS rate", "CHF volume",
+      "CHF average", "CHF rate", "TRY volume", "TRY average", "TRY rate",
+      "HKD volume", "HKD average", "HKD rate", "RON volume", "RON average",
+      "RON rate", "MXN volume", "MXN average", "MXN rate", "USD global average" };
 
   private final int DATETIME_INDEX = Arrays.asList(headers).indexOf("datetime");
 
   private final int USD_VOLUME = Arrays.asList(headers).indexOf("USD volume");
-  private final int USD_AVERAGE = Arrays.asList(headers).indexOf("USD average");
+  private final int USD_AVERAGE = Arrays.asList(headers).indexOf(
+      "USD global average");
 
   private final int EUR_VOLUME = Arrays.asList(headers).indexOf("EUR volume");
   private final int EUR_AVERAGE = Arrays.asList(headers).indexOf("EUR average");

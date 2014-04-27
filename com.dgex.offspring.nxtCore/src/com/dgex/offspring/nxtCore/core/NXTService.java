@@ -6,7 +6,6 @@ import java.util.List;
 import nxt.Account;
 import nxt.Alias;
 import nxt.Block;
-import nxt.BlockchainProcessor;
 import nxt.Constants;
 import nxt.Nxt;
 import nxt.NxtException.ValidationException;
@@ -17,7 +16,6 @@ import nxt.crypto.Crypto;
 import nxt.peer.Peer;
 import nxt.peer.Peers;
 import nxt.util.Convert;
-import nxt.util.Listener;
 
 import org.apache.log4j.Logger;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -250,11 +248,12 @@ public class NXTService implements INxtService {
 
   @Override
   public Transaction createPaymentTransaction(IAccount sender, Long recipient,
-      int amount, short deadline, int fee, Long referencedTransaction)
+      long amountNQT, short deadline, long feeNQT,
+      String referencedTransactionFullHash)
       throws nxt.NxtException.ValidationException, TransactionException {
 
     Transaction transaction = TransactionPayment.create(sender, recipient,
-        amount, deadline, fee, referencedTransaction, this);
+        amountNQT, deadline, feeNQT, referencedTransactionFullHash, this);
 
     broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
         new TransactionHelper(this, transaction));
@@ -264,22 +263,27 @@ public class NXTService implements INxtService {
 
   @Override
   public Transaction createAssignAliasTransaction(IAccount sender,
-      String alias, String uri, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      String alias, String uri, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException {
 
-    return TransactionAssignAlias.create(sender, alias, uri, deadline, fee,
-        referencedTransaction, this);
+    Transaction transaction = TransactionAssignAlias.create(sender, alias, uri,
+        deadline, feeNQT, referencedTransactionFullHash, this);
+
+    broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
+        new TransactionHelper(this, transaction));
+
+    return transaction;
   }
 
   @Override
   public Transaction createSendMessageTransaction(IAccount sender,
-      Long recipient, byte[] message, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      Long recipient, byte[] message, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException {
 
     Transaction transaction = TransactionSendMessage.create(sender, recipient,
-        message, deadline, fee, referencedTransaction, this);
+        message, deadline, feeNQT, referencedTransactionFullHash, this);
 
     broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
         new TransactionHelper(this, transaction));
@@ -289,12 +293,14 @@ public class NXTService implements INxtService {
 
   @Override
   public Transaction createIssueAssetTransaction(IAccount sender, String name,
-      String description, int quantity, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      String description, long quantityQNT, byte decimals, short deadline,
+      long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException {
 
     Transaction transaction = TransactionIssueAsset.create(sender, name,
-        description, quantity, deadline, fee, referencedTransaction, this);
+        description, quantityQNT, decimals, deadline, feeNQT,
+        referencedTransactionFullHash, this);
 
     broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
         new TransactionHelper(this, transaction));
@@ -304,12 +310,13 @@ public class NXTService implements INxtService {
 
   @Override
   public Transaction createPlaceAskOrderTransaction(IAccount sender,
-      long asset, int quantity, long price, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      long asset, long quantityQNT, long priceNQT, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException {
 
     Transaction transaction = TransactionPlaceAskOrder.create(sender, asset,
-        quantity, price, deadline, fee, referencedTransaction, this);
+        quantityQNT, priceNQT, deadline, feeNQT, referencedTransactionFullHash,
+        this);
 
     broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
         new TransactionHelper(this, transaction));
@@ -319,12 +326,13 @@ public class NXTService implements INxtService {
 
   @Override
   public Transaction createPlaceBidOrderTransaction(IAccount sender,
-      long asset, int quantity, long price, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      long asset, long quantityQNT, long priceNQT, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException {
 
     Transaction transaction = TransactionPlaceBidOrder.create(sender, asset,
-        quantity, price, deadline, fee, referencedTransaction, this);
+        quantityQNT, priceNQT, deadline, feeNQT, referencedTransactionFullHash,
+        this);
 
     broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
         new TransactionHelper(this, transaction));
@@ -334,11 +342,12 @@ public class NXTService implements INxtService {
 
   @Override
   public Transaction createCancelAskOrderTransaction(IAccount sender,
-      Long order, short deadline, int fee, Long referencedTransaction)
+      Long order, short deadline, long feeNQT,
+      String referencedTransactionFullHash)
       throws ValidationException, TransactionException {
 
     Transaction transaction = TransactionCancelAskOrder.create(sender, order,
-        deadline, fee, referencedTransaction, this);
+        deadline, feeNQT, referencedTransactionFullHash, this);
 
     broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
         new TransactionHelper(this, transaction));
@@ -348,11 +357,12 @@ public class NXTService implements INxtService {
 
   @Override
   public Transaction createCancelBidOrderTransaction(IAccount sender,
-      Long order, short deadline, int fee, Long referencedTransaction)
+      Long order, short deadline, long feeNQT,
+      String referencedTransactionFullHash)
       throws ValidationException, TransactionException {
 
     Transaction transaction = TransactionCancelBidOrder.create(sender, order,
-        deadline, fee, referencedTransaction, this);
+        deadline, feeNQT, referencedTransactionFullHash, this);
 
     broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
         new TransactionHelper(this, transaction));
@@ -362,12 +372,15 @@ public class NXTService implements INxtService {
 
   @Override
   public Transaction createTransferAssetTransaction(IAccount sender,
-      Long recipient, long asset, int quantity, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      Long recipient, long asset, long quantityQNT, String comment,
+      short deadline,
+      long feeNQT, String referencedTransactionFullHash)
+      throws ValidationException,
       TransactionException {
 
     Transaction transaction = TransactionTransferAsset.create(sender,
-        recipient, asset, quantity, deadline, fee, referencedTransaction, this);
+        recipient, asset, quantityQNT, comment, deadline, feeNQT,
+        referencedTransactionFullHash, this);
 
     broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
         new TransactionHelper(this, transaction));
@@ -382,10 +395,10 @@ public class NXTService implements INxtService {
   }
 
   @Override
-  public Long getBalanceForAccount(String id) {
+  public Long getBalanceForAccountNQT(String id) {
     try {
       Account account = Account.getAccount(Convert.parseUnsignedLong(id));
-      return account.getBalance();
+      return account.getBalanceNQT();
     }
     catch (RuntimeException e) {}
     return null;
@@ -408,7 +421,7 @@ public class NXTService implements INxtService {
 
   @Override
   public int getBlockCount() {
-    return Nxt.getBlockchain().getBlockCount();
+    return Nxt.getBlockchain().getLastBlock().getHeight();
   }
 
   @Override
@@ -465,51 +478,6 @@ public class NXTService implements INxtService {
     catch (NullPointerException ex) {
       return new ArrayList<Trade>();
     }
-  }
-
-  private int smartBlockCount = -1;
-  private int smartTransactionCount = -1;
-  private final boolean blockListenersRegistered = false;
-
-  private void registerBlockListener() {
-    if (blockListenersRegistered)
-      return;
-
-    Nxt.getBlockchainProcessor().addListener(new Listener<Block>() {
-
-      @Override
-      public void notify(Block block) {
-        smartBlockCount++;
-        smartTransactionCount += block.getTransactionIds().size();
-      }
-    }, BlockchainProcessor.Event.BLOCK_PUSHED);
-
-    Nxt.getBlockchainProcessor().addListener(new Listener<Block>() {
-
-      @Override
-      public void notify(Block block) {
-        smartBlockCount--;
-        smartTransactionCount -= block.getTransactionIds().size();
-      }
-    }, BlockchainProcessor.Event.BLOCK_POPPED);
-  }
-
-  @Override
-  public int getSmartBlockCount() {
-    if (smartBlockCount == -1) {
-      smartBlockCount = Nxt.getBlockchain().getBlockCount();
-      registerBlockListener();
-    }
-    return smartBlockCount;
-  }
-
-  @Override
-  public int getSmartTransactionCount() {
-    if (smartTransactionCount == -1) {
-      smartTransactionCount = Nxt.getBlockchain().getTransactionCount();
-      registerBlockListener();
-    }
-    return smartTransactionCount;
   }
 
 }

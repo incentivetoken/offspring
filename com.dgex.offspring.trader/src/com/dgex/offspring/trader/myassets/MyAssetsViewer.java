@@ -71,20 +71,20 @@ public class MyAssetsViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Long id = (Long) element;
-          if (account.getAssetBalances() != null)
-            return Integer.valueOf(account.getAssetBalances().get(id));
+          if (account.getAssetBalancesQNT() != null)
+            return account.getAssetBalancesQNT().get(id);
           return Long.valueOf(0l);
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -97,19 +97,19 @@ public class MyAssetsViewer extends GenerericTableViewer {
           Long id = (Long) element;
           Asset asset = Asset.getAsset(id);
           if (asset != null)
-            return Integer.valueOf(asset.getQuantity());
-          return Integer.valueOf(0);
+            return Long.valueOf(asset.getQuantityQNT());
+          return Long.valueOf(0);
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -196,7 +196,7 @@ public class MyAssetsViewer extends GenerericTableViewer {
         return new Object[0];
       }
 
-      Map<Long, Integer> balances = account.getAssetBalances();
+      Map<Long, Long> balances = account.getAssetBalancesQNT();
       if (balances == null) {
         return new Object[0];
       }

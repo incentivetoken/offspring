@@ -8,9 +8,9 @@ public interface ITransaction {
 
   public Transaction getNative();
 
-  public int getAmount();
+  public long getAmountNQT();
 
-  public int getFee();
+  public long getFeeNQT();
 
   public String getStringId();
 
@@ -20,13 +20,13 @@ public interface ITransaction {
 
   public Date getTimestamp();
 
-  public long getAmountReceived(Long accountId);
+  public long getAmountReceivedNQT(Long accountId);
 
-  public long getAmountSpend(Long accountId);
+  public long getAmountSpendNQT(Long accountId);
 
-  public long getFeePaid(Long accountId);
+  public long getFeePaidNQT(Long accountId);
 
-  public long getRunningTotal();
+  public long getRunningTotalNQT();
 
   public int getNumberOfConfirmations();
 

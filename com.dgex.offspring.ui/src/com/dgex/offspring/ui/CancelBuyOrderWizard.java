@@ -1,5 +1,7 @@
 package com.dgex.offspring.ui;
 
+import nxt.Constants;
+
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
@@ -227,7 +229,7 @@ public class CancelBuyOrderWizard extends GenericTransactionWizard {
           message[0] = "This is a readonly account";
           return false;
         }
-        if (user.getAccount().getBalance() < 1000) {
+        if (user.getAccount().getBalanceNQT() < (1000 * Constants.ONE_NXT)) {
           message[0] = "Insufficient balance";
           return false;
         }

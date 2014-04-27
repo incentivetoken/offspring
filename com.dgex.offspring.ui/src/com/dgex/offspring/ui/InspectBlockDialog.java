@@ -168,8 +168,8 @@ public class InspectBlockDialog extends TitleAreaDialog {
     baseTargetLabel.setText(Long.toString(block.getBaseTarget()));
     heightLabel.setText(Integer.toString(block.getHeight()));
     difficultyLabel.setText(block.getCumulativeDifficulty().toString());
-    amountLabel.setText(Integer.toString(block.getTotalAmount()));
-    feeLabel.setText(Integer.toString(block.getTotalFee()));
+    amountLabel.setText(Convert.toNXT(block.getTotalAmountNQT()));
+    feeLabel.setText(Convert.toNXT(block.getTotalFeeNQT()));
     hashText.setText(Convert.toHexString(block.getPayloadHash()));
     generationSignatureText.setText(Convert.toHexString(block
         .getGenerationSignature()));

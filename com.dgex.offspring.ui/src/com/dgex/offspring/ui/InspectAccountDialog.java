@@ -128,10 +128,10 @@ public class InspectAccountDialog extends TitleAreaDialog {
     updatePaymentButtons();
 
     Account account = Account.getAccount(accountId);
-    Long balance = account == null ? 0l : (long) account.getEffectiveBalance();
+    Long balanceNQT = account == null ? 0l : (long) account.getBalanceNQT();
 
     setTitle("Account " + Convert.toUnsignedLong(accountId));
-    setMessage("Balance " + Long.toString(balance));
+    setMessage("Balance " + Convert.toNXT(balanceNQT));
 
     if (tabFolder != null) {
       tabFolder.dispose();
@@ -154,7 +154,7 @@ public class InspectAccountDialog extends TitleAreaDialog {
   private void updatePaymentButtons() {
     IUser user = userService.getActiveUser();
     boolean enabled = !user.getAccount().isReadOnly()
-        && user.getAccount().getBalance() > 0;
+        && user.getAccount().getBalanceNQT() > 0;
 
     sendMoneyButton.setEnabled(enabled);
     sendMessageButton.setEnabled(enabled);

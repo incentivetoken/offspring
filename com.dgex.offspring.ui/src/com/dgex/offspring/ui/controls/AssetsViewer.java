@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Composite;
 import com.dgex.offspring.config.CompareMe;
 import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.table.GenerericTableViewer;
 import com.dgex.offspring.swt.table.GenericComparator;
 import com.dgex.offspring.swt.table.GenericTableColumnBuilder;
@@ -65,20 +66,21 @@ public class AssetsViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Long id = (Long) element;
-          if (account.getAssetBalances() != null)
-            return Integer.valueOf(account.getAssetBalances().get(id));
+          if (account.getAssetBalancesQNT() != null) {
+            return account.getAssetBalancesQNT().get(id);
+          }
           return Long.valueOf(0l);
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils
+              .quantToString((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -91,19 +93,19 @@ public class AssetsViewer extends GenerericTableViewer {
           Long id = (Long) element;
           Asset asset = Asset.getAsset(id);
           if (asset != null)
-            return Integer.valueOf(asset.getQuantity());
+            return Long.valueOf(asset.getQuantityQNT());
           return Long.valueOf(0l);
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils
+              .quantToString((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -219,7 +221,10 @@ public class AssetsViewer extends GenerericTableViewer {
       // Transaction t = transaction.getNative();
       // elements.add(t.getId());
       // }
-      List<Long> elements = new ArrayList<Long>(account.getAssetBalances()
+      if (account.getAssetBalancesQNT() == null)
+        return new Object[0];
+
+      List<Long> elements = new ArrayList<Long>(account.getAssetBalancesQNT()
           .keySet());
       return elements.toArray(new Object[elements.size()]);
     }

@@ -70,6 +70,8 @@ public class LifeCycleManager {
     if (loginDialog.open() != Window.OK)
       System.exit(0);
 
+    /* Only allow upgrade after login */
+
     /* Must re-initialize if user selected to use test net (write new config) */
     if (Config.nxtIsTestNet) {
       Config.initialize();

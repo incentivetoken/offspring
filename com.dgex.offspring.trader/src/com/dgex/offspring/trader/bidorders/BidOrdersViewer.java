@@ -44,20 +44,30 @@ public class BidOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
-          Double price = Double.valueOf((Long.valueOf(order.getPrice())
-              .doubleValue() / 100));
-          return Double.valueOf(price * order.getQuantity());
+
+          try {
+            long total = Convert.safeMultiply(order.getPriceNQT(),
+                order.getQuantityQNT());
+            return Long.valueOf(total);
+          }
+          catch (ArithmeticException e) {
+            return null;
+          }
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = formatDouble
-              .format(getCellValue(element));
+          Long total = (Long) getCellValue(element);
+          if (total == null)
+            data[ICellDataProvider.TEXT] = "-";
+          else
+            data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Double) v1, (Double) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -68,18 +78,18 @@ public class BidOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
-          return Double.valueOf((Long.valueOf(order.getPrice()).doubleValue() / 100));
+          return Long.valueOf(order.getPriceNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = formatDouble
-              .format(getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Double) v1, (Double) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -90,13 +100,13 @@ public class BidOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
-          return Long.valueOf(order.getQuantity());
+          return Long.valueOf(order.getQuantityQNT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Long
-              .toString((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Convert
+              .toNXT((Long) getCellValue(element));
         }
 
         @Override

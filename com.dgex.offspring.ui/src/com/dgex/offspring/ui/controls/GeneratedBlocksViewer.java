@@ -20,6 +20,7 @@ import com.dgex.offspring.config.Formatter;
 import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.nxtCore.core.BlockDB;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.table.GenerericTableViewer;
 import com.dgex.offspring.swt.table.GenericComparator;
 import com.dgex.offspring.swt.table.GenericTableColumnBuilder;
@@ -154,18 +155,18 @@ public class GeneratedBlocksViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Block block = (Block) element;
-          return Integer.valueOf(block.getTotalAmount());
+          return Long.valueOf(block.getTotalAmountNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils
+              .quantToString((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 
@@ -175,18 +176,18 @@ public class GeneratedBlocksViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Block block = (Block) element;
-          return Integer.valueOf(block.getTotalFee());
+          return Long.valueOf(block.getTotalFeeNQT());
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Integer
-              .toString((Integer) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils
+              .quantToString((Long) getCellValue(element));
         }
 
         @Override
         public int compare(Object v1, Object v2) {
-          return CompareMe.compare((Integer) v1, (Integer) v2);
+          return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
 

@@ -233,7 +233,8 @@ public interface INxtService {
    * @throws nxt.NxtException.ValidationException
    */
   public Transaction createPaymentTransaction(IAccount sender, Long recipient,
-      int amount, short deadline, int fee, Long referencedTransaction)
+      long amountNQT, short deadline, long feeNQT,
+      String referencedTransactionFullHash)
       throws TransactionException, ValidationException;
 
   /**
@@ -250,8 +251,8 @@ public interface INxtService {
    * @throws ValidationException
    */
   public Transaction createAssignAliasTransaction(IAccount sender,
-      String alias, String uri, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      String alias, String uri, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException;
 
   /**
@@ -268,8 +269,8 @@ public interface INxtService {
    * @throws TransactionException
    */
   public Transaction createSendMessageTransaction(IAccount sender,
-      Long recipient, byte[] messageValue, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      Long recipient, byte[] messageValue, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException;
 
   /**
@@ -285,8 +286,9 @@ public interface INxtService {
    * @return
    */
   public Transaction createIssueAssetTransaction(IAccount sender, String name,
-      String description, int quantity, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      String description, long quantityQNT, byte decimals, short deadline,
+      long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException;
 
   /**
@@ -304,8 +306,8 @@ public interface INxtService {
    * @throws ValidationException
    */
   public Transaction createPlaceAskOrderTransaction(IAccount sender,
-      long asset, int quantity, long price, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      long asset, long quantityQNT, long priceNQT, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException;
 
   /**
@@ -324,8 +326,8 @@ public interface INxtService {
    * @throws ValidationException
    */
   public Transaction createPlaceBidOrderTransaction(IAccount sender,
-      long asset, int quantity, long price, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      long asset, long quantityQNT, long priceNQT, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
       TransactionException;
 
   /**
@@ -343,8 +345,10 @@ public interface INxtService {
    * @throws ValidationException
    */
   public Transaction createTransferAssetTransaction(IAccount sender,
-      Long recipient, long asset, int quantity, short deadline, int fee,
-      Long referencedTransaction) throws ValidationException,
+      Long recipient, long asset, long quantityNQT, String comment,
+      short deadline,
+      long feeNQT, String referencedTransactionFullHash)
+      throws ValidationException,
       TransactionException;
 
   /**
@@ -360,7 +364,8 @@ public interface INxtService {
    * @throws TransactionException
    */
   public Transaction createCancelAskOrderTransaction(IAccount sender,
-      Long order, short deadline, int fee, Long referencedTransaction)
+      Long order, short deadline, long feeNQT,
+      String referencedTransactionFullHash)
       throws ValidationException, TransactionException;
 
   /**
@@ -376,7 +381,8 @@ public interface INxtService {
    * @throws TransactionException
    */
   public Transaction createCancelBidOrderTransaction(IAccount sender,
-      Long order, short deadline, int fee, Long referencedTransaction)
+      Long order, short deadline, long feeNQT,
+      String referencedTransactionFullHash)
       throws ValidationException, TransactionException;
 
   /**
