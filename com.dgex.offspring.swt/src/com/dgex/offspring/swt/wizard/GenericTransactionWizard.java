@@ -147,7 +147,7 @@ public class GenericTransactionWizard extends Wizard {
       /* status label */
       new Label(composite, SWT.NONE);
       final Label statusLabel = new Label(composite, SWT.NONE);
-      statusLabel.setText("TRANSACTION NOT SEND");
+      statusLabel.setText("TRANSACTION NOT SENT");
       statusLabel.setFont(JFaceResources.getFontRegistry().getBold(""));
 
       sendButton.addSelectionListener(new SelectionAdapter() {
@@ -163,7 +163,7 @@ public class GenericTransactionWizard extends Wizard {
               String id = transaction.sendTransaction(message);
               if (id != null) {
                 idText.setText(id);
-                statusLabel.setText("TRANSACTION SEND SUCCESS");
+                statusLabel.setText("TRANSACTION SENT SUCCESSFULLY");
 
                 can_finish = true;
                 try {
