@@ -4,4 +4,8 @@ Bundle-Name: Bouncycastle
 Bundle-SymbolicName: org.bouncycastle
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Require-Bundle: org.junit
+Export-Package: org.bouncycastle.crypto,
+ org.bouncycastle.crypto.engines,
+ org.bouncycastle.crypto.modes,
+ org.bouncycastle.crypto.paddings,
+ org.bouncycastle.crypto.params
