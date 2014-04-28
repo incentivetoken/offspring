@@ -28,11 +28,6 @@ public class TransactionPlaceBidOrder extends TransactionBase {
     validateQuantityQNT(quantityQNT);
     validateAsset(asset);
 
-    Long assetBalance = account.getUnconfirmedAssetBalanceQNT(asset);
-    if (assetBalance == null || quantityQNT > assetBalance) {
-      throw new TransactionException(TransactionException.NOT_ENOUGH_ASSETS);
-    }
-
     try {
       if (Convert.safeAdd(feeNQT, Convert.safeMultiply(priceNQT, quantityQNT)) > account
           .getUnconfirmedBalanceNQT()) {

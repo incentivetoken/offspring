@@ -156,7 +156,7 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
     @Override
     public Control createControl(Composite parent) {
       textQuantity = new Text(parent, SWT.BORDER);
-      textQuantity.setText(Utils.quantToString(presetQuantityQNT));
+      textQuantity.setText(Long.toString(presetQuantityQNT));
       textQuantity.addModifyListener(new ModifyListener() {
 
         @Override
@@ -296,9 +296,11 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
           return t.getStringId();
         }
         catch (ValidationException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         catch (TransactionException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         return null;

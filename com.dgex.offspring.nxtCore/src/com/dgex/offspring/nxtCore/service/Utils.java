@@ -1,7 +1,6 @@
 package com.dgex.offspring.nxtCore.service;
 
 import nxt.Constants;
-import nxt.util.Convert;
 
 public class Utils {
 
@@ -84,7 +83,8 @@ public class Utils {
    */
   public static Long parseQNT(String quantString) {
     try {
-      Long quant = Convert.parseNXT(quantString);
+      Long quant = parseStringFraction(quantString, 8,
+          Constants.MAX_BALANCE_NXT);
       return quant;
     }
     catch (Exception e) {
@@ -103,5 +103,30 @@ public class Utils {
     catch (Exception e) {
       return null;
     }
+  }
+
+  private static long parseStringFraction(String value, int decimals,
+      long maxValue) {
+    String[] s = value.trim().split("\\.");
+    if (s.length == 0 || s.length > 2) {
+      throw new NumberFormatException("Invalid number: " + value);
+    }
+    long wholePart = Long.parseLong(s[0]);
+    if (wholePart > maxValue) {
+      throw new IllegalArgumentException(
+          "Whole part of value exceeds maximum possible");
+    }
+    if (s.length == 1) {
+      return wholePart * multipliers[decimals];
+    }
+    long fractionalPart = Long.parseLong(s[1]);
+    if (fractionalPart >= multipliers[decimals] || s[1].length() > decimals) {
+      throw new IllegalArgumentException(
+          "Fractional part exceeds maximum allowed divisibility");
+    }
+    for (int i = s[1].length(); i < decimals; i++) {
+      fractionalPart *= 10;
+    }
+    return wholePart * multipliers[decimals] + fractionalPart;
   }
 }

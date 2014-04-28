@@ -99,6 +99,12 @@ public class NXTService implements INxtService {
       return;
     }
 
+    /*
+     * Initialize the Peer listeners (this used to cause a crash since Peer.java
+     * is not safe to access before Nxt.init() is called)
+     */
+    listeners.initPeerListeners();
+
     logger.info("NXT init END");
 
     broker.post(INxtService.TOPIC_BLOCK_SCANNER_FINISHED, getBlockCount());
@@ -155,6 +161,7 @@ public class NXTService implements INxtService {
   public void setScanning(boolean scanning) {
     this.scanning = scanning;
   }
+
 
   @Override
   public List<Transaction> getPendingTransactions() {
@@ -421,7 +428,7 @@ public class NXTService implements INxtService {
 
   @Override
   public int getBlockCount() {
-    return Nxt.getBlockchain().getLastBlock().getHeight();
+    return Nxt.getBlockchain().getHeight();
   }
 
   @Override

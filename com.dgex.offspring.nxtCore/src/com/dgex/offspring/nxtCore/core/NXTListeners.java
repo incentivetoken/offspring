@@ -348,6 +348,11 @@ public class NXTListeners {
     Account.addListener(accountUpdateUnconfirmedBalance,
         Account.Event.UNCONFIRMED_BALANCE);
 
+    Logger.addExceptionListener(logException, Logger.Event.EXCEPTION);
+    Logger.addMessageListener(logMessage, Logger.Event.MESSAGE);
+  }
+
+  public void initPeerListeners() {
     Peers.addListener(addActivePeer, Peers.Event.ADDED_ACTIVE_PEER);
     Peers.addListener(blacklistPeer, Peers.Event.BLACKLIST);
     Peers.addListener(changedActivePeer, Peers.Event.CHANGED_ACTIVE_PEER);
@@ -357,9 +362,6 @@ public class NXTListeners {
     Peers.addListener(unblacklistPeer, Peers.Event.UNBLACKLIST);
     Peers.addListener(updateUploadedVolume, Peers.Event.UPLOADED_VOLUME);
     Peers.addListener(peerUpdateWeight, Peers.Event.WEIGHT);
-
-    Logger.addExceptionListener(logException, Logger.Event.EXCEPTION);
-    Logger.addMessageListener(logMessage, Logger.Event.MESSAGE);
   }
 
   public void dispose() {

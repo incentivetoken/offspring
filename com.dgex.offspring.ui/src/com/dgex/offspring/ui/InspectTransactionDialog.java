@@ -36,6 +36,7 @@ import org.json.simple.JSONObject;
 import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.config.JSonWriter;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.ui.controls.TransactionTypes;
 import com.dgex.offspring.user.service.IUserService;
 
@@ -170,8 +171,8 @@ public class InspectTransactionDialog extends TitleAreaDialog {
         + Convert.toUnsignedLong(transaction.getSenderId()) + "</A>");
     receiverLink.setText("<A>"
         + Convert.toUnsignedLong(transaction.getRecipientId()) + "</A>");
-    amountLabel.setText(Convert.toNXT(transaction.getAmountNQT()));
-    feeLabel.setText(Convert.toNXT(transaction.getFeeNQT()));
+    amountLabel.setText(Utils.quantToString(transaction.getAmountNQT()));
+    feeLabel.setText(Utils.quantToString(transaction.getFeeNQT()));
     heightLabel.setText(Integer.toString(transaction.getHeight()));
     deadlineLabel.setText(Integer.toString(transaction.getDeadline()));
     hashText.setText(transaction.getHash());

@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.ITransaction;
+import com.dgex.offspring.nxtCore.service.Utils;
 
 public class TransactionHelper implements ITransaction {
 
@@ -69,8 +70,9 @@ public class TransactionHelper implements ITransaction {
   @Override
   public String toString() {
     return new StringBuilder().append("Txn ").append(getStringId())
-        .append(" amount=").append(Convert.toNXT(getAmountNQT())).append(" fee=")
-.append(Convert.toNXT(getFeeNQT())).append(" sender=")
+        .append(" amount=").append(Utils.quantToString(getAmountNQT()))
+        .append(" fee=").append(Utils.quantToString(getFeeNQT()))
+        .append(" sender=")
         .append(getSender().getStringId())
         .append(" receiver=").append(getReceiver().getStringId())
         .append(" timestamp=").append(transaction.getTimestamp())
@@ -179,7 +181,7 @@ public class TransactionHelper implements ITransaction {
   @Override
   public int getNumberOfConfirmations() {
     if (nxt.getPendingTransactions().indexOf(transaction) == -1) {
-      return Nxt.getBlockchain().getLastBlock().getHeight()
+      return Nxt.getBlockchain().getHeight()
           - transaction.getHeight();
     }
     return 0;

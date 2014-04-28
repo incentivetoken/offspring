@@ -74,8 +74,7 @@ public class PerMinute24HSliding extends RateProvider {
   private final int DATETIME_INDEX = Arrays.asList(headers).indexOf("datetime");
 
   private final int USD_VOLUME = Arrays.asList(headers).indexOf("USD volume");
-  private final int USD_AVERAGE = Arrays.asList(headers).indexOf(
-      "USD global average");
+  private final int USD_AVERAGE = Arrays.asList(headers).indexOf("USD average");
 
   private final int EUR_VOLUME = Arrays.asList(headers).indexOf("EUR volume");
   private final int EUR_AVERAGE = Arrays.asList(headers).indexOf("EUR average");
@@ -95,14 +94,16 @@ public class PerMinute24HSliding extends RateProvider {
       { Currencies.EUR, EUR_VOLUME, EUR_AVERAGE },
       { Currencies.CNY, CNY_VOLUME, CNY_AVERAGE },
       { Currencies.GBP, GBP_VOLUME, GBP_AVERAGE },
-      { Currencies.JPY, JPY_VOLUME, JPY_AVERAGE }, };
+  // { Currencies.JPY, JPY_VOLUME, JPY_AVERAGE },
+  };
 
   private static final ICurrencyPair[] supportedPairs = {
       Currencies.USD.getPair(Currencies.BTC),
       Currencies.EUR.getPair(Currencies.BTC),
       Currencies.CNY.getPair(Currencies.BTC),
       Currencies.GBP.getPair(Currencies.BTC),
-      Currencies.JPY.getPair(Currencies.BTC), };
+  // Currencies.JPY.getPair(Currencies.BTC),
+  };
 
   @Override
   public ICurrencyPair[] getSupportedPairs() {

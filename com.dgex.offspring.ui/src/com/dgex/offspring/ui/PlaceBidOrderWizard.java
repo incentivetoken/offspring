@@ -311,9 +311,16 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
       /* calculate the total */
       Long quantityQNT = (Long) fieldQuantity.getValue();
       if (quantityQNT != null) {
-        String txt = Utils.quantToString(quantityQNT);
-        labelPriceTotalReadonly.setText(txt);
-        labelPriceTotal.setText(txt);
+        try {
+          long totalPriceNQT = Convert.safeMultiply(quantityQNT, priceNQT);
+          String txt = Utils.quantToString(totalPriceNQT);
+          labelPriceTotalReadonly.setText(txt);
+          labelPriceTotal.setText(txt);
+        }
+        catch (ArithmeticException e) {
+          labelPriceTotalReadonly.setText("-");
+          labelPriceTotal.setText("-");
+        }
       }
       return true;
     }
@@ -393,7 +400,7 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
       public String sendTransaction(String[] message) {
         IAccount sender = user.getAccount();
         Asset asset = (Asset) fieldAsset.getValue();
-        long quantityQNT = (int) fieldQuantity.getValue();
+        long quantityQNT = (long) fieldQuantity.getValue();
         long priceNQT = (long) fieldPrice.getValue(); // price is in cents
 
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
@@ -412,9 +419,11 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
           return t.getStringId();
         }
         catch (ValidationException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         catch (TransactionException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         return null;

@@ -50,7 +50,7 @@ public class MessagingTreeViewer extends GenerericTreeViewer {
 
   /* Returns TRUE for messsage send and FALSE for message received */
   final IGenericTableColumn columnMain = new GenericTableColumnBuilder(" ")
-      .align(SWT.LEFT).textExtent("###############################")
+      .align(SWT.LEFT)
       .provider(new ICellDataProvider() {
 
         @Override

@@ -1,25 +1,45 @@
 package com.dgex.offspring.ui.messaging;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
+import java.security.SecureRandom;
 
+import nxt.crypto.Crypto;
 import nxt.crypto.MyCurve25519;
 import nxt.crypto.XoredData;
 
 import org.apache.log4j.Logger;
+import org.bouncycastle.crypto.CipherParameters;
+import org.bouncycastle.crypto.DataLengthException;
+import org.bouncycastle.crypto.InvalidCipherTextException;
+import org.bouncycastle.crypto.engines.AESEngine;
+import org.bouncycastle.crypto.modes.CBCBlockCipher;
+import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
+import org.bouncycastle.crypto.params.KeyParameter;
+import org.bouncycastle.crypto.params.ParametersWithIV;
 
 import com.dgex.offspring.config.Config;
 
 public class MessageCrypto {
 
+  // About Using SHA1 for SecureRandom..
+  // http://csrc.nist.gov/publications/nistpubs/800-131A/sp800-131A.pdf
+  //
+  // ...
+  // From January 1, 2011 through December 31, 2013, the use of SHA-1 is
+  // deprecated for digital signature generation. The user must accept risk when
+  // SHA-1 is used, particularly when approaching the December 31, 2013 upper
+  // limit.
+  //
+  // ...
+  // For all other hash function applications, the use of SHA-1 is acceptable.
+  // The other applications include HMAC, Key Derivation Functions (KDFs),
+  // Random Number Generation (RNGs and RBGs), and hash-only applications (e.g.,
+  // hashing passwords and using SHA-1 to compute a checksum, such as the
+  // approved integrity technique specified in Section 4.6.1 of [FIPS 140-2]).
+
   static Logger logger = Logger.getLogger(MessageCrypto.class);
-
-  /* Encrypted messages start with this number */
-  public static byte[] MAGIC_ENCRYPTED_MESSAGE_NUMBER = new byte[] { 0x42,
-      0x45, 0x4c, 0x4c, 0x41, 0x4c, 0x55, 0x56 };
-
-  /* Non encrypted messages start with this number */
-  public static byte[] MAGIC_UNENCRYPTED_MESSAGE_NUMBER = new byte[] { 0x4d,
-      0x41, 0x52, 0x45, 0x4c, 0x55, 0x56 };
 
   // public static boolean test(String secretPhrase, byte[] theirPublicKey)
   // throws UnsupportedEncodingException {
@@ -69,27 +89,81 @@ public class MessageCrypto {
    * @return
    * @throws UnsupportedEncodingException
    */
-  public static byte[] encrypt(String plaintext, String secretPhrase,
-      byte[] theirPublicKey) throws UnsupportedEncodingException {
-    
-    byte[] bytes = plaintext.getBytes("UTF-8");
-    byte[] myPrivateKey = MyCurve25519.getPrivateKey(secretPhrase);
-    
-    XoredData xored = XoredData.encrypt(bytes, myPrivateKey, theirPublicKey);
 
-    byte[] magic = Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER;
-    byte[] nonce = xored.getNonce();
-    byte[] data = xored.getData();
-    byte[] message = new byte[magic.length + nonce.length + data.length];
+  /* No new messages should be encrypted with XoredData */
+
+  // public static byte[] encrypt(String plaintext, String secretPhrase,
+  // byte[] theirPublicKey) throws UnsupportedEncodingException {
+  //
+  // byte[] bytes = plaintext.getBytes("UTF-8");
+  // byte[] myPrivateKey = MyCurve25519.getPrivateKey(secretPhrase);
+  //
+  // XoredData xored = XoredData.encrypt(bytes, myPrivateKey, theirPublicKey);
+  //
+  // byte[] magic = Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_XOR;
+  // byte[] nonce = xored.getNonce();
+  // byte[] data = xored.getData();
+  // byte[] message = new byte[magic.length + nonce.length + data.length];
+  //
+  // System.arraycopy(magic, 0, message, 0, magic.length);
+  // System.arraycopy(nonce, 0, message, magic.length, nonce.length);
+  // System
+  // .arraycopy(data, 0, message, nonce.length + magic.length, data.length);
+  //
+  // return message;
+  // }
+  
+  /**
+   * Encrypt a clear text smagictring for use in a message.
+   * 
+   * @param plaintext
+   * @param secretPhrase
+   *          String
+   * @param theirPublicKey
+   * @return
+   * @throws GeneralSecurityException
+   * @throws IOException
+   * @throws InvalidCipherTextException
+   * @throws IllegalStateException
+   * @throws DataLengthException
+   */
+  public static byte[] encryptAES(String plaintext, String secretPhrase,
+      byte[] theirPublicKey) throws GeneralSecurityException, IOException,
+      DataLengthException, IllegalStateException, InvalidCipherTextException {
+
+    byte[] myPrivateKey = MyCurve25519.getPrivateKey(secretPhrase);
+
+    byte[] dhSharedSecret = new byte[32];
+    MyCurve25519.curve(dhSharedSecret, myPrivateKey, theirPublicKey);
+    byte[] key = Crypto.sha256().digest(dhSharedSecret);
+
+    byte[] iv = new byte[16];
+    SecureRandom.getInstance("SHA1PRNG", "SUN").nextBytes(iv);
+
+    PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(
+        new CBCBlockCipher(new AESEngine()));
+
+    CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(key), iv);
+    aes.init(true, ivAndKey);
+
+    byte[] plainTextBytes = plaintext.getBytes("UTF-8");
+
+    byte[] output = new byte[aes.getOutputSize(plainTextBytes.length)];
+    int len = aes.processBytes(plainTextBytes, 0, plainTextBytes.length,
+        output, 0);
+    aes.doFinal(output, len);
+
+    byte[] magic = Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_AES;
+    byte[] message = new byte[magic.length + iv.length + output.length];
 
     System.arraycopy(magic, 0, message, 0, magic.length);
-    System.arraycopy(nonce, 0, message, magic.length, nonce.length);
-    System
-        .arraycopy(data, 0, message, nonce.length + magic.length, data.length);
+    System.arraycopy(iv, 0, message, magic.length, iv.length);
+    System.arraycopy(output, 0, message, iv.length + magic.length,
+        output.length);
 
     return message;
   }
-  
+
   /**
    * Decrypts an encrypted string
    * 
@@ -98,17 +172,37 @@ public class MessageCrypto {
    * @param theirPublicKey
    * @return
    * @throws UnsupportedEncodingException
+   * @throws GeneralSecurityException
+   * @throws InvalidCipherTextException
+   * @throws IllegalStateException
+   * @throws DataLengthException
    */
   public static String decrypt(byte[] bytes, String secretPhrase,
+      byte[] theirPublicKey) throws UnsupportedEncodingException,
+      GeneralSecurityException, DataLengthException, IllegalStateException,
+      InvalidCipherTextException {
+
+    /* XOR encrypted */
+    if (startsWith(bytes, Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_XOR)) {
+      return decryptXOR(bytes, secretPhrase, theirPublicKey);
+    }
+
+    /* AES encrypted messages */
+    else if (startsWith(bytes, Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_AES)) {
+      return decryptAES(bytes, secretPhrase, theirPublicKey);
+    }
+
+    throw new RuntimeException(
+        "Ciphertext does not start with a supported magic number");
+  }
+
+  public static String decryptXOR(byte[] bytes, String secretPhrase,
       byte[] theirPublicKey) throws UnsupportedEncodingException {
-    
+
     byte[] mykey = MyCurve25519.getPrivateKey(secretPhrase);
-    byte[] magic = new byte[Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER.length];
+    byte[] magic = new byte[Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_XOR.length];
     byte[] nonce = new byte[32];
     byte[] data = new byte[bytes.length - magic.length - nonce.length];
-    
-    if (!startsWith(bytes, Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER))
-      throw new RuntimeException("Ciphertext does not start with magic number");
     
     getBytes(bytes, 0, magic.length, magic, 0);
     getBytes(bytes, magic.length, magic.length + nonce.length, nonce, 0);
@@ -120,8 +214,61 @@ public class MessageCrypto {
     return new String(plainText, "UTF-8");
   }
   
+  /**
+   * Decrypts an encrypted string
+   * 
+   * @param bytes
+   * @param secretPhrase
+   * @param theirPublicKey
+   * @return
+   * @throws UnsupportedEncodingException
+   * @throws GeneralSecurityException
+   * @throws InvalidCipherTextException
+   * @throws IllegalStateException
+   * @throws DataLengthException
+   */
+  public static String decryptAES(byte[] bytes, String secretPhrase,
+      byte[] theirPublicKey) throws GeneralSecurityException,
+      UnsupportedEncodingException, DataLengthException, IllegalStateException,
+      InvalidCipherTextException {
+
+    if (!startsWith(bytes, Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_AES))
+      throw new RuntimeException("Ciphertext does not start with magic number");
+
+    byte[] magic = new byte[Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_AES.length];
+    byte[] iv = new byte[16];
+    byte[] ciphertext = new byte[bytes.length - magic.length - iv.length];
+
+    if (ciphertext.length <= 0)
+      throw new RuntimeException("Message length invalid");
+
+    getBytes(bytes, 0, magic.length, magic, 0);
+    getBytes(bytes, magic.length, magic.length + iv.length, iv, 0);
+    getBytes(bytes, magic.length + iv.length, magic.length + iv.length
+        + ciphertext.length, ciphertext, 0);
+
+    byte[] mykey = MyCurve25519.getPrivateKey(secretPhrase);
+    byte[] dhSharedSecret = new byte[32];
+    MyCurve25519.curve(dhSharedSecret, mykey, theirPublicKey);
+
+    byte[] key = Crypto.sha256().digest(dhSharedSecret);
+
+    PaddedBufferedBlockCipher aes = new PaddedBufferedBlockCipher(
+        new CBCBlockCipher(new AESEngine()));
+
+    CipherParameters ivAndKey = new ParametersWithIV(new KeyParameter(key), iv);
+    aes.init(false, ivAndKey);
+
+    byte[] plainText = new byte[aes.getOutputSize(ciphertext.length)];
+    int len = aes.processBytes(ciphertext, 0, ciphertext.length, plainText, 0);
+    aes.doFinal(plainText, len);
+
+    return new String(plainText, "UTF-8");
+  }
+
   public static boolean startsWithMagicEncryptedByte(byte[] bytes) {
-    return startsWith(bytes, Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER);
+    return startsWith(bytes, Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_XOR)
+        || startsWith(bytes, Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_AES);
   }
 
   public static boolean startsWithMagicUnEncryptedByte(byte[] bytes) {
@@ -163,6 +310,4 @@ public class MessageCrypto {
     System
         .arraycopy(source, srcBegin, destination, dstBegin, srcEnd - srcBegin);
   }
-
-
 }

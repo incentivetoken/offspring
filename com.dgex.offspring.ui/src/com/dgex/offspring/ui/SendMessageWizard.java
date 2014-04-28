@@ -1,6 +1,8 @@
 package com.dgex.offspring.ui;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 
 import nxt.Account;
 import nxt.Constants;
@@ -10,6 +12,8 @@ import nxt.Transaction;
 import nxt.util.Convert;
 
 import org.apache.log4j.Logger;
+import org.bouncycastle.crypto.DataLengthException;
+import org.bouncycastle.crypto.InvalidCipherTextException;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -267,7 +271,7 @@ public class SendMessageWizard extends GenericTransactionWizard {
       try {
         int length = text.getBytes("UTF-8").length;
         if ((Boolean) fieldEncrypt.getValue()) {
-          length += Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER.length + 32;
+          length += Config.MAGIC_ENCRYPTED_MESSAGE_NUMBER_XOR.length + 32;
         }
         else {
           length += Config.MAGIC_UNENCRYPTED_MESSAGE_NUMBER.length;
@@ -325,7 +329,8 @@ public class SendMessageWizard extends GenericTransactionWizard {
           if (encrypt) {
             byte[] theirPublicKey = Account.getAccount(recipient)
                 .getPublicKey();
-            data = MessageCrypto.encrypt(messageValue, sender.getPrivateKey(),
+            data = MessageCrypto.encryptAES(messageValue,
+                sender.getPrivateKey(),
                 theirPublicKey);
           }
           else {
@@ -337,20 +342,47 @@ public class SendMessageWizard extends GenericTransactionWizard {
             System.arraycopy(bytes, 0, data, magic.length, bytes.length);
           }
 
-          Transaction transaction = Nxt.getBlockchain().getTransaction(
+          String transactionFullHash = null;
+          if (referencedId != null) {
+            Transaction transaction = Nxt.getBlockchain().getTransaction(
               referencedId);
+            transactionFullHash = transaction.getFullHash();
+          }
           
           Transaction t = nxt.createSendMessageTransaction(sender, recipient,
-              data, deadline, feeNQT, transaction.getFullHash());
+              data, deadline, feeNQT, transactionFullHash);
           return t.getStringId();
         }
         catch (TransactionException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         catch (ValidationException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         catch (UnsupportedEncodingException e) {
+          e.printStackTrace();
+          message[0] = e.getMessage();
+        }
+        catch (GeneralSecurityException e) {
+          e.printStackTrace();
+          message[0] = e.getMessage();
+        }
+        catch (IOException e) {
+          e.printStackTrace();
+          message[0] = e.getMessage();
+        }
+        catch (DataLengthException e) {
+          e.printStackTrace();
+          message[0] = e.getMessage();
+        }
+        catch (IllegalStateException e) {
+          e.printStackTrace();
+          message[0] = e.getMessage();
+        }
+        catch (InvalidCipherTextException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         return null;

@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.user.service.IUser;
 import com.dgex.offspring.user.service.IUserService;
 
@@ -131,7 +132,7 @@ public class InspectAccountDialog extends TitleAreaDialog {
     Long balanceNQT = account == null ? 0l : (long) account.getBalanceNQT();
 
     setTitle("Account " + Convert.toUnsignedLong(accountId));
-    setMessage("Balance " + Convert.toNXT(balanceNQT));
+    setMessage("Balance " + Utils.quantToString(balanceNQT));
 
     if (tabFolder != null) {
       tabFolder.dispose();

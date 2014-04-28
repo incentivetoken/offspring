@@ -39,6 +39,7 @@ import org.json.simple.JSONObject;
 import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.config.JSonWriter;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.user.service.IUserService;
 
 public class InspectBlockDialog extends TitleAreaDialog {
@@ -168,8 +169,8 @@ public class InspectBlockDialog extends TitleAreaDialog {
     baseTargetLabel.setText(Long.toString(block.getBaseTarget()));
     heightLabel.setText(Integer.toString(block.getHeight()));
     difficultyLabel.setText(block.getCumulativeDifficulty().toString());
-    amountLabel.setText(Convert.toNXT(block.getTotalAmountNQT()));
-    feeLabel.setText(Convert.toNXT(block.getTotalFeeNQT()));
+    amountLabel.setText(Utils.quantToString(block.getTotalAmountNQT()));
+    feeLabel.setText(Utils.quantToString(block.getTotalFeeNQT()));
     hashText.setText(Convert.toHexString(block.getPayloadHash()));
     generationSignatureText.setText(Convert.toHexString(block
         .getGenerationSignature()));
@@ -221,7 +222,7 @@ public class InspectBlockDialog extends TitleAreaDialog {
     layout.marginTop = 10;
     layout.marginLeft = 10;
 
-    GridData gd = new GridData(GridData.FILL, GridData.FILL, true, true);
+    GridData gd = new GridData(SWT.FILL, SWT.FILL, true, true);
     gd.widthHint = Math
         .round((convertHorizontalDLUsToPixels(IDialogConstants.MINIMUM_MESSAGE_AREA_WIDTH) / 2) * 3);
 
@@ -357,6 +358,8 @@ public class InspectBlockDialog extends TitleAreaDialog {
     // -----
 
     tabFolder = new TabFolder(container, SWT.NONE);
+    GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
+        .applyTo(tabFolder);
 
     transactionsTab = new TabItem(tabFolder, SWT.NONE);
     transactionsTab.setText("Transactions");

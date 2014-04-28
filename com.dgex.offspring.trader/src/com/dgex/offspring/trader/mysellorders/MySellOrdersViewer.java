@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Composite;
 
 import com.dgex.offspring.config.CompareMe;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.table.GenerericTableViewer;
 import com.dgex.offspring.swt.table.GenericComparator;
 import com.dgex.offspring.swt.table.GenericTableColumnBuilder;
@@ -82,11 +83,11 @@ public class MySellOrdersViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          Long total = (Long) getCellValue(element);
-          if (total == null)
+          Long totalNQT = (Long) getCellValue(element);
+          if (totalNQT == null)
             data[ICellDataProvider.TEXT] = "-";
           else
-            data[ICellDataProvider.TEXT] = Convert.toNXT(total);
+            data[ICellDataProvider.TEXT] = Utils.quantToString(totalNQT);
         }
 
         @Override
@@ -107,8 +108,8 @@ public class MySellOrdersViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toNXT((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils
+              .quantToString((Long) getCellValue(element));
         }
 
         @Override
@@ -129,8 +130,8 @@ public class MySellOrdersViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toNXT((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils
+              .quantToString((Long) getCellValue(element));
         }
 
         @Override

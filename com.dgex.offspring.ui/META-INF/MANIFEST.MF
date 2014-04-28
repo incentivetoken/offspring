@@ -28,6 +28,7 @@ Import-Package: com.dgex.offspring.config,
  org.eclipse.swt.widgets,
  org.json.simple
 Require-Bundle: com.dgex.offspring.nxtCore,
- com.dgex.offspring.messages
+ com.dgex.offspring.messages,
+ org.bouncycastle;bundle-version="1.0.0"
 Export-Package: com.dgex.offspring.ui,
  com.dgex.offspring.ui.controls

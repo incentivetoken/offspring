@@ -21,6 +21,7 @@ import com.dgex.offspring.config.CompareMe;
 import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.nxtCore.core.NXTTime;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.table.GenerericTableViewer;
 import com.dgex.offspring.swt.table.GenericComparator;
 import com.dgex.offspring.swt.table.GenericTableColumnBuilder;
@@ -77,8 +78,8 @@ public class TradesViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toNXT((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils
+              .quantToString((Long) getCellValue(element));
         }
 
         @Override
@@ -99,8 +100,8 @@ public class TradesViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toNXT((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils
+              .quantToString((Long) getCellValue(element));
         }
 
         @Override

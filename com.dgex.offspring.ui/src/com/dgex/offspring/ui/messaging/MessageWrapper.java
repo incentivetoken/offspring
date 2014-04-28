@@ -1,10 +1,13 @@
 package com.dgex.offspring.ui.messaging;
 
 import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 
 import nxt.Account;
 import nxt.Attachment;
 import nxt.Transaction;
+
+import org.bouncycastle.crypto.InvalidCipherTextException;
 
 import com.dgex.offspring.config.Config;
 
@@ -86,6 +89,18 @@ public class MessageWrapper {
       catch (UnsupportedEncodingException e) {
         e.printStackTrace(System.err);
         return "... Error unsupported encoding ...";
+      }
+      catch (GeneralSecurityException e) {
+        e.printStackTrace(System.err);
+        return "... Security exception ...";
+      }
+      catch (RuntimeException e) {
+        e.printStackTrace(System.err);
+        return "... Unsupported encryption ...";
+      }
+      catch (InvalidCipherTextException e) {
+        e.printStackTrace(System.err);
+        return "... Invalid ciphertext ...";
       }
     }
     /* Unencrypted message */

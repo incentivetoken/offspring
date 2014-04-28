@@ -19,4 +19,9 @@ public class MyCurve25519 {
       return null;
     }
   }
+
+  public static void curve(byte[] Z, byte[] k, byte[] P) {
+    Curve25519.curve(Z, k, P);
+  }
+
 }

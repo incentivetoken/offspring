@@ -24,6 +24,7 @@ import com.dgex.offspring.config.Colors;
 import com.dgex.offspring.config.CompareMe;
 import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.table.GenerericTableViewer;
 import com.dgex.offspring.swt.table.GenericComparator;
 import com.dgex.offspring.swt.table.GenericTableColumnBuilder;
@@ -79,12 +80,12 @@ public class BlockTransactionViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          Long amount = (Long) getCellValue(element);
+          Long amountNQT = (Long) getCellValue(element);
           data[FONT] = JFaceResources.getFontRegistry().getBold("");
-          data[TEXT] = Convert.toNXT(amount);
-          if (amount > 0)
+          data[TEXT] = Utils.quantToString(amountNQT);
+          if (amountNQT > 0)
             data[FOREGROUND] = Colors.getColor(DARK_GREEN);
-          else if (amount < 0)
+          else if (amountNQT < 0)
             data[FOREGROUND] = Colors.getColor(DARK_RED);
           else
             data[FOREGROUND] = null;
@@ -107,7 +108,7 @@ public class BlockTransactionViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[TEXT] = Convert.toNXT((Long) getCellValue(element));
+          data[TEXT] = Utils.quantToString((Long) getCellValue(element));
         }
 
         @Override

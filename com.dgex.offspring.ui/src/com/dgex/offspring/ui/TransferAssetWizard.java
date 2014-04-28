@@ -150,9 +150,9 @@ public class TransferAssetWizard extends GenericTransactionWizard {
 
     private String createLabel(Account account, Asset asset) {
       Map<Long, Long> map = account.getAssetBalancesQNT();
-      long balanceNQT = map != null ? map.get(asset.getId()) : 0l;
+      long balanceQNT = map != null ? map.get(asset.getId()) : 0l;
       return "Asset: " + asset.getName() + " Balance: "
-          + Utils.quantToString(balanceNQT);
+          + Utils.quantToString(balanceQNT);
     }
 
     @Override
@@ -330,9 +330,11 @@ public class TransferAssetWizard extends GenericTransactionWizard {
           return t.getStringId();
         }
         catch (ValidationException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         catch (TransactionException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         return null;

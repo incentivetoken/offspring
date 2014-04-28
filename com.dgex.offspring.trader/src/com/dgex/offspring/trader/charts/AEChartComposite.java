@@ -67,7 +67,17 @@ public class AEChartComposite extends Composite {
     NumberAxis numberaxis = (NumberAxis) xyplot.getRangeAxis();
     numberaxis.setLowerMargin(0.40000000000000002D);
 
-    DecimalFormat decimalformat = new DecimalFormat("#.##");
+    StringBuilder format = new StringBuilder();
+    format.append("#");
+    int count = asset.getDecimals();
+    if (count > 0) {
+      format.append(".");
+      for (int i = 0; i < count; i++) {
+        format.append("#");
+      }
+    }
+
+    DecimalFormat decimalformat = new DecimalFormat(format.toString());
     numberaxis.setNumberFormatOverride(decimalformat);
 
     return jfreechart;

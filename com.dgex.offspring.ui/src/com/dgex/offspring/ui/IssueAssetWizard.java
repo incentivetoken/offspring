@@ -281,9 +281,11 @@ public class IssueAssetWizard extends GenericTransactionWizard {
           return t.getStringId();
         }
         catch (TransactionException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         catch (ValidationException e) {
+          e.printStackTrace();
           message[0] = e.getMessage();
         }
         return null;
