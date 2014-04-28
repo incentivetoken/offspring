@@ -5,7 +5,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.Duration;
 
 import nxt.Generator;
-import nxt.util.Convert;
 
 import org.apache.log4j.Logger;
 import org.eclipse.e4.ui.services.IStylingEngine;
@@ -30,6 +29,7 @@ import com.dgex.offspring.config.CSSClasses;
 import com.dgex.offspring.config.Clipboards;
 import com.dgex.offspring.messages.Messages;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.ui.SendMessageWizard;
 import com.dgex.offspring.ui.SendMoneyWizard;
 import com.dgex.offspring.user.service.IUser;
@@ -207,7 +207,7 @@ public class AccountButtonComposite extends Composite {
       @Override
       public void widgetSelected(SelectionEvent e) {
         Clipboards.copy(parent.getDisplay(),
-            Convert.toNXT(user.getAccount().getBalanceNQT()));
+            Utils.quantToString(user.getAccount().getBalanceNQT()));
       }
     });
 
@@ -271,14 +271,15 @@ public class AccountButtonComposite extends Composite {
     return user;
   }
 
-  public void setBalanceNQT(Long balance, Long unconfirmedBalance) {
+  public void setBalanceNQT(Long balanceNQT, Long unconfirmedBalanceNQT) {
     String text = "NXT ";
-    if ((unconfirmedBalance - balance) > 1
-        || (unconfirmedBalance - balance) < -1)
-      text += Convert.toNXT(balance) + " (" + Convert.toNXT(unconfirmedBalance)
+    if ((unconfirmedBalanceNQT - balanceNQT) > 1
+        || (unconfirmedBalanceNQT - balanceNQT) < -1)
+      text += Utils.quantToString(balanceNQT) + " ("
+          + Utils.quantToString(unconfirmedBalanceNQT)
           + ")";
     else
-      text += Convert.toNXT(balance);
+      text += Utils.quantToString(balanceNQT);
 
     balanceLabel.setText(text);
     layout();

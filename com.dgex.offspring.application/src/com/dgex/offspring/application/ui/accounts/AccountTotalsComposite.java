@@ -1,7 +1,5 @@
 package com.dgex.offspring.application.ui.accounts;
 
-import nxt.util.Convert;
-
 import org.eclipse.e4.ui.services.IStylingEngine;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.Clipboard;
@@ -18,6 +16,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import com.dgex.offspring.application.utils.Layouts;
 import com.dgex.offspring.config.CSSClasses;
 import com.dgex.offspring.messages.Messages;
+import com.dgex.offspring.nxtCore.service.Utils;
 
 public class AccountTotalsComposite extends Composite {
 
@@ -52,7 +51,8 @@ public class AccountTotalsComposite extends Composite {
       public void widgetSelected(SelectionEvent e) {
         Clipboard clipboard = new Clipboard(parent.getDisplay());
         TextTransfer textTransfer = TextTransfer.getInstance();
-        clipboard.setContents(new String[] { Convert.toNXT(totalValueNQT) },
+        clipboard.setContents(
+            new String[] { Utils.quantToString(totalValueNQT) },
             new Transfer[] { textTransfer });
         clipboard.dispose();
       }
@@ -73,10 +73,10 @@ public class AccountTotalsComposite extends Composite {
     setTotalNQT(0l);
   }
 
-  public void setTotalNQT(long total) {
-    totalValueNQT = total;
+  public void setTotalNQT(long totalNQT) {
+    totalValueNQT = totalNQT;
     if (totalLabel != null && !totalLabel.isDisposed()) {
-      totalLabel.setText(Convert.toNXT(total) + " NXT"); //$NON-NLS-1$
+      totalLabel.setText(Utils.quantToString(totalNQT) + " NXT"); //$NON-NLS-1$
       pack();
       layout();
     }

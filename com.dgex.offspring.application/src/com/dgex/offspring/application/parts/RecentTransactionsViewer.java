@@ -23,6 +23,7 @@ import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.nxtCore.core.TransactionDB;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.ITransaction;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.table.GenerericTableViewer;
 import com.dgex.offspring.swt.table.GenericTableColumnBuilder;
 import com.dgex.offspring.swt.table.ICellActivateHandler;
@@ -59,9 +60,9 @@ public class RecentTransactionsViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          Long amount = (Long) getCellValue(element);
+          Long amountNQT = (Long) getCellValue(element);
           data[FONT] = JFaceResources.getFontRegistry().getBold("");
-          data[TEXT] = Convert.toNXT(amount);
+          data[TEXT] = Utils.quantToString(amountNQT);
         }
 
         @Override
@@ -218,7 +219,7 @@ public class RecentTransactionsViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[TEXT] = Convert.toNXT((Long) getCellValue(element));
+          data[TEXT] = Utils.quantToString((Long) getCellValue(element));
         }
 
         @Override

@@ -5,8 +5,6 @@ import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 import java.util.Random;
 
-import nxt.util.Convert;
-
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -39,6 +37,7 @@ import org.eclipse.swt.widgets.Text;
 import com.dgex.offspring.application.utils.DiceWords;
 import com.dgex.offspring.messages.Messages;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.wallet.IWallet;
 import com.dgex.offspring.wallet.IWallet.DuplicateAccountException;
 import com.dgex.offspring.wallet.IWallet.WalletBackupException;
@@ -73,11 +72,11 @@ public class AddAccountDialog extends TitleAreaDialog {
       String account = nxt.getAccountForPrivateKey(textPrivateKey.getText());
       textAccountNumber.setText(account);
 
-      Long balance = nxt.getBalanceForAccountNQT(account);
-      if (balance == null)
+      Long balanceNQT = nxt.getBalanceForAccountNQT(account);
+      if (balanceNQT == null)
         textBalance.setText("");
       else
-        textBalance.setText(Convert.toNXT(balance.longValue()));
+        textBalance.setText(Utils.quantToString(balanceNQT));
       verifyInput();
     }
   };
@@ -91,7 +90,7 @@ public class AddAccountDialog extends TitleAreaDialog {
       if (balance == null)
         textBalance.setText("");
       else
-        textBalance.setText(Convert.toNXT(balance.longValue()));
+        textBalance.setText(Utils.quantToString(balance.longValue()));
       verifyInput();
     }
   };

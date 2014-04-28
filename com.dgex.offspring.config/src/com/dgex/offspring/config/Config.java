@@ -21,12 +21,16 @@ public class Config {
   static Logger logger = Logger.getLogger(Config.class);
 
   /* Encrypted messages start with this number */
-  public static byte[] MAGIC_ENCRYPTED_MESSAGE_NUMBER = new byte[] { 0x43,
-      0x52, 0x59, 0x50, 0x54, 0x45, 0x44, 0x21 };
+  public static byte[] MAGIC_ENCRYPTED_MESSAGE_NUMBER_XOR = new byte[] { 0x43,
+      0x52, 0x59, 0x50, 0x54, 0x45, 0x44, 0x21 }; // CRYPT!
 
   /* Non encrypted messages start with this number (Invisible Characters) */
   public static byte[] MAGIC_UNENCRYPTED_MESSAGE_NUMBER = new byte[] { 0x4d,
       0x45, 0x53, 0x53, 0x41, 0x47, 0x45, 0x21 };
+
+  /* AES Encrypted messages start with this number */
+  public static byte[] MAGIC_ENCRYPTED_MESSAGE_NUMBER_AES = new byte[] { 0x41,
+      0x45, 0x53, 0x43, 0x52, 0x59, 0x50, 0x21 };   // AESCRYP!
 
   /* NXT config settings */
   public static boolean nxtIsTestNet = false;

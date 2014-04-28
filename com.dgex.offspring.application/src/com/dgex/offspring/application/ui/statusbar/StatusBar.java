@@ -45,7 +45,7 @@ public class StatusBar {
   private final BlockchainDownloadMonitor downloadMonitor = new BlockchainDownloadMonitor();
 
   static final String INITIALIZING_TEXT = "Initializing NXT " + Nxt.VERSION
-      + " (might take several minutes)";
+      + " (might take several minutes)\nRun in background function is disabled for NXT 0.9.9";
 
   private String messageTextValue = INITIALIZING_TEXT;
   private Block lastBlock = null;
@@ -69,6 +69,7 @@ public class StatusBar {
         if (display != null && !display.isDisposed() && messageText != null
             && !messageText.isDisposed() && blocksText != null
             && !blocksText.isDisposed()) {
+
           if ((System.currentTimeMillis() - messageTime) < 2000) {
             messageText.setText(messageTextValue);
           }
@@ -236,11 +237,16 @@ public class StatusBar {
     downloadMonitor.blockPushed(block);
   }
 
-  /* For each block pushed/poped we update the text in the blocks section */
   @Inject
   @Optional
   private void onBlockPushed(
       @UIEventTopic(INxtService.TOPIC_BLOCK_PUSHED) Block block) {
+
+    /* Ignore push when we are scanning */
+    if (nxt.isScanning()) {
+      return;
+    }
+
     lastBlock = block;
     downloadMonitor.blockPushed(block);
   }

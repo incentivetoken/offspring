@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.util.Date;
 
 import nxt.Block;
-import nxt.util.Convert;
 
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ViewerCell;
@@ -12,6 +11,7 @@ import org.eclipse.swt.graphics.Image;
 
 import com.dgex.offspring.config.Formatter;
 import com.dgex.offspring.config.Images;
+import com.dgex.offspring.nxtCore.service.Utils;
 
 public class BlockLabelProvider extends ColumnLabelProvider {
 
@@ -41,11 +41,11 @@ public class BlockLabelProvider extends ColumnLabelProvider {
       break;
 
     case BlockTable.COLUMN_TOTAL_AMOUNT:
-      cell.setText(Convert.toNXT(b.getTotalAmountNQT()));
+      cell.setText(Utils.quantToString(b.getTotalAmountNQT()));
       break;
 
     case BlockTable.COLUMN_TOTAL_FEE:
-      cell.setText(Convert.toNXT(b.getTotalFeeNQT()));
+      cell.setText(Utils.quantToString(b.getTotalFeeNQT()));
       break;
 
     case BlockTable.COLUMN_PAYLOAD_LENGTH:

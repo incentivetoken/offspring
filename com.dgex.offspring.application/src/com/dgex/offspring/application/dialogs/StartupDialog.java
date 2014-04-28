@@ -11,7 +11,6 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -59,11 +58,7 @@ public class StartupDialog extends Dialog {
   @Override
   protected void createButtonsForButtonBar(Composite parent) {
     if (showOKButton) {
-      /* Temporary hack for 0.9.9 - users will hit this bug
-       * https://bitbucket.org/JeanLucPicard/nxt/issue/86/transactiontypenotyetenabledexception
-       * unless this is disabled */
-      Button btnOK = createButton(parent, IDialogConstants.OK_ID, "Run In Background", true);
-      btnOK.setEnabled(false);
+      createButton(parent, IDialogConstants.OK_ID, "Run In Background", true);
     }
     createButton(parent, IDialogConstants.CANCEL_ID,
         showOKButton ? IDialogConstants.CANCEL_LABEL

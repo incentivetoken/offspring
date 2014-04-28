@@ -9,7 +9,6 @@ import javax.annotation.PreDestroy;
 import javax.inject.Inject;
 
 import nxt.Generator;
-import nxt.util.Convert;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.commands.ParameterizedCommand;
@@ -55,6 +54,7 @@ import com.dgex.offspring.messages.Messages;
 import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.ITransaction;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.ui.AccountTabFolder;
 import com.dgex.offspring.ui.SendMessageWizard;
 import com.dgex.offspring.user.service.IUser;
@@ -739,7 +739,7 @@ public class AccountsPart {
       @Override
       public void widgetSelected(SelectionEvent e) {
         Clipboards.copy(parent.getDisplay(),
-            Convert.toNXT(totalNxtBalanceValueNQT));
+            Utils.quantToString(totalNxtBalanceValueNQT));
       }
     });
 
@@ -854,7 +854,7 @@ public class AccountsPart {
     totalBTCBalanceValue = ExchangeRates.convertNqtToBtc(balance);
     totalEURBalanceValue = ExchangeRates.convertNqtToEur(balance);
 
-    String nxtStr = "NXT " + Convert.toNXT(balance);  //$NON-NLS-1$
+    String nxtStr = "NXT " + Utils.quantToString(balance);  //$NON-NLS-1$
     String btcStr = "BTC " + String.format("%.5f", totalBTCBalanceValue);  //$NON-NLS-1$  //$NON-NLS-1$
     String eurStr = "EUR " + String.format("%.2f", totalEURBalanceValue);   //$NON-NLS-1$  //$NON-NLS-1$
 

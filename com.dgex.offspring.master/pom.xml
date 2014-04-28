@@ -18,6 +18,7 @@
     <module>../com.dgex.offspring.dataprovider</module>
     <module>../com.dgex.offspring.providers</module>
     <module>../org.jfree.jfreechart</module>
+    <module>../org.bouncycastle</module>
     <module>../com.dgex.offspring.application</module>
     <module>../com.dgex.offspring.trader</module>
     <module>../com.dgex.offspring.update</module>

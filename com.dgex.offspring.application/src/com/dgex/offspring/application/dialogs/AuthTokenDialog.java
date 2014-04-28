@@ -27,6 +27,7 @@ import com.dgex.offspring.application.utils.Layouts;
 import com.dgex.offspring.config.Formatter;
 import com.dgex.offspring.messages.Messages;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.user.service.IUser;
 import com.dgex.offspring.user.service.IUserService;
 
@@ -159,7 +160,7 @@ public class AuthTokenDialog extends TitleAreaDialog {
     for (int i = 0; i < users.size(); i++) {
       IUser user = users.get(i);
       comboSender.add(user.getAccount().getStringId() + " "
-          + Convert.toNXT(user.getAccount().getBalanceNQT()) + " "
+          + Utils.quantToString(user.getAccount().getBalanceNQT()) + " "
           + user.getName());
       if (user.equals(userService.getActiveUser())) {
         selected_index = i;

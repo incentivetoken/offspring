@@ -51,6 +51,9 @@
       <import plugin="org.eclipse.equinox.util" version="1.0.500" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.ds" version="1.4.101" match="greaterOrEqual"/>
       <import plugin="com.dgex.offspring.3rdparty" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.io"/>
+      <import plugin="org.bouncycastle" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.junit"/>
    </requires>
 
    <plugin
@@ -145,6 +148,13 @@
 
    <plugin
          id="com.dgex.offspring.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.bouncycastle"
          download-size="0"
          install-size="0"
          version="0.0.0"
