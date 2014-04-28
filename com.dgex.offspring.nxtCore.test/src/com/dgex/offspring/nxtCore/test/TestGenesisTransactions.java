@@ -12,6 +12,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.dgex.offspring.nxtCore.service.Utils;
+
 public class TestGenesisTransactions {
 
   @BeforeClass
@@ -46,7 +48,8 @@ public class TestGenesisTransactions {
       Transaction txn = iter.next();
       String recipient = Convert.toUnsignedLong(txn.getRecipientId());
       totalAmount += txn.getAmountNQT();
-      System.out.println(recipient + " => " + Convert.toNXT(txn.getAmountNQT())
+      System.out.println(recipient + " => "
+          + Utils.quantToString(txn.getAmountNQT())
           + "("
           + totalAmount + ")");
     }
