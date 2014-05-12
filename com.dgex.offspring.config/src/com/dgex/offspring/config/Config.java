@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Display;
 
 public class Config {
 
-  public static final String VERSION = "0.4.4";
+  public static final String VERSION = "0.4.5";
   public static final String TITLE = "Offspring v" + VERSION;
 
   static Logger logger = Logger.getLogger(Config.class);
