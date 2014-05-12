@@ -37,6 +37,9 @@ public final class Generator {
                 if (Nxt.getBlockchain().getLastBlock().getHeight() < Constants.TRANSPARENT_FORGING_BLOCK) {
                     return;
                 }
+                if (Nxt.getBlockchainProcessor().isScanning()) {
+                    return;
+                }
                 try {
                     for (Generator generator : generators.values()) {
                         generator.forge();
@@ -59,6 +62,11 @@ public final class Generator {
     }
 
     static void init() {}
+
+    static void clear() {
+        lastBlocks.clear();
+        hits.clear();
+    }
 
     public static boolean addListener(Listener<Generator> listener, Event eventType) {
         return listeners.addListener(listener, eventType);
@@ -168,8 +176,8 @@ public final class Generator {
 
         Block lastBlock = Nxt.getBlockchain().getLastBlock();
 
-        if (lastBlock.getHeight() < Constants.TRANSPARENT_FORGING_BLOCK) {
-            Logger.logDebugMessage("Forging below block " + Constants.TRANSPARENT_FORGING_BLOCK + " no longer supported");
+        if (lastBlock.getHeight() < Constants.NQT_BLOCK) {
+            Logger.logDebugMessage("Forging below block " + Constants.NQT_BLOCK + " no longer supported");
             return;
         }
 
@@ -188,7 +196,9 @@ public final class Generator {
 
         int elapsedTime = Convert.getEpochTime() - lastBlock.getTimestamp();
         if (elapsedTime > 0) {
-            BigInteger target = BigInteger.valueOf(lastBlock.getBaseTarget()).multiply(BigInteger.valueOf(effectiveBalance)).multiply(BigInteger.valueOf(elapsedTime));
+            BigInteger target = BigInteger.valueOf(lastBlock.getBaseTarget())
+                    .multiply(BigInteger.valueOf(effectiveBalance))
+                    .multiply(BigInteger.valueOf(elapsedTime));
             if (hits.get(accountId).compareTo(target) < 0) {
                 BlockchainProcessorImpl.getInstance().generateBlock(secretPhrase);
             }

@@ -160,12 +160,17 @@ public class InspectTransactionDialog extends TitleAreaDialog {
     blockLink.setText("<A>" + Convert.toUnsignedLong(transaction.getBlockId())
         + "</A>");
 
-    if (transaction.getReferencedTransactionId() != null)
+    Transaction referencedTransaction = Nxt.getBlockchain()
+        .getTransactionByFullHash(
+            transaction.getReferencedTransactionFullHash());
+    if (referencedTransaction != null) {
       referencedLink.setText("<A>"
-          + Convert.toUnsignedLong(transaction.getReferencedTransactionId())
+          + Convert.toUnsignedLong(referencedTransaction.getId())
           + "</A>");
-    else
+    }
+    else {
       referencedLink.setText("");
+    }
 
     senderLink.setText("<A>"
         + Convert.toUnsignedLong(transaction.getSenderId()) + "</A>");
@@ -175,7 +180,7 @@ public class InspectTransactionDialog extends TitleAreaDialog {
     feeLabel.setText(Utils.quantToString(transaction.getFeeNQT()));
     heightLabel.setText(Integer.toString(transaction.getHeight()));
     deadlineLabel.setText(Integer.toString(transaction.getDeadline()));
-    hashText.setText(transaction.getHash());
+    hashText.setText(transaction.getFullHash());
     signatureText.setText(Convert.toHexString(transaction.getSignature()));
     jsonText.setText(prettyPrint(transaction.getJSONObject()));
 

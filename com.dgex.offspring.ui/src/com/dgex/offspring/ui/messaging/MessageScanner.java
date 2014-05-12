@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import nxt.Account;
+import nxt.Nxt;
 import nxt.Transaction;
 import nxt.TransactionType;
 import nxt.util.DbIterator;
@@ -98,16 +99,28 @@ public class MessageScanner {
     }
   }
 
+  private Long getReferencedTransactionId(Transaction transaction) {
+    if (transaction.getReferencedTransactionFullHash() != null) {
+      Transaction ref = Nxt.getBlockchain().getTransactionByFullHash(
+          transaction.getReferencedTransactionFullHash());
+      if (ref != null) {
+        return ref.getId();
+      }
+    }
+    return null;
+  }
+
   private void processTransaction(Transaction transaction) {
     IMessageNode node;
-    if (transaction.getReferencedTransactionId() == null) {
+    Long id = getReferencedTransactionId(transaction);
+
+    if (id == null) {
       node = new MessageNodeImpl(rootNode, new MessageWrapper(transaction,
           account, secretPhrase));
       rootNode.getChildren().add(0, node); // sorted ASCENDENING
     }
     else {
-      IMessageNode referencedNode = rootMap.get(transaction
-          .getReferencedTransactionId());
+      IMessageNode referencedNode = rootMap.get(id);
       if (referencedNode == null) {
         node = new MessageNodeImpl(rootNode, new MessageWrapper(transaction,
             account, secretPhrase));

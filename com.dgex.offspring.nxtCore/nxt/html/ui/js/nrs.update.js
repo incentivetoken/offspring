@@ -3,6 +3,16 @@ var NRS = (function(NRS, $, undefined) {
 	NRS.betaVersion = {};
 
 	NRS.checkAliasVersions = function() {
+		if (NRS.downloadingBlockchain) {
+			$("#nrs_update_explanation span").hide();
+			$("#nrs_update_explanation_blockchain_sync").show();
+			return;
+		}
+		if (NRS.isTestNet) {
+			$("#nrs_update_explanation span").hide();
+			$("#nrs_update_explanation_testnet").show();
+			return;
+		}
 		//Get latest version nr+hash of normal version
 		NRS.sendRequest("getAliasURI", {
 			"alias": "nrsversion"
@@ -202,34 +212,45 @@ var NRS = (function(NRS, $, undefined) {
 			NRS.downloadedVersion = NRS.betaVersion;
 		}
 
-		$("#nrs_update_iframe").attr("src", "http://download.nxtcrypto.org/nxt-client-" + NRS.downloadedVersion.versionNr + ".zip");
+		if (NRS.inApp) {
+			parent.postMessage({
+				"type": "update",
+				"update": {
+					"type": version,
+					"version": NRS.downloadedVersion.versionNr,
+					"hash": NRS.downloadedVersion.hash
+				}
+			}, "*");
+			$("#nrs_modal").modal("hide");
+		} else {
+			$("#nrs_update_iframe").attr("src", "https://bitbucket.org/JeanLucPicard/nxt/downloads/nxt-client-" + NRS.downloadedVersion.versionNr + ".zip");
+			$("#nrs_update_explanation").hide();
+			$("#nrs_update_drop_zone").show();
 
-		$("#nrs_update_explanation").hide();
-		$("#nrs_update_drop_zone").show();
+			$("body").on("dragover.nrs", function(e) {
+				e.preventDefault();
+				e.stopPropagation();
 
-		$("body").on("dragover.nrs", function(e) {
-			e.preventDefault();
-			e.stopPropagation();
+				if (e.originalEvent && e.originalEvent.dataTransfer) {
+					e.originalEvent.dataTransfer.dropEffect = "copy";
+				}
+			});
 
-			if (e.originalEvent && e.originalEvent.dataTransfer) {
-				e.originalEvent.dataTransfer.dropEffect = "copy";
-			}
-		});
+			$("body").on("drop.nrs", function(e) {
+				NRS.verifyClientUpdate(e);
+			});
 
-		$("body").on("drop.nrs", function(e) {
-			NRS.verifyClientUpdate(e);
-		});
+			$("#nrs_update_drop_zone").on("click", function(e) {
+				e.preventDefault();
 
-		$("#nrs_update_drop_zone").on("click", function(e) {
-			e.preventDefault();
+				$("#nrs_update_file_select").trigger("click");
 
-			$("#nrs_update_file_select").trigger("click");
+			});
 
-		});
-
-		$("#nrs_update_file_select").on("change", function(e) {
-			NRS.verifyClientUpdate(e);
-		});
+			$("#nrs_update_file_select").on("change", function(e) {
+				NRS.verifyClientUpdate(e);
+			});
+		}
 
 		return false;
 	}
