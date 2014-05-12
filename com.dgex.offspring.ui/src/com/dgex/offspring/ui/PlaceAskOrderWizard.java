@@ -78,7 +78,7 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
       Map<Long, Long> map = account.getAssetBalancesQNT();
       long balanceQNT = map != null ? map.get(asset.getId()) : 0l;
       return "Asset: " + asset.getName() + " Balance: "
-          + Utils.quantToString(balanceQNT);
+          + Utils.quantToString(balanceQNT, asset.getDecimals());
     }
 
     @Override
@@ -150,7 +150,11 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
 
     @Override
     public Object getValue() {
-      return Utils.getQuantityQNT(textQuantity.getText().trim());
+      if (fieldAsset.getValue() == null) {
+        return null;
+      }
+      return Utils.getQuantityQNT(textQuantity.getText().trim(),
+          ((Asset) fieldAsset.getValue()).getDecimals());
     };
 
     @Override
@@ -176,8 +180,13 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
 
     @Override
     public boolean verify(String[] message) {
+      if (fieldAsset.getValue() == null) {
+        message[0] = "Must select asset first";
+        return false;
+      }
       String text = textQuantity.getText().trim();
-      Long quantityQNT = Utils.getQuantityQNT(text);
+      Long quantityQNT = Utils.getQuantityQNT(text,
+          ((Asset) fieldAsset.getValue()).getDecimals());
       if (quantityQNT == null) {
         message[0] = "Value must be numeric";
         return false;
@@ -191,7 +200,8 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
       if (asset != null) {
         if (quantityQNT > asset.getQuantityQNT()) {
           message[0] = "There where only "
-              + Utils.quantToString(asset.getQuantityQNT())
+              + Utils.quantToString(asset.getQuantityQNT(),
+                  ((Asset) fieldAsset.getValue()).getDecimals())
               + " assets issued";
           return false;
         }
@@ -228,7 +238,7 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
     public Control createControl(Composite parent) {
       textPrice = new Text(parent, SWT.BORDER);
       if (presetAssetId != null && presetPriceNQT > 0) {
-        textPrice.setText(Utils.quantToString(presetPriceNQT));
+        textPrice.setText(Utils.quantToString(presetPriceNQT, 8));
       }
       else {
         textPrice.setText("0");
@@ -277,8 +287,8 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
       public String sendTransaction(String[] message) {
         IAccount sender = user.getAccount();
         Asset asset = (Asset) fieldAsset.getValue();
-        long quantityQNT = (long) fieldQuantity.getValue();
-        long priceNQT = (long) fieldPrice.getValue();
+        long quantityQNT = (Long) fieldQuantity.getValue();
+        long priceNQT = (Long) fieldPrice.getValue();
 
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
         dialog.setMinimumFeeNQT(Constants.ONE_NXT);
@@ -327,8 +337,7 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
         Asset asset = (Asset) fieldAsset.getValue();
         Long quantityQNT = (Long) fieldQuantity.getValue();
         if (asset != null && quantityQNT != null) {
-          Long assetBalanceQNT = account.getUnconfirmedAssetBalanceQNT(asset
-              .getId());
+          Long assetBalanceQNT = account.getUnconfirmedAssetBalanceQNT(asset.getId());
           if (assetBalanceQNT == null || quantityQNT > assetBalanceQNT) {
             message[0] = "Insufficient Asset Balance";
             return false;

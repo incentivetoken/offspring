@@ -127,8 +127,8 @@ public class RecentBlocksViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils.quantToString(
+              (Long) getCellValue(element), 8);
         }
 
         @Override
@@ -149,8 +149,8 @@ public class RecentBlocksViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils.quantToString(
+              (Long) getCellValue(element), 8);
         }
 
         @Override

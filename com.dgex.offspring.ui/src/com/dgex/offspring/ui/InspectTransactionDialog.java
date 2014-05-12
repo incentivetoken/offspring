@@ -160,13 +160,8 @@ public class InspectTransactionDialog extends TitleAreaDialog {
     blockLink.setText("<A>" + Convert.toUnsignedLong(transaction.getBlockId())
         + "</A>");
 
-    Transaction referencedTransaction = Nxt.getBlockchain()
-        .getTransactionByFullHash(
-            transaction.getReferencedTransactionFullHash());
-    if (referencedTransaction != null) {
-      referencedLink.setText("<A>"
-          + Convert.toUnsignedLong(referencedTransaction.getId())
-          + "</A>");
+    if (transaction.getReferencedTransactionFullHash() != null) {
+      referencedLink.setText("<A>" + Convert.toUnsignedLong(Convert.fullHashToId(transaction.getReferencedTransactionFullHash())) + "</A>");
     }
     else {
       referencedLink.setText("");
@@ -176,8 +171,8 @@ public class InspectTransactionDialog extends TitleAreaDialog {
         + Convert.toUnsignedLong(transaction.getSenderId()) + "</A>");
     receiverLink.setText("<A>"
         + Convert.toUnsignedLong(transaction.getRecipientId()) + "</A>");
-    amountLabel.setText(Utils.quantToString(transaction.getAmountNQT()));
-    feeLabel.setText(Utils.quantToString(transaction.getFeeNQT()));
+    amountLabel.setText(Utils.quantToString(transaction.getAmountNQT(), 8));
+    feeLabel.setText(Utils.quantToString(transaction.getFeeNQT(), 8));
     heightLabel.setText(Integer.toString(transaction.getHeight()));
     deadlineLabel.setText(Integer.toString(transaction.getDeadline()));
     hashText.setText(transaction.getFullHash());

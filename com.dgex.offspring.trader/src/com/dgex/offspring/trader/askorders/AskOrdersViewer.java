@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import nxt.Asset;
 import nxt.Order;
 import nxt.Order.Ask;
 import nxt.util.Convert;
@@ -38,18 +39,18 @@ public class AskOrdersViewer extends GenerericTableViewer {
 
   static DecimalFormat formatDouble = new DecimalFormat("#.##");
 
-  final IGenericTableColumn columnTotal = new GenericTableColumnBuilder("Total")
+  final IGenericTableColumn columnTotalNXT = new GenericTableColumnBuilder(
+      "Total")
       .align(SWT.RIGHT).textExtent(EXTENT_COLUMN_TOTAL)
       .provider(new ICellDataProvider() {
 
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
-
+          Asset asset = Asset.getAsset(order.getAssetId());
+          Double quantAsDouble = Utils.quantToDouble(order.getQuantityQNT(), asset.getDecimals());          
           try {
-            long total = Convert.safeMultiply(order.getPriceNQT(),
-                order.getQuantityQNT());
-            return Long.valueOf(total);
+            return Long.valueOf(Double.valueOf(quantAsDouble * order.getPriceNQT()).longValue());
           }
           catch (ArithmeticException e) {
             return null;
@@ -58,11 +59,11 @@ public class AskOrdersViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          Long totalNQT = (Long) getCellValue(element);
-          if (totalNQT == null)
+          Long totalQNT = (Long) getCellValue(element);
+          if (totalQNT == null)
             data[ICellDataProvider.TEXT] = "-";
           else
-            data[ICellDataProvider.TEXT] = Utils.quantToString(totalNQT);
+            data[ICellDataProvider.TEXT] = Utils.quantToString(totalQNT, 8);
         }
 
         @Override
@@ -83,8 +84,8 @@ public class AskOrdersViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils.quantToString(
+              (Long) getCellValue(element), 8);
         }
 
         @Override
@@ -105,8 +106,8 @@ public class AskOrdersViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = Utils.quantToString(
+              (Long) getCellValue(element), assetDecimals);
         }
 
         @Override
@@ -160,13 +161,16 @@ public class AskOrdersViewer extends GenerericTableViewer {
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
       this.viewer = (AskOrdersViewer) viewer;
       this.assetId = (Long) newInput;
+      if (assetId != null) {
+        assetDecimals = Asset.getAsset(assetId).getDecimals();
+      }
     }
 
     @Override
     public Object[] getElements(Object inputElement) {
       if (assetId == null)
         return new Object[0];
-
+      
       List<Order> orders = new ArrayList<Order>(Ask.getSortedOrders(assetId));
       return orders.toArray(new Object[orders.size()]);
     }
@@ -177,6 +181,7 @@ public class AskOrdersViewer extends GenerericTableViewer {
   private IStylingEngine engine;
   private IUserService userService;
   private UISynchronize sync;
+  private int assetDecimals;
 
   public AskOrdersViewer(Composite parent, INxtService nxt,
       IContactsService contactsService, IStylingEngine engine,
@@ -207,7 +212,7 @@ public class AskOrdersViewer extends GenerericTableViewer {
 
       @Override
       public IGenericTableColumn[] getColumns() {
-        return new IGenericTableColumn[] { columnTotal, columnPrice,
+        return new IGenericTableColumn[] { columnTotalNXT, columnPrice,
             columnQuantity, columnSeller };
       }
     });

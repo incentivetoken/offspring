@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.user.service.IUser;
 import com.dgex.offspring.user.service.IUserService;
 
@@ -249,7 +250,7 @@ public class GenericTransactionWizard extends Wizard {
     }
 
     private String createLabel(IUser user) {
-      return "# " + user.getAccount().getStringId() + " " + user.getName();
+      return "# " + user.getAccount().getStringId() + " " + user.getName() + " (" + Utils.quantToString(user.getAccount().getBalanceNQT(), 8) + " NXT)";
     }
   };
 

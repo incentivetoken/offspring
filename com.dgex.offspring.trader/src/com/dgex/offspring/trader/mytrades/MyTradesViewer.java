@@ -77,7 +77,7 @@ public class MyTradesViewer extends GenerericTableViewer {
         @Override
         public void getCellData(Object element, Object[] data) {
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), 8);
         }
 
         @Override
@@ -98,8 +98,11 @@ public class MyTradesViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
+          Trade trade = (Trade) element;
+          Asset asset = Asset.getAsset(trade.getAssetId());
+          
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), asset.getDecimals());
         }
 
         @Override

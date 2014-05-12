@@ -82,7 +82,7 @@ public class BlockTransactionViewer extends GenerericTableViewer {
         public void getCellData(Object element, Object[] data) {
           Long amountNQT = (Long) getCellValue(element);
           data[FONT] = JFaceResources.getFontRegistry().getBold("");
-          data[TEXT] = Utils.quantToString(amountNQT);
+          data[TEXT] = Utils.quantToString(amountNQT, 8);
           if (amountNQT > 0)
             data[FOREGROUND] = Colors.getColor(DARK_GREEN);
           else if (amountNQT < 0)
@@ -108,7 +108,7 @@ public class BlockTransactionViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[TEXT] = Utils.quantToString((Long) getCellValue(element));
+          data[TEXT] = Utils.quantToString((Long) getCellValue(element), 8);
         }
 
         @Override

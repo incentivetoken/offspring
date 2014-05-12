@@ -12,7 +12,6 @@ import nxt.Nxt;
 import nxt.Order;
 import nxt.Transaction;
 import nxt.TransactionType;
-import nxt.util.Convert;
 
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
@@ -71,14 +70,16 @@ public class MyBuyOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           OrderWrapper order = (OrderWrapper) element;
+          
+          Double quantAsDouble = Utils.quantToDouble(order.getQuantityQNT(),
+              order.getDecimals());
           try {
-            long total = Convert.safeMultiply(order.getPriceNQT(),
-                order.getQuantityQNT());
-            return Long.valueOf(total);
+            return Long.valueOf(Double.valueOf(
+                quantAsDouble * order.getPriceNQT()).longValue());
           }
           catch (ArithmeticException e) {
             return null;
-          }
+          }          
         }
 
         @Override
@@ -87,7 +88,7 @@ public class MyBuyOrdersViewer extends GenerericTableViewer {
           if (totalNQT == null)
             data[ICellDataProvider.TEXT] = "-";
           else
-            data[ICellDataProvider.TEXT] = Utils.quantToString(totalNQT);
+            data[ICellDataProvider.TEXT] = Utils.quantToString(totalNQT, 8);
         }
 
         @Override
@@ -109,7 +110,7 @@ public class MyBuyOrdersViewer extends GenerericTableViewer {
         @Override
         public void getCellData(Object element, Object[] data) {
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), 8);
         }
 
         @Override
@@ -131,12 +132,33 @@ public class MyBuyOrdersViewer extends GenerericTableViewer {
         @Override
         public void getCellData(Object element, Object[] data) {
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), ((OrderWrapper) element).getDecimals());
         }
 
         @Override
         public int compare(Object v1, Object v2) {
           return CompareMe.compare((Long) v1, (Long) v2);
+        }
+      }).build();
+  
+  final IGenericTableColumn columnName = new GenericTableColumnBuilder(
+      "Name").align(SWT.RIGHT)
+      .provider(new ICellDataProvider() {
+
+        @Override
+        public Object getCellValue(Object element) {
+          OrderWrapper order = (OrderWrapper) element;
+          return order.getAssetName();
+        }
+
+        @Override
+        public void getCellData(Object element, Object[] data) {
+          data[ICellDataProvider.TEXT] = getCellValue(element);
+        }
+
+        @Override
+        public int compare(Object v1, Object v2) {
+          return CompareMe.compare((String) v1, (String) v2);
         }
       }).build();
 
@@ -202,7 +224,8 @@ public class MyBuyOrdersViewer extends GenerericTableViewer {
           if (attachment.getAssetId().equals(asset.getId())) {
             if (t.getSenderId().equals(account.getId())) {
               elements.add(new OrderWrapper(t.getId(),
-                  attachment.getPriceNQT(), attachment.getQuantityQNT()));
+                  attachment.getPriceNQT(), attachment.getQuantityQNT(),
+                  attachment.getAssetId()));
             }
           }
         }
@@ -266,7 +289,8 @@ public class MyBuyOrdersViewer extends GenerericTableViewer {
 
       @Override
       public IGenericTableColumn[] getColumns() {
-        return new IGenericTableColumn[] { columnPending, columnTotal,
+        return new IGenericTableColumn[] { columnPending, columnName,
+            columnTotal,
             columnPrice, columnQuantity };
       }
     });

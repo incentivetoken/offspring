@@ -100,7 +100,7 @@ public class AssetsViewer extends GenerericTableViewer {
         @Override
         public void getCellData(Object element, Object[] data) {
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), ((Asset)element).getDecimals());
         }
 
         @Override

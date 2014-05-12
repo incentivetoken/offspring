@@ -41,11 +41,11 @@ public class BlockLabelProvider extends ColumnLabelProvider {
       break;
 
     case BlockTable.COLUMN_TOTAL_AMOUNT:
-      cell.setText(Utils.quantToString(b.getTotalAmountNQT()));
+      cell.setText(Utils.quantToString(b.getTotalAmountNQT(), 8));
       break;
 
     case BlockTable.COLUMN_TOTAL_FEE:
-      cell.setText(Utils.quantToString(b.getTotalFeeNQT()));
+      cell.setText(Utils.quantToString(b.getTotalFeeNQT(), 8));
       break;
 
     case BlockTable.COLUMN_PAYLOAD_LENGTH:

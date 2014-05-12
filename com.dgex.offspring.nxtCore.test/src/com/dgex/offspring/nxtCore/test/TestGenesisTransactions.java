@@ -49,7 +49,7 @@ public class TestGenesisTransactions {
       String recipient = Convert.toUnsignedLong(txn.getRecipientId());
       totalAmount += txn.getAmountNQT();
       System.out.println(recipient + " => "
-          + Utils.quantToString(txn.getAmountNQT())
+          + Utils.quantToString(txn.getAmountNQT(), 8)
           + "("
           + totalAmount + ")");
     }

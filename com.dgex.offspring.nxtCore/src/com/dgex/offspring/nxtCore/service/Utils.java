@@ -8,7 +8,7 @@ public class Utils {
       1000000, 10000000, 100000000 };
 
   public static Long getAmountNQT(String quantString) {
-    Long amountNQT = parseQNT(quantString);
+    Long amountNQT = parseQNT(quantString, 8);
     if (amountNQT == null) {
       return null;
     }
@@ -19,7 +19,7 @@ public class Utils {
   }
 
   public static Long getFeeNQT(String quantString) {
-    Long feeNQT = parseQNT(quantString);
+    Long feeNQT = parseQNT(quantString, 8);
     if (feeNQT == null) {
       return null;
     }
@@ -29,8 +29,19 @@ public class Utils {
     return feeNQT;
   }
 
-  public static Long getQuantityQNT(String quantString) {
-    Long quantityQNT = parseQNT(quantString);
+  // public static Long getQuantityQNT(String quantString) {
+  // Long quantityQNT = parseQNT(quantString);
+  // if (quantityQNT == null) {
+  // return null;
+  // }
+  // if (quantityQNT <= 0 || quantityQNT > Constants.MAX_ASSET_QUANTITY_QNT) {
+  // return null;
+  // }
+  // return quantityQNT;
+  // }
+
+  public static Long getQuantityQNT(String quantString, int decimals) {
+    Long quantityQNT = parseQNT(quantString, decimals);
     if (quantityQNT == null) {
       return null;
     }
@@ -40,11 +51,18 @@ public class Utils {
     return quantityQNT;
   }
 
-  public static String quantToString(Long quant) {
+  // public static String quantToString(Long quant) {
+  // if (quant == null) {
+  // return "";
+  // }
+  // return toStringFraction(quant, 8);
+  // }
+
+  public static String quantToString(Long quant, int decimals) {
     if (quant == null) {
       return "";
     }
-    return toStringFraction(quant, 8);
+    return toStringFraction(quant, decimals);
   }
 
   private static String toStringFraction(long number, int decimals) {
@@ -81,9 +99,20 @@ public class Utils {
    * @param quantString
    * @return
    */
-  public static Long parseQNT(String quantString) {
+  // public static Long parseQNT(String quantString) {
+  // try {
+  // Long quant = parseStringFraction(quantString, 8,
+  // Constants.MAX_BALANCE_NXT);
+  // return quant;
+  // }
+  // catch (Exception e) {
+  // return null;
+  // }
+  // }
+
+  public static Long parseQNT(String quantString, int decimals) {
     try {
-      Long quant = parseStringFraction(quantString, 8,
+      Long quant = parseStringFraction(quantString, decimals,
           Constants.MAX_BALANCE_NXT);
       return quant;
     }
@@ -129,4 +158,17 @@ public class Utils {
     }
     return wholePart * multipliers[decimals] + fractionalPart;
   }
+
+  public static Double quantToDouble(long quant, int decimals) {
+    String string = quantToString(quant, decimals);
+    if (string != null) {
+      try {
+        return Double.parseDouble(string);
+      }
+      catch (ArithmeticException e) {
+      }
+    }
+    return Double.valueOf(0);
+  }
+
 }

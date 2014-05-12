@@ -132,7 +132,7 @@ public class InspectAccountDialog extends TitleAreaDialog {
     Long balanceNQT = account == null ? 0l : (long) account.getBalanceNQT();
 
     setTitle("Account " + Convert.toUnsignedLong(accountId));
-    setMessage("Balance " + Utils.quantToString(balanceNQT));
+    setMessage("Balance " + Utils.quantToString(balanceNQT, 8));
 
     if (tabFolder != null) {
       tabFolder.dispose();

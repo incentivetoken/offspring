@@ -76,7 +76,7 @@ public class AddAccountDialog extends TitleAreaDialog {
       if (balanceNQT == null)
         textBalance.setText("");
       else
-        textBalance.setText(Utils.quantToString(balanceNQT));
+        textBalance.setText(Utils.quantToString(balanceNQT, 8));
       verifyInput();
     }
   };
@@ -90,7 +90,7 @@ public class AddAccountDialog extends TitleAreaDialog {
       if (balance == null)
         textBalance.setText("");
       else
-        textBalance.setText(Utils.quantToString(balance.longValue()));
+        textBalance.setText(Utils.quantToString(balance.longValue(), 8));
       verifyInput();
     }
   };

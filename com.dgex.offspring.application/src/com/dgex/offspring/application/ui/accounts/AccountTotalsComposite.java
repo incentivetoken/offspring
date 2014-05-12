@@ -52,7 +52,7 @@ public class AccountTotalsComposite extends Composite {
         Clipboard clipboard = new Clipboard(parent.getDisplay());
         TextTransfer textTransfer = TextTransfer.getInstance();
         clipboard.setContents(
-            new String[] { Utils.quantToString(totalValueNQT) },
+            new String[] { Utils.quantToString(totalValueNQT, 8) },
             new Transfer[] { textTransfer });
         clipboard.dispose();
       }
@@ -76,7 +76,7 @@ public class AccountTotalsComposite extends Composite {
   public void setTotalNQT(long totalNQT) {
     totalValueNQT = totalNQT;
     if (totalLabel != null && !totalLabel.isDisposed()) {
-      totalLabel.setText(Utils.quantToString(totalNQT) + " NXT"); //$NON-NLS-1$
+      totalLabel.setText(Utils.quantToString(totalNQT, 8) + " NXT"); //$NON-NLS-1$
       pack();
       layout();
     }

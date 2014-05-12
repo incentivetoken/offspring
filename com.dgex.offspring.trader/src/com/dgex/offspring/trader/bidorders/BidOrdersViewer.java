@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import nxt.Asset;
 import nxt.Order;
 import nxt.Order.Bid;
 import nxt.util.Convert;
@@ -45,11 +46,12 @@ public class BidOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
-
+          Asset asset = Asset.getAsset(order.getAssetId());
+          Double quantAsDouble = Utils.quantToDouble(order.getQuantityQNT(),
+              asset.getDecimals());
           try {
-            long total = Convert.safeMultiply(order.getPriceNQT(),
-                order.getQuantityQNT());
-            return Long.valueOf(total);
+            return Long.valueOf(Double.valueOf(
+                quantAsDouble * order.getPriceNQT()).longValue());
           }
           catch (ArithmeticException e) {
             return null;
@@ -62,7 +64,7 @@ public class BidOrdersViewer extends GenerericTableViewer {
           if (totalNQT == null)
             data[ICellDataProvider.TEXT] = "-";
           else
-            data[ICellDataProvider.TEXT] = Utils.quantToString(totalNQT);
+            data[ICellDataProvider.TEXT] = Utils.quantToString(totalNQT, 8);
         }
 
         @Override
@@ -84,7 +86,7 @@ public class BidOrdersViewer extends GenerericTableViewer {
         @Override
         public void getCellData(Object element, Object[] data) {
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), 8);
         }
 
         @Override
@@ -106,7 +108,7 @@ public class BidOrdersViewer extends GenerericTableViewer {
         @Override
         public void getCellData(Object element, Object[] data) {
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), assetDecimals);
         }
 
         @Override
@@ -160,6 +162,9 @@ public class BidOrdersViewer extends GenerericTableViewer {
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
       this.viewer = (BidOrdersViewer) viewer;
       this.assetId = (Long) newInput;
+      if (assetId != null) {
+        assetDecimals = Asset.getAsset(assetId).getDecimals();
+      }
     }
 
     @Override
@@ -177,6 +182,7 @@ public class BidOrdersViewer extends GenerericTableViewer {
   private IStylingEngine engine;
   private IUserService userService;
   private UISynchronize sync;
+  private int assetDecimals;
 
   public BidOrdersViewer(Composite parent, INxtService nxt,
       IContactsService contactsService, IStylingEngine engine,

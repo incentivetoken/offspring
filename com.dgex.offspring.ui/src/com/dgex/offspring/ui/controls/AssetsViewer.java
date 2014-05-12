@@ -74,8 +74,10 @@ public class AssetsViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
+          Long id = (Long) element;
+          Asset asset = Asset.getAsset(id);
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), asset.getDecimals());
         }
 
         @Override
@@ -99,8 +101,10 @@ public class AssetsViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
+          Long id = (Long) element;
+          Asset asset = Asset.getAsset(id);          
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element),asset.getDecimals());
         }
 
         @Override

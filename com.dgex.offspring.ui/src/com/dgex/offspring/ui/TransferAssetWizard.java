@@ -152,7 +152,7 @@ public class TransferAssetWizard extends GenericTransactionWizard {
       Map<Long, Long> map = account.getAssetBalancesQNT();
       long balanceQNT = map != null ? map.get(asset.getId()) : 0l;
       return "Asset: " + asset.getName() + " Balance: "
-          + Utils.quantToString(balanceQNT);
+          + Utils.quantToString(balanceQNT, asset.getDecimals());
     }
 
     @Override
@@ -216,7 +216,10 @@ public class TransferAssetWizard extends GenericTransactionWizard {
 
     @Override
     public Object getValue() {
-      return Utils.getQuantityQNT(textQuantity.getText().trim());
+      if (fieldAsset.getValue() == null)
+        return null;
+      return Utils.getQuantityQNT(textQuantity.getText().trim(),
+          ((Asset) fieldAsset.getValue()).getDecimals());
     }
 
     @Override
@@ -242,8 +245,13 @@ public class TransferAssetWizard extends GenericTransactionWizard {
 
     @Override
     public boolean verify(String[] message) {
+      if (fieldAsset.getValue() == null) {
+        message[0] = "Must set asset first";
+        return false;
+      }
       String quantityValue = textQuantity.getText().trim();
-      Long quantityQNT = Utils.getQuantityQNT(quantityValue);
+      Long quantityQNT = Utils.getQuantityQNT(quantityValue,
+          ((Asset) fieldAsset.getValue()).getDecimals());
       if (quantityQNT == null) {
         message[0] = "Incorrect quantity";
         return false;

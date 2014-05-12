@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import nxt.Asset;
 import nxt.Block;
 import nxt.Nxt;
 import nxt.Trade;
@@ -79,7 +80,7 @@ public class TradesViewer extends GenerericTableViewer {
         @Override
         public void getCellData(Object element, Object[] data) {
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), 8);
         }
 
         @Override
@@ -100,8 +101,10 @@ public class TradesViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
+          Trade trade = (Trade) element;
+          Asset asset = Asset.getAsset(trade.getAssetId());
           data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element));
+              .quantToString((Long) getCellValue(element), asset.getDecimals());
         }
 
         @Override

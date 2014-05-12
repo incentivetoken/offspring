@@ -150,13 +150,23 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
 
     @Override
     public Object getValue() {
-      return Utils.getQuantityQNT(textQuantity.getText().trim());
+      if (fieldAsset.getValue() == null)
+        return null;
+      return Utils.getQuantityQNT(textQuantity.getText().trim(),((Asset)fieldAsset.getValue()).getDecimals());
     };
 
     @Override
     public Control createControl(Composite parent) {
+      String text;      
+      Asset asset = Asset.getAsset(presetAssetId);
+      if (asset != null) {
+        text = Utils.quantToString(presetQuantityQNT, asset.getDecimals());
+      }
+      else {
+        text = "";
+      }
       textQuantity = new Text(parent, SWT.BORDER);
-      textQuantity.setText(Utils.quantToString(presetQuantityQNT));
+      textQuantity.setText(text);
       textQuantity.addModifyListener(new ModifyListener() {
 
         @Override
@@ -176,8 +186,12 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
 
     @Override
     public boolean verify(String[] message) {
+      if (fieldAsset.getValue() == null) {
+        message[0] = "Must set asset first";
+        return false;
+      }
       String text = textQuantity.getText().trim();
-      Long quantityQNT = Utils.getQuantityQNT(text);
+      Long quantityQNT = Utils.getQuantityQNT(text, ((Asset)fieldAsset.getValue()).getDecimals());
       if (quantityQNT == null) {
         message[0] = "Invalid value";
         return false;
@@ -187,7 +201,7 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
       if (asset != null) {
         if (quantityQNT > asset.getQuantityQNT()) {
           message[0] = "There where only "
-              + Utils.quantToString(asset.getQuantityQNT())
+              + Utils.quantToString(asset.getQuantityQNT(),((Asset)fieldAsset.getValue()).getDecimals())
               + " assets issued";
           return false;
         }
@@ -229,7 +243,7 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
 
       String price;
       if (presetAssetId != null && presetPriceNQT > 0) {
-        price = Utils.quantToString(presetPriceNQT);
+        price = Utils.quantToString(presetPriceNQT, 8);
       }
       else {
         price = "0.00";
@@ -306,14 +320,21 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
         message[0] = "Incorrect value";
         return false;
       }
+      
+      if (fieldAsset.getValue() == null) {
+        message[0] = "Must set asset first";
+        return false;
+      }
       textPriceReadonly.setText(text);
 
       /* calculate the total */
       Long quantityQNT = (Long) fieldQuantity.getValue();
       if (quantityQNT != null) {
         try {
-          long totalPriceNQT = Convert.safeMultiply(quantityQNT, priceNQT);
-          String txt = Utils.quantToString(totalPriceNQT);
+          Asset asset = ((Asset)fieldAsset.getValue());
+          Double quantAsDouble = Utils.quantToDouble(quantityQNT, asset.getDecimals());          
+          long totalPriceNQT = Long.valueOf(Double.valueOf(quantAsDouble * priceNQT).longValue());
+          String txt = Utils.quantToString(totalPriceNQT, 8);
           labelPriceTotalReadonly.setText(txt);
           labelPriceTotal.setText(txt);
         }
@@ -400,8 +421,8 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
       public String sendTransaction(String[] message) {
         IAccount sender = user.getAccount();
         Asset asset = (Asset) fieldAsset.getValue();
-        long quantityQNT = (long) fieldQuantity.getValue();
-        long priceNQT = (long) fieldPrice.getValue(); // price is in cents
+        long quantityQNT = (Long) fieldQuantity.getValue();
+        long priceNQT = (Long) fieldPrice.getValue(); // price is in cents
 
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
         dialog.setMinimumFeeNQT(Constants.ONE_NXT);
@@ -445,12 +466,18 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
           message[0] = "This is a readonly account";
           return false;
         }
+        if (fieldAsset.getValue() == null) {
+          message[0] = "Must set asset first";
+          return false;
+        }
 
-        Long quantityQNT = (long) fieldQuantity.getValue();
-        Long priceNQT = (long) fieldPrice.getValue();
+        Long quantityQNT = (Long) fieldQuantity.getValue();
+        Long priceNQT = (Long) fieldPrice.getValue();
         if (quantityQNT != null && priceNQT != null) {
           try {
-            long totalPriceNQT = Convert.safeMultiply(quantityQNT, priceNQT);
+            Asset asset = ((Asset)fieldAsset.getValue());
+            Double quantAsDouble = Utils.quantToDouble(quantityQNT, asset.getDecimals());          
+            long totalPriceNQT = Long.valueOf(Double.valueOf(quantAsDouble * priceNQT).longValue());
             if (totalPriceNQT > user.getAccount().getBalanceNQT()) {
               message[0] = "Insufficient balance";
               return false;

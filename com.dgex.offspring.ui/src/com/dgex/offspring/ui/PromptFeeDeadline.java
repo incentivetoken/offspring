@@ -57,7 +57,7 @@ public class PromptFeeDeadline extends Dialog {
     feeText = new Text(container, SWT.BORDER);
     feeText
         .setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-    feeText.setText(Utils.quantToString(minimumFeeNQT));
+    feeText.setText(Utils.quantToString(minimumFeeNQT, 8));
 
     decoFee = new ControlDecoration(feeText, SWT.TOP | SWT.RIGHT);
     decoFee.setImage(errorImage);
@@ -132,7 +132,7 @@ public class PromptFeeDeadline extends Dialog {
       }
       else if (feeNQT < minimumFeeNQT) {
         decoFee.setDescriptionText("Must be at least "
-            + Utils.quantToString(minimumFeeNQT));
+            + Utils.quantToString(minimumFeeNQT, 8));
         decoFee.show();
         verified = false;
       }

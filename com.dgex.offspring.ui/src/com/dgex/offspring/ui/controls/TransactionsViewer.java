@@ -113,7 +113,7 @@ public class TransactionsViewer extends GenerericTableViewer {
           Long amountNQT = (Long) getCellValue(element);
 
           data[FONT] = JFaceResources.getFontRegistry().getBold("");
-          data[TEXT] = Utils.quantToString(amountNQT);
+          data[TEXT] = Utils.quantToString(amountNQT, 8);
           if (amountNQT > 0)
             data[FOREGROUND] = Colors.getColor(DARK_GREEN);
           else if (amountNQT < 0)
@@ -145,7 +145,7 @@ public class TransactionsViewer extends GenerericTableViewer {
           if (balanceNQT < 0l)
             data[TEXT] = EMPTY_STRING;
           else
-            data[TEXT] = Utils.quantToString(balanceNQT);
+            data[TEXT] = Utils.quantToString(balanceNQT, 8);
         }
 
         @Override
@@ -312,7 +312,7 @@ public class TransactionsViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[TEXT] = Utils.quantToString((Long) getCellValue(element));
+          data[TEXT] = Utils.quantToString((Long) getCellValue(element), 8);
         }
 
         @Override

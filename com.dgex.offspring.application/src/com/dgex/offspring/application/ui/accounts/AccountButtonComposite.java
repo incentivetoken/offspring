@@ -207,7 +207,7 @@ public class AccountButtonComposite extends Composite {
       @Override
       public void widgetSelected(SelectionEvent e) {
         Clipboards.copy(parent.getDisplay(),
-            Utils.quantToString(user.getAccount().getBalanceNQT()));
+            Utils.quantToString(user.getAccount().getBalanceNQT(), 8));
       }
     });
 
@@ -275,11 +275,11 @@ public class AccountButtonComposite extends Composite {
     String text = "NXT ";
     if ((unconfirmedBalanceNQT - balanceNQT) > 1
         || (unconfirmedBalanceNQT - balanceNQT) < -1)
-      text += Utils.quantToString(balanceNQT) + " ("
-          + Utils.quantToString(unconfirmedBalanceNQT)
+      text += Utils.quantToString(balanceNQT, 8) + " ("
+          + Utils.quantToString(unconfirmedBalanceNQT, 8)
           + ")";
     else
-      text += Utils.quantToString(balanceNQT);
+      text += Utils.quantToString(balanceNQT, 8);
 
     balanceLabel.setText(text);
     layout();

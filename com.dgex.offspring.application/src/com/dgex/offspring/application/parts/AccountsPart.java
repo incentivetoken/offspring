@@ -739,7 +739,7 @@ public class AccountsPart {
       @Override
       public void widgetSelected(SelectionEvent e) {
         Clipboards.copy(parent.getDisplay(),
-            Utils.quantToString(totalNxtBalanceValueNQT));
+            Utils.quantToString(totalNxtBalanceValueNQT, 8));
       }
     });
 
@@ -854,7 +854,7 @@ public class AccountsPart {
     totalBTCBalanceValue = ExchangeRates.convertNqtToBtc(balance);
     totalEURBalanceValue = ExchangeRates.convertNqtToEur(balance);
 
-    String nxtStr = "NXT " + Utils.quantToString(balance);  //$NON-NLS-1$
+    String nxtStr = "NXT " + Utils.quantToString(balance, 8);  //$NON-NLS-1$
     String btcStr = "BTC " + String.format("%.5f", totalBTCBalanceValue);  //$NON-NLS-1$  //$NON-NLS-1$
     String eurStr = "EUR " + String.format("%.2f", totalEURBalanceValue);   //$NON-NLS-1$  //$NON-NLS-1$
 

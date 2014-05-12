@@ -70,8 +70,8 @@ public class TransactionHelper implements ITransaction {
   @Override
   public String toString() {
     return new StringBuilder().append("Txn ").append(getStringId())
-        .append(" amount=").append(Utils.quantToString(getAmountNQT()))
-        .append(" fee=").append(Utils.quantToString(getFeeNQT()))
+        .append(" amount=").append(Utils.quantToString(getAmountNQT(), 8))
+        .append(" fee=").append(Utils.quantToString(getFeeNQT(), 8))
         .append(" sender=")
         .append(getSender().getStringId())
         .append(" receiver=").append(getReceiver().getStringId())

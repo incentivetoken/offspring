@@ -166,7 +166,11 @@ public class IssueAssetWizard extends GenericTransactionWizard {
 
     @Override
     public Object getValue() {
-      return Utils.getQuantityQNT(textQuantity.getText().trim());
+      if ((Byte) fieldDecimals.getValue() == null) {
+        return null;
+      }
+      return Utils.getQuantityQNT(textQuantity.getText().trim(),
+          ((Byte) fieldDecimals.getValue()));
     }
 
     @Override
@@ -192,8 +196,13 @@ public class IssueAssetWizard extends GenericTransactionWizard {
 
     @Override
     public boolean verify(String[] message) {
+      if ((Byte) fieldDecimals.getValue() == null) {
+        message[0] = "Decimals field must be set first";
+        return false;
+      }
       String quantityValue = textQuantity.getText().trim();
-      Long quantityQNT = Utils.getQuantityQNT(quantityValue);
+      Long quantityQNT = Utils.getQuantityQNT(quantityValue,
+          (Byte) fieldDecimals.getValue());
       if (quantityQNT == null) {
         message[0] = "Incorect asset quantity";
         return false;
