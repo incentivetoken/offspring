@@ -173,7 +173,7 @@ public class GenericTransactionWizard extends Wizard {
                 catch (Exception e) {}
               }
               else {
-                statusLabel.setText(message[0]);
+                statusLabel.setText(message[0] == null ? "--" : message[0]);
               }
               statusLabel.pack();
               parent.layout();

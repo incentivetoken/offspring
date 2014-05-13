@@ -1,6 +1,5 @@
 package com.dgex.offspring.ui;
 
-import nxt.Asset;
 import nxt.Constants;
 import nxt.NxtException.ValidationException;
 import nxt.Transaction;
@@ -79,13 +78,13 @@ public class IssueAssetWizard extends GenericTransactionWizard {
         }
       }
 
-      try {
-        if (Asset.getAssets(normalizedName) != null) {
-          message[0] = "Asset name already used";
-          return false;
-        }
-      }
-      catch (NullPointerException e) {}
+      // try {
+      // if (Asset.getAssets(normalizedName) != null) {
+      // message[0] = "Asset name already used";
+      // return false;
+      // }
+      // }
+      // catch (NullPointerException e) {}
 
       textNameReadonly.setText(name);
       return true;
