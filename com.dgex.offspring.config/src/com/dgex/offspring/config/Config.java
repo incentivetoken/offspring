@@ -46,9 +46,9 @@ public class Config {
   public static File installPath;
   public static File appPath;
   public static File defaultConfig;
-  private static File dbPath;
-  private static File dbTestPath;
-  private static File logPath;
+  public static File dbPath;
+  public static File dbTestPath;
+  public static File logPath;
 
   static {
     initialize();
@@ -154,6 +154,8 @@ public class Config {
       properties.put("nxt.testnetPeers", testNetPeers);
       properties.put("nxt.isTestnet", "true");
     }
+
+    properties.put("nxt.myPlatform", "Offspring " + VERSION);
 
     writeConfigFile(properties, getAppPath("AUTO_GENERATED.offspring.config"));
 

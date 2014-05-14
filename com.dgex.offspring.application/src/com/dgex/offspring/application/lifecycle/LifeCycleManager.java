@@ -14,6 +14,7 @@ import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 import com.dgex.offspring.application.dialogs.LoginDialog;
 import com.dgex.offspring.config.Config;
@@ -63,14 +64,15 @@ public class LifeCycleManager {
 
     context.applicationRunning();
 
-    final LoginDialog loginDialog = new LoginDialog(Display.getCurrent()
-        .getActiveShell(), wallet);
+    Shell shell = Display.getCurrent().getActiveShell();
+    final LoginDialog loginDialog = new LoginDialog(shell, wallet);
     loginDialog.setBlockOnOpen(true);
 
     if (loginDialog.open() != Window.OK)
       System.exit(0);
 
     /* Only allow upgrade after login */
+    UpgradeManager.checkForUpdate(shell);
 
     /* Must re-initialize if user selected to use test net (write new config) */
     if (Config.nxtIsTestNet) {

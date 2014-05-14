@@ -17,6 +17,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: com.dgex.offspring.config,
  com.dgex.offspring.nxtCore.core,
  com.dgex.offspring.nxtCore.service,
+ com.dgex.offspring.providers.utils,
  com.dgex.offspring.ui,
  com.dgex.offspring.user.service,
  nxt,

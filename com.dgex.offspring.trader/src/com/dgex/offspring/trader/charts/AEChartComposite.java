@@ -1,5 +1,6 @@
 package com.dgex.offspring.trader.charts;
 
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,9 @@ import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.experimental.chart.swt.ChartComposite;
+
+import com.dgex.offspring.nxtCore.service.Utils;
+import com.dgex.offspring.providers.utils.ExchangeRates;
 
 public class AEChartComposite extends Composite {
 
@@ -44,10 +48,41 @@ public class AEChartComposite extends Composite {
     return chart;
   }
 
+  private String createTitle(Asset asset) {
+    StringBuilder buf = new StringBuilder();
+    buf.append(asset.getName() + " / NXT");
+
+    List<Trade> trades = Trade.getTrades(asset.getId());
+    Trade lastTrade = trades.isEmpty() ? null : trades.get(trades.size() - 1);
+    if (lastTrade != null) {
+
+      long pricePerAssetNQT = getAssetPricePerWholeQNT_inNQT(lastTrade.getPriceNQT(), asset.getDecimals());
+      buf.append(" Last: " + Utils.quantToString(pricePerAssetNQT, 8) + "\n");
+      
+      long totalAssets = BigInteger.valueOf(asset.getQuantityQNT()).divide(BigInteger.valueOf(Double.valueOf(Math.pow(10, asset.getDecimals())).longValue())).longValue();
+      // buf.append(" Total: " + Long.toString(totalAssets) + "\n");
+      
+      long marketcapNQT = BigInteger.valueOf(pricePerAssetNQT).multiply(BigInteger.valueOf(totalAssets)).longValue();
+      Double marketcapBTC = ExchangeRates.convertNqtToBtc(marketcapNQT);
+      Double marketcapEuro = ExchangeRates.convertNqtToEur(marketcapNQT);
+      
+      buf.append("Marketcap:\n");
+
+      buf.append("NXT " + Utils.quantToString(marketcapNQT, 8));  //$NON-NLS-1$  //$NON-NLS-1$
+      //buf.append(" | BTC " + String.format("%.3f", marketcapBTC));  //$NON-NLS-1$  //$NON-NLS-1$
+      buf.append(" | EUR " + String.format("%.2f", marketcapEuro));   //$NON-NLS-1$  //$NON-NLS-1$
+    }
+    return buf.toString();
+  }
+
+  private long getAssetPricePerWholeQNT_inNQT(long priceNQT, int decimals) {
+    return BigInteger.valueOf(priceNQT).multiply(BigInteger.valueOf(Double.valueOf(Math.pow(10, decimals)).longValue())).longValue();
+  }
+
+
   public void refresh(Asset asset) {
     this.asset = asset;
-    String title = asset.getName() + " / NXT";
-    chart = createChart(asset, title);
+    chart = createChart(asset, createTitle(asset));
     chartComposite.setChart(chart);
     chart.fireChartChanged();
   }

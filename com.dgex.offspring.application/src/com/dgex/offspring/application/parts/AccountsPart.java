@@ -44,7 +44,6 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.dgex.offspring.application.ui.accounts.AccountButtonComposite;
 import com.dgex.offspring.application.ui.accounts.AccountTotalsComposite;
-import com.dgex.offspring.application.utils.ExchangeRates;
 import com.dgex.offspring.application.utils.Layouts;
 import com.dgex.offspring.config.Clipboards;
 import com.dgex.offspring.config.Commands;
@@ -55,6 +54,7 @@ import com.dgex.offspring.nxtCore.service.IAccount;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.ITransaction;
 import com.dgex.offspring.nxtCore.service.Utils;
+import com.dgex.offspring.providers.utils.ExchangeRates;
 import com.dgex.offspring.ui.AccountTabFolder;
 import com.dgex.offspring.ui.SendMessageWizard;
 import com.dgex.offspring.user.service.IUser;

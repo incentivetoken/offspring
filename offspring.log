@@ -4156,3 +4156,137 @@ ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
 INFO  com.dgex.offspring.nxtCore.core.TransactionDB: LazyList.dispose
 INFO  com.dgex.offspring.ui.controls.AssetsViewer: inputChanged
+INFO  com.dgex.offspring.application.osgi.Activator: Starting Offspring NXT Client
+INFO  com.dgex.offspring.application.osgi.Activator: Java 1.7.0_45 (Oracle Corporation) Linux 3.8.0-38-generic i386
+INFO  com.dgex.offspring.config.Config: /home/dirk/Offspring/offspring.config EXISTS
+INFO  com.dgex.offspring.config.Config: 
+========================================================
+Offspring Configuration Settings
+========================================================
+nxt.peerServerPort=7874
+nxt.maxNumberOfConnectedPublicPeers=20
+nxt.pullThreshold=0
+nxt.usePeersDb=true
+nxt.apiServerHost=127.0.0.1
+nxt.enableHallmarkProtection=true
+nxt.apiSSL=false
+nxt.peerServerDoSFilter.maxRequestMs=300000
+nxt.uiServerHost=127.0.0.1
+nxt.dbCacheKB=0
+nxt.shareMyAddress=true
+nxt.pushThreshold=0
+nxt.myHallmark=
+nxt.javadocResourceBase=html/doc
+nxt.keyStorePath=keystore
+nxt.peerServerHost=0.0.0.0
+nxt.savePeers=true
+nxt.debugJetty=false
+nxt.peerServerIdleTimeout=5000
+nxt.peerServerDoSFilter.maxRequestsPerSec=30
+nxt.communicationLoggingMask=0
+nxt.enableStackTraces=true
+nxt.log=/home/dirk/Offspring/nxt.log
+offspring.charset=UTF-8
+nxt.readTimeout=5000
+nxt.allowedBotHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.myAddress=
+nxt.myPlatform=Offspring
+nxt.enableUIServer=false
+nxt.maxDbConnections=10
+nxt.allowedUserHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.uiServerIdleTimeout=30000
+nxt.apiServerPort=7876
+nxt.connectTimeout=2000
+nxt.peerServerDoSFilter.delayMs=1000
+nxt.debug=false
+nxt.sendToPeersLimit=10
+nxt.uiServerPort=7875
+nxt.apiServerCORS=false
+nxt.uiSSL=false
+nxt.blacklistingPeriod=300000
+nxt.testDbUrl=jdbc:h2:/home/dirk/Offspring/nxt_test_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.keyStorePassword=password
+nxt.enableAPIServer=false
+nxt.apiResourceBase=html/tools
+nxt.dbLoginTimeout=70
+nxt.apiServerIdleTimeout=30000
+nxt.uiResourceBase=html/nrs
+nxt.dbUrl=jdbc:h2:/home/dirk/Offspring/nxt_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.uiServerCORS=false
+nxt.wellKnownPeers=
+INFO  com.dgex.offspring.application.osgi.Activator: offspring.config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/offspring.config
+INFO  com.dgex.offspring.application.osgi.Activator: log4j config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/log4j.properties
+INFO  com.dgex.offspring.dataprovider.internal.DataProviderPool: new DataProviderPool #1
+INFO  com.dgex.offspring.application.lifecycle.LifeCycleManager: LifeCycleManager.postContextCreate
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 5322479310194938894 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 3982292391601778283 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 6323145612361514966 could not obtain Generator
+INFO  com.dgex.offspring.nxtCore.core.NXTService: Initialize START
+INFO  com.dgex.offspring.nxtCore.core.NXTService: NXT init START
+INFO  com.dgex.offspring.application.osgi.Activator: Starting Offspring NXT Client
+INFO  com.dgex.offspring.application.osgi.Activator: Java 1.7.0_45 (Oracle Corporation) Linux 3.8.0-38-generic i386
+INFO  com.dgex.offspring.config.Config: /home/dirk/Offspring/offspring.config EXISTS
+INFO  com.dgex.offspring.config.Config: 
+========================================================
+Offspring Configuration Settings
+========================================================
+nxt.peerServerPort=7874
+nxt.maxNumberOfConnectedPublicPeers=20
+nxt.pullThreshold=0
+nxt.usePeersDb=true
+nxt.apiServerHost=127.0.0.1
+nxt.enableHallmarkProtection=true
+nxt.apiSSL=false
+nxt.peerServerDoSFilter.maxRequestMs=300000
+nxt.uiServerHost=127.0.0.1
+nxt.dbCacheKB=0
+nxt.shareMyAddress=true
+nxt.pushThreshold=0
+nxt.myHallmark=
+nxt.javadocResourceBase=html/doc
+nxt.keyStorePath=keystore
+nxt.peerServerHost=0.0.0.0
+nxt.savePeers=true
+nxt.debugJetty=false
+nxt.peerServerIdleTimeout=5000
+nxt.peerServerDoSFilter.maxRequestsPerSec=30
+nxt.communicationLoggingMask=0
+nxt.enableStackTraces=true
+nxt.log=/home/dirk/Offspring/nxt.log
+offspring.charset=UTF-8
+nxt.readTimeout=5000
+nxt.allowedBotHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.myAddress=
+nxt.myPlatform=Offspring
+nxt.enableUIServer=false
+nxt.maxDbConnections=10
+nxt.allowedUserHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.uiServerIdleTimeout=30000
+nxt.apiServerPort=7876
+nxt.connectTimeout=2000
+nxt.peerServerDoSFilter.delayMs=1000
+nxt.debug=false
+nxt.sendToPeersLimit=10
+nxt.uiServerPort=7875
+nxt.apiServerCORS=false
+nxt.uiSSL=false
+nxt.blacklistingPeriod=300000
+nxt.testDbUrl=jdbc:h2:/home/dirk/Offspring/nxt_test_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.keyStorePassword=password
+nxt.enableAPIServer=false
+nxt.apiResourceBase=html/tools
+nxt.dbLoginTimeout=70
+nxt.apiServerIdleTimeout=30000
+nxt.uiResourceBase=html/nrs
+nxt.dbUrl=jdbc:h2:/home/dirk/Offspring/nxt_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.uiServerCORS=false
+nxt.wellKnownPeers=
+INFO  com.dgex.offspring.application.osgi.Activator: offspring.config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/offspring.config
+INFO  com.dgex.offspring.application.osgi.Activator: log4j config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/log4j.properties
+INFO  com.dgex.offspring.dataprovider.internal.DataProviderPool: new DataProviderPool #1
+INFO  com.dgex.offspring.application.lifecycle.LifeCycleManager: LifeCycleManager.postContextCreate
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 5322479310194938894 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 3982292391601778283 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 6323145612361514966 could not obtain Generator
+INFO  com.dgex.offspring.nxtCore.core.NXTService: Initialize START
+INFO  com.dgex.offspring.nxtCore.core.NXTService: NXT init START

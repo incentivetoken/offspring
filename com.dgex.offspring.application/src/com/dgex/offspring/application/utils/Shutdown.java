@@ -11,6 +11,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import com.dgex.offspring.application.dialogs.StartupDialog;
+import com.dgex.offspring.application.lifecycle.UpgradeManager;
 import com.dgex.offspring.dataprovider.service.IDataProviderPool;
 import com.dgex.offspring.nxtCore.service.INxtService;
 
@@ -82,6 +83,8 @@ public class Shutdown {
           nxt.shutdown();
 
           monitor.done();
+
+          UpgradeManager.notifySuccessfullShutdown();
         }
         finally {
           DONE = true;

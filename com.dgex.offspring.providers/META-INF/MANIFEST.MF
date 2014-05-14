@@ -12,4 +12,6 @@ Import-Package: au.com.bytecode.opencsv,
  org.json.simple.parser
 Export-Package: com.dgex.offspring.providers.bitcoinaverage,
  com.dgex.offspring.providers.dgex,
- com.dgex.offspring.providers.service
+ com.dgex.offspring.providers.service,
+ com.dgex.offspring.providers.utils
+Require-Bundle: com.dgex.offspring.nxtCore;bundle-version="1.0.0"

@@ -1623,3 +1623,117 @@ ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported
 ERROR com.dgex.offspring.providers.bitcoinaverage.TickerAllProvider: Unsupported currency: HKD
 INFO  com.dgex.offspring.nxtCore.core.TransactionDB: LazyList.dispose
 INFO  com.dgex.offspring.nxtCore.core.TransactionDB: LazyList.dispose
+INFO  com.dgex.offspring.application.osgi.Activator: Starting Offspring NXT Client
+INFO  com.dgex.offspring.application.osgi.Activator: Java 1.7.0_45 (Oracle Corporation) Linux 3.8.0-38-generic i386
+INFO  com.dgex.offspring.config.Config: /home/dirk/Offspring/offspring.config EXISTS
+INFO  com.dgex.offspring.config.Config: 
+========================================================
+Offspring Configuration Settings
+========================================================
+nxt.peerServerPort=7874
+nxt.testnetPeers=bug.airdns.org; node10.mynxtcoin.org; node9.mynxtcoin.org
+nxt.maxNumberOfConnectedPublicPeers=20
+nxt.pullThreshold=0
+nxt.usePeersDb=true
+nxt.apiServerHost=127.0.0.1
+nxt.enablePeerServerDoSFilter=true
+nxt.enableHallmarkProtection=true
+nxt.apiSSL=false
+nxt.apiServerEnforcePOST=true
+nxt.peerServerDoSFilter.maxRequestMs=300000
+nxt.uiServerHost=127.0.0.1
+nxt.dbCacheKB=0
+nxt.debugTraceLog=nxt-trace.csv
+nxt.shareMyAddress=true
+nxt.knownBlacklistedPeers=
+nxt.isTestnet=false
+nxt.debugTraceQuote="
+nxt.pushThreshold=0
+nxt.myHallmark=
+nxt.javadocResourceBase=html/doc
+nxt.keyStorePath=keystore
+nxt.peerServerHost=0.0.0.0
+nxt.savePeers=true
+nxt.debugJetty=false
+nxt.peerServerIdleTimeout=5000
+nxt.peerServerDoSFilter.maxRequestsPerSec=30
+nxt.communicationLoggingMask=0
+nxt.enableStackTraces=true
+nxt.log=/home/dirk/Offspring/nxt.log
+offspring.charset=UTF-8
+nxt.dbDefaultLockTimeout=10
+nxt.readTimeout=5000
+nxt.allowedBotHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.debugTraceAccounts=
+nxt.myAddress=
+nxt.myPlatform=Offspring 0.4.5
+nxt.enableUIServer=false
+nxt.maxDbConnections=10
+nxt.allowedUserHosts=127.0.0.1; localhost; 0:0:0:0:0:0:0:1;
+nxt.uiServerIdleTimeout=30000
+nxt.apiServerPort=7876
+nxt.connectTimeout=2000
+nxt.peerServerDoSFilter.delayMs=1000
+nxt.debug=false
+nxt.sendToPeersLimit=10
+nxt.uiServerPort=7875
+nxt.apiServerCORS=false
+nxt.uiSSL=false
+nxt.blacklistingPeriod=300000
+nxt.keyStorePassword=password
+nxt.testDbUrl=jdbc:h2:/home/dirk/Offspring/nxt_test_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.enableAPIServer=false
+nxt.apiResourceBase=html/tools
+nxt.dbLoginTimeout=70
+nxt.apiServerIdleTimeout=30000
+nxt.uiServerEnforcePOST=true
+nxt.uiResourceBase=html/nrs
+nxt.dbUrl=jdbc:h2:/home/dirk/Offspring/nxt_db/nxt;DB_CLOSE_ON_EXIT=FALSE
+nxt.uiServerCORS=false
+nxt.wellKnownPeers=
+nxt.debugTraceSeparator=	
+INFO  com.dgex.offspring.application.osgi.Activator: offspring.config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/offspring.config
+INFO  com.dgex.offspring.application.osgi.Activator: log4j config = /home/dirk/git/offspring/com.dgex.offspring.product/target/products/com.dgex.product/linux/gtk/x86/log4j.properties
+INFO  com.dgex.offspring.dataprovider.internal.DataProviderPool: new DataProviderPool #1
+INFO  com.dgex.offspring.application.lifecycle.LifeCycleManager: LifeCycleManager.postContextCreate
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 5322479310194938894 could not obtain Generator
+WARN  com.dgex.offspring.nxtCore.core.AccountHelper: startForging: 3982292391601778283 could not obtain Generator
+INFO  com.dgex.offspring.nxtCore.core.NXTService: Initialize START
+INFO  com.dgex.offspring.nxtCore.core.NXTService: NXT init START
+INFO  com.dgex.offspring.nxtCore.core.NXTService: NXT init END
+INFO  com.dgex.offspring.nxtCore.core.NXTService: Initialization COMPLETE
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyUSD: getInstance()
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthly: new PerHourMonthly(Currency[USD]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyUSD: new PerHourMonthlyUSD(Currency[USD]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyEUR: getInstance()
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthly: new PerHourMonthly(Currency[EUR]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyEUR: new PerHourMonthlyEUR(Currency[EUR]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyCNY: getInstance()
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthly: new PerHourMonthly(Currency[CNY]
+INFO  com.dgex.offspring.providers.bitcoinaverage.PerHourMonthlyCNY: new PerHourMonthlyCNY(Currency[CNY]
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=0
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements page=1 size=300
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements returns ELEMENTS.size=49
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=49
+INFO  com.dgex.offspring.nxtCore.core.TransactionDB: LazyList.dispose
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() START
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements page=1 size=300
+INFO  com.dgex.offspring.ui.controls.TransactionsViewer: getElements returns ELEMENTS.size=49
+INFO  com.dgex.offspring.swt.table.PaginationContainer: getElements() END returns=49
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@b27ff6
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ef2d62
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@b27ff6
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ef2d62
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@b27ff6
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ef2d62
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@b27ff6
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ef2d62
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@b27ff6
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ef2d62
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@b27ff6
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ef2d62
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@b27ff6
+INFO  com.dgex.offspring.application.parts.AccountsPart: Generator DEADLINE nxt.Generator@ef2d62
+INFO  com.dgex.offspring.nxtCore.core.TransactionDB: LazyList.dispose

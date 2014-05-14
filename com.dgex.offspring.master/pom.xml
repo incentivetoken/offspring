@@ -52,14 +52,14 @@
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>nsis-maven-plugin</artifactId>
         <version>1.0-alpha-1</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate-project</goal>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-        </executions>
+          <executions>
+            <execution>
+              <goals>
+                <goal>generate-headerfile</goal>
+                <goal>make</goal>               
+              </goals>
+            </execution>
+          </executions>
       </plugin> -->
       
       <!-- <plugin>

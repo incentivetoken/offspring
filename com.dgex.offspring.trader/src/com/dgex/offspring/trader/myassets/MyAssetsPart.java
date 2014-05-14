@@ -142,10 +142,10 @@ public class MyAssetsPart {
   private void createAccountCombo(Composite parent) {
     comboSender = new Combo(parent, SWT.READ_ONLY);
     for (IUser user : userService.getUsers()) {
-      if (!user.getAccount().isReadOnly()) {
+      // if (!user.getAccount().isReadOnly()) {
         senders.add(user);
         comboSender.add(createLabel(user));
-      }
+      // }
     }
 
     int index = senders.indexOf(userService.getActiveUser());

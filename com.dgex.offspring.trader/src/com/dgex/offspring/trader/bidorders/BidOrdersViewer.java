@@ -46,16 +46,7 @@ public class BidOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
-          Asset asset = Asset.getAsset(order.getAssetId());
-          Double quantAsDouble = Utils.quantToDouble(order.getQuantityQNT(),
-              asset.getDecimals());
-          try {
-            return Long.valueOf(Double.valueOf(
-                quantAsDouble * order.getPriceNQT()).longValue());
-          }
-          catch (ArithmeticException e) {
-            return null;
-          }
+          return Long.valueOf(Utils.calculateOrderTotalNQT(order.getQuantityQNT(), order.getPriceNQT()));
         }
 
         @Override
@@ -80,13 +71,13 @@ public class BidOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
-          return Long.valueOf(order.getPriceNQT());
+          Asset asset = Asset.getAsset(order.getAssetId());
+          return Long.valueOf(Utils.calculateOrderPricePerWholeQNT_InNQT(order.getPriceNQT(), asset.getDecimals()));
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element), 8);
+          data[ICellDataProvider.TEXT] = Utils.quantToString((Long) getCellValue(element), 8);
         }
 
         @Override
@@ -107,8 +98,7 @@ public class BidOrdersViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element), assetDecimals);
+          data[ICellDataProvider.TEXT] = Utils.quantToString((Long) getCellValue(element), assetDecimals);
         }
 
         @Override

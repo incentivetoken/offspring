@@ -66,6 +66,31 @@ public class TradesViewer extends GenerericTableViewer {
           return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
+  
+  final IGenericTableColumn columnTotal = new GenericTableColumnBuilder("Total")
+    .align(SWT.RIGHT).textExtent(EXTENT_COLUMN_PRICE)
+    .provider(new ICellDataProvider() {
+
+    @Override
+    public Object getCellValue(Object element) {
+      Trade trade = (Trade) element;
+      return Long.valueOf(Utils.calculateOrderTotalNQT(trade.getQuantityQNT(), trade.getPriceNQT()));
+    }
+
+    @Override
+    public void getCellData(Object element, Object[] data) {
+      Long totalNQT = (Long) getCellValue(element);
+      if (totalNQT == null)
+        data[ICellDataProvider.TEXT] = "-";
+      else
+        data[ICellDataProvider.TEXT] = Utils.quantToString(totalNQT, 8);
+    }
+
+    @Override
+    public int compare(Object v1, Object v2) {
+      return CompareMe.compare((Long) v1, (Long) v2);
+    }
+  }).build();
 
   final IGenericTableColumn columnPrice = new GenericTableColumnBuilder("Price")
       .align(SWT.RIGHT).textExtent(EXTENT_COLUMN_PRICE)
@@ -74,13 +99,13 @@ public class TradesViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Trade trade = (Trade) element;
-          return Long.valueOf(trade.getPriceNQT());
+          Asset asset = Asset.getAsset(trade.getAssetId());
+          return Long.valueOf(Utils.calculateOrderPricePerWholeQNT_InNQT(trade.getPriceNQT(), asset.getDecimals()));          
         }
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element), 8);
+          data[ICellDataProvider.TEXT] = Utils.quantToString((Long) getCellValue(element), 8);
         }
 
         @Override
@@ -228,7 +253,7 @@ public class TradesViewer extends GenerericTableViewer {
 
       @Override
       public IGenericTableColumn getDefaultSortColumn() {
-        return columnPrice;
+        return columnDate;
       }
 
       @Override
@@ -239,7 +264,7 @@ public class TradesViewer extends GenerericTableViewer {
       @Override
       public IGenericTableColumn[] getColumns() {
         return new IGenericTableColumn[] { columnDate, columnPrice,
-            columnQuantity, columnAskOrder, columnBidOrder };
+            columnQuantity, columnTotal, columnAskOrder, columnBidOrder };
       }
     });
     refresh();

@@ -1,5 +1,6 @@
 package com.dgex.offspring.ui;
 
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 import nxt.Asset;
@@ -138,7 +139,12 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
     }
   };
 
-  final IGenericTransactionField fieldQuantity = new IGenericTransactionField() {
+  /**
+   * Quantity is a double and can have as many decimals after the comma as are
+   * set on the asset. The getValue method returns the quantity in it's smallest
+   * possible unit.
+   */
+  final IGenericTransactionField fieldQuantityQNT = new IGenericTransactionField() {
 
     private Text textQuantity;
     private Text textQuantityReadonly;
@@ -152,7 +158,7 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
     public Object getValue() {
       if (fieldAsset.getValue() == null)
         return null;
-      return Utils.getQuantityQNT(textQuantity.getText().trim(),((Asset)fieldAsset.getValue()).getDecimals());
+      return Utils.getQuantityQNT(textQuantity.getText().trim(),((Asset)fieldAsset.getValue()).getDecimals());      
     };
 
     @Override
@@ -197,6 +203,8 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
         return false;
       }
 
+      System.out.println("quantityQNT=" + Long.toString(quantityQNT));
+
       Asset asset = (Asset) fieldAsset.getValue();
       if (asset != null) {
         if (quantityQNT > asset.getQuantityQNT()) {
@@ -211,8 +219,12 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
     }
   };
 
-  /* Price is expressed in NXT sends! User enters price in NXT with precision */
-  final IGenericTransactionField fieldPrice = new IGenericTransactionField() {
+  /**
+   * Price is expressed in NXT sends! User enters price in NXT with precision.
+   * NXT is defined in quants (8 decimals after the comma). The getValue method
+   * returns the price in NQT.
+   * */
+  final IGenericTransactionField fieldPriceNQT = new IGenericTransactionField() {
 
     private Text textPrice;
     private Text textPriceReadonly;
@@ -243,7 +255,8 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
 
       String price;
       if (presetAssetId != null && presetPriceNQT > 0) {
-        price = Utils.quantToString(presetPriceNQT, 8);
+        Asset asset = Asset.getAsset(presetAssetId);
+        price = Utils.quantToString(Utils.calculateOrderPricePerWholeQNT_InNQT(presetPriceNQT, asset.getDecimals()), 8);
       }
       else {
         price = "0.00";
@@ -315,12 +328,14 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
       labelPriceTotal.setText("");
 
       String text = textPrice.getText().trim();
-      Long priceNQT = Utils.getAmountNQT(text);
+      Long priceNQT = (Long) getValue();
       if (priceNQT == null) {
         message[0] = "Incorrect value";
         return false;
       }
       
+      System.out.println("priceNQT=" + Long.toString(priceNQT));
+
       if (fieldAsset.getValue() == null) {
         message[0] = "Must set asset first";
         return false;
@@ -328,12 +343,13 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
       textPriceReadonly.setText(text);
 
       /* calculate the total */
-      Long quantityQNT = (Long) fieldQuantity.getValue();
+      Long quantityQNT = (Long) fieldQuantityQNT.getValue();
       if (quantityQNT != null) {
         try {
-          Asset asset = ((Asset)fieldAsset.getValue());
-          Double quantAsDouble = Utils.quantToDouble(quantityQNT, asset.getDecimals());          
-          long totalPriceNQT = Long.valueOf(Double.valueOf(quantAsDouble * priceNQT).longValue());
+          
+          long totalPriceNQT = Long.valueOf(Utils.calculateOrderTotalNQT(quantityQNT, priceNQT));
+          totalPriceNQT = BigInteger.valueOf(totalPriceNQT).divide(BigInteger.valueOf(Double.valueOf(Math.pow(10, ((Asset)fieldAsset.getValue()).getDecimals())).longValue())).longValue();
+          
           String txt = Utils.quantToString(totalPriceNQT, 8);
           labelPriceTotalReadonly.setText(txt);
           labelPriceTotal.setText(txt);
@@ -347,68 +363,11 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
     }
   };
 
-  // final IGenericTransactionField fieldTotal = new IGenericTransactionField()
-  // {
-  //
-  // private Label labelTotal;
-  // private Label labelTotalReadonly;
-  //
-  // @Override
-  // public String getLabel() {
-  // return "Total";
-  // }
-  //
-  // @Override
-  // public Object getValue() {
-  // return null;
-  // }
-  //
-  // @Override
-  // public Control createControl(Composite parent) {
-  // labelTotal = new Label(parent, SWT.NONE);
-  // if (presetAssetId != null && presetPrice > 0) {
-  // Double p = new Long(presetPrice).doubleValue() / 100;
-  // p = p * presetQuantity;
-  // p = (double) Math.round(p * 100) / 100;
-  // labelTotal.setText(Double.toString(p));
-  // }
-  // else {
-  // labelTotal.setText("0");
-  // }
-  // return labelTotal;
-  // }
-  //
-  // @Override
-  // public Control createReadonlyControl(Composite parent) {
-  // labelTotalReadonly = new Label(parent, SWT.NONE);
-  // labelTotalReadonly.setText(labelTotal.getText());
-  // return labelTotalReadonly;
-  // }
-  //
-  // @Override
-  // public boolean verify(String[] message) {
-  // long price = (long) fieldPrice.getValue(); // price in cents
-  // int quantity = (int) fieldQuantity.getValue();
-  // String text = "";
-  // if (price != -1 && quantity != -1) {
-  // Double p = new Long(price).doubleValue() / 100;
-  // p = p * presetQuantity;
-  // p = (double) Math.round(p * 100) / 100;
-  // text = Double.toString(p);
-  // }
-  // labelTotal.setText(text);
-  // labelTotalReadonly.setText(text);
-  // return true;
-  // }
-  //
-  // };
-
   private Long presetAssetId;
   private long presetQuantityQNT;
   private long presetPriceNQT; // in cents per asset
 
-  public PlaceBidOrderWizard(final IUserService userService,
-      final INxtService nxt, Long assetId, long quantityQNT, long priceNQT) {
+  public PlaceBidOrderWizard(final IUserService userService, final INxtService nxt, Long assetId, long quantityQNT, long priceNQT) {
     super(userService);
     this.presetAssetId = assetId;
     this.presetQuantityQNT = quantityQNT;
@@ -421,8 +380,8 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
       public String sendTransaction(String[] message) {
         IAccount sender = user.getAccount();
         Asset asset = (Asset) fieldAsset.getValue();
-        long quantityQNT = (Long) fieldQuantity.getValue();
-        long priceNQT = (Long) fieldPrice.getValue(); // price is in cents
+        long quantityQNT = (Long) fieldQuantityQNT.getValue();
+        long priceNQT = (Long) fieldPriceNQT.getValue(); // price is in cents
 
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
         dialog.setMinimumFeeNQT(Constants.ONE_NXT);
@@ -453,7 +412,7 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
       @Override
       public IGenericTransactionField[] getFields() {
         return new IGenericTransactionField[] { fieldSender, fieldAsset,
-            fieldQuantity, fieldPrice /* , fieldTotal */};
+            fieldQuantityQNT, fieldPriceNQT /* , fieldTotal */};
       }
 
       @Override
@@ -471,8 +430,8 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
           return false;
         }
 
-        Long quantityQNT = (Long) fieldQuantity.getValue();
-        Long priceNQT = (Long) fieldPrice.getValue();
+        Long quantityQNT = (Long) fieldQuantityQNT.getValue();
+        Long priceNQT = (Long) fieldPriceNQT.getValue();
         if (quantityQNT != null && priceNQT != null) {
           try {
             Asset asset = ((Asset)fieldAsset.getValue());
