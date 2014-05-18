@@ -27,7 +27,7 @@ import java.util.Set;
 
 public final class API {
 
-    private static final int TESTNET_API_PORT = 6886;
+    private static final int TESTNET_API_PORT = 6876;
 
     static final Set<String> allowedBotHosts;
 
