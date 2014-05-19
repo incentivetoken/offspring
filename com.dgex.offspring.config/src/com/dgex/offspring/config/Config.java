@@ -35,6 +35,12 @@ public class Config {
   /* NXT config settings */
   public static boolean nxtIsTestNet = false;
 
+  /* Blockchain Alias that contains version data */
+  public static final String ALIAS_ID = "offspringversiondata";
+
+  /* Time between checks for ALIAS_ID updates */
+  public static final int UPDATE_CHECK_INTERVAL_SECS = 60 * 5; // 5 minutes
+
   /* Last updated from 0.9.9 */
   // public static String testNetPeers =
   // "bug.airdns.org; node10.mynxtcoin.org; node9.mynxtcoin.org; testnxt-jp.cloudapp.net; testnxt-ne.cloudapp.net; testnxt-we.cloudapp.net";

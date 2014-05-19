@@ -12,11 +12,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
-import nxt.Alias;
-import nxt.Block;
-import nxt.Nxt;
-import nxt.util.Convert;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
@@ -43,6 +38,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
@@ -51,22 +47,20 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import com.dgex.offspring.application.lifecycle.CountingOutputStream;
+import com.dgex.offspring.application.lifecycle.UpgradeManager;
 import com.dgex.offspring.application.lifecycle.VersionData;
 import com.dgex.offspring.config.Config;
 import com.dgex.offspring.config.Formatter;
-import com.dgex.offspring.config.VersionComprator;
 
 
 public class UpdateCenterDialog extends TitleAreaDialog {
   
   static final String wikiURL = "https://github.com/incentivetoken/offspring/wiki/8.-Installation-of-ZIP-files#zip-file-installation-instructions";
   static Logger logger = Logger.getLogger(UpdateCenterDialog.class);
-  static final String ALIAS_ID = "offspringversiondata";
-  static final int MIN_ALIAS_AGE = 60 * 60; 
-  boolean DEBUG = true;
+  static UpdateCenterDialog INSTANCE = null;
+  static VersionData versionData = null;
 
   private Composite mainContainer;
-  private final VersionData versionData;
   private ProgressIndicator progressIndicator;
   private final UISynchronize sync;
   private final ArrayList<Link> downloadLinks = new ArrayList<Link>();
@@ -132,10 +126,45 @@ public class UpdateCenterDialog extends TitleAreaDialog {
 
   public UpdateCenterDialog(Shell shell, UISynchronize sync) {
     super(shell);
-    this.versionData = getVersionData();
     this.sync = sync;
   }
   
+  /**
+   * Static method that opens a new dialog or switches to the existing dialog.
+   * 
+   * @param accountId
+   * @return
+   */
+  public static void show(final UISynchronize sync) {
+    sync.syncExec(new Runnable() {
+
+      @Override
+      public void run() {
+        Shell shell = Display.getCurrent().getActiveShell();
+        if (shell != null) {
+          while (shell.getParent() != null) {
+            shell = shell.getParent().getShell();
+          }
+        }
+
+        INSTANCE.versionData = UpgradeManager.getVersionData();
+        if (INSTANCE.versionData != null) {
+          if (INSTANCE == null) {
+            INSTANCE = new UpdateCenterDialog(shell, sync);
+            INSTANCE.open();
+          }
+          else {
+            INSTANCE.getShell().forceActive();
+          }
+        }
+      }
+    });
+  }
+
+  public static boolean isOpened() {
+    return INSTANCE != null;
+  }
+
   @Override
   public void create() {
     super.create();
@@ -144,28 +173,27 @@ public class UpdateCenterDialog extends TitleAreaDialog {
   }
   
   @Override
+  public int open() {
+    int ret = super.open();
+    if (UpgradeManager.getVersionData() == null) {
+      MessageDialog
+          .openInformation(getShell(), "Blockchain Incomplete",
+              "Update Center is disabled because your blockchain is still downloading.");
+      close();
+    }
+    return ret;
+  }
+  
+  @Override
   public boolean close() {
     if (currentJob != null) {
       currentJob.cancel();
     }
-    return super.close();
-  }
-
-  private VersionData getVersionData() {
-    Alias alias = Alias.getAlias(ALIAS_ID);
-    Block last = Nxt.getBlockchain().getLastBlock();
-    if (alias == null || last == null || last.getTimestamp() < (Convert.getEpochTime() - MIN_ALIAS_AGE)) {
-      if (DEBUG) {
-        System.out.println("Using DEBUG JSON");
-        return new VersionData(getDebugJSON());
-      }
-      MessageDialog.openInformation(getShell(), "Blockchain Incomplete", "Update Center is disabled because your blockchain is still downloading.");
-      close();
-      return null;
+    boolean closed = super.close();
+    if (closed) {
+      INSTANCE = null;
     }
-    
-    String json = alias.getURI();
-    return new VersionData(json);
+    return closed;
   }
     
   @Override
@@ -192,18 +220,17 @@ public class UpdateCenterDialog extends TitleAreaDialog {
     mainContainer.setLayout(layout);
 
     Label label;
+    boolean up_to_date = !versionData.isOutdatedVersion(Config.VERSION);
     
-    int result = new VersionComprator().compare(getCurrentVersion(), versionData.getVersion());
-    if (result >= 0) {
+    if (up_to_date) {
       label = new Label(mainContainer, SWT.NONE);
-      label.setText("YOUR OFFSPRING VERSION " + getCurrentVersion() + " IS UP TO DATE");
+      label.setText("YOUR OFFSPRING VERSION " + Config.VERSION + " IS UP TO DATE");
       label.setFont(JFaceResources.getFontRegistry().getBold(""));
       GridDataFactory.fillDefaults().span(2, 1).align(SWT.FILL, SWT.FILL)
           .grab(true, false).applyTo(label);
 
       final Button check = new Button(mainContainer, SWT.CHECK);
-      GridDataFactory.fillDefaults().span(2, 1).align(SWT.FILL, SWT.FILL)
-          .applyTo(check);
+      GridDataFactory.fillDefaults().span(2, 1).align(SWT.FILL, SWT.FILL).applyTo(check);
       check.setText("Let me download anyway.");
       check.addSelectionListener(new SelectionAdapter() {
 
@@ -223,7 +250,7 @@ public class UpdateCenterDialog extends TitleAreaDialog {
     }
     
     downloadComposite = new Composite(mainContainer, SWT.NONE);
-    downloadComposite.setVisible(result < 0);
+    downloadComposite.setVisible(up_to_date == false);
     GridDataFactory.fillDefaults().span(2, 1).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(downloadComposite);
     GridLayoutFactory.fillDefaults().numColumns(1).applyTo(downloadComposite);    
     
@@ -258,12 +285,9 @@ public class UpdateCenterDialog extends TitleAreaDialog {
     GridDataFactory.fillDefaults().exclude(true).span(2, 1).align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(finalizeComposite);
     GridLayoutFactory.fillDefaults().numColumns(1).applyTo(finalizeComposite);
     
-    new Label(finalizeComposite, SWT.NONE)
-        .setText("Installation Instructions..");
-    new Label(finalizeComposite, SWT.NONE)
-        .setText("Windows users execute the installer and follow instructions.");
-    new Label(finalizeComposite, SWT.NONE)
-        .setText("All users who downloaded the ZIP file check out our WIKI.");
+    new Label(finalizeComposite, SWT.NONE).setText("Installation Instructions..");
+    new Label(finalizeComposite, SWT.NONE).setText("Windows users execute the installer and follow instructions.");
+    new Label(finalizeComposite, SWT.NONE).setText("All users who downloaded the ZIP file check out our WIKI.");
 
     Link link = new Link(finalizeComposite, SWT.NONE);
     link.setText("<A>Click to visit WIKI</a>");
@@ -445,23 +469,6 @@ public class UpdateCenterDialog extends TitleAreaDialog {
           progressIndicator.done();
       }
     });
-  }
-
-  private String getCurrentVersion() {
-    if (DEBUG) {
-      return "0.4.5";
-    }
-    return Config.VERSION;
-  }
-  
-  private static String getDebugJSON() {
-    try {
-      return FileUtils.readFileToString(new File("/home/dirk/git/offspring/com.dgex.offspring.application/src/com/dgex/offspring/application/lifecycle/version.json"));
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-    }
-    return null;
   }
 
   private void showError(final String message, final Throwable t) {

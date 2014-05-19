@@ -3,6 +3,8 @@ package com.dgex.offspring.application.lifecycle;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
+import com.dgex.offspring.config.VersionComprator;
+
 public class VersionData {
   
   private static String OS = System.getProperty("os.name").toLowerCase();
@@ -39,6 +41,11 @@ public class VersionData {
     return false;
   }
   
+  public boolean isOutdatedVersion(String version) {
+    int ret = new VersionComprator().compare(version, getVersion());
+    return ret < 0;
+  }
+
   public String getFilename(int platform) {
     return createFileName(platform, getVersion());
   }

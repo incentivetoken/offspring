@@ -3,13 +3,17 @@ package com.dgex.offspring.application.lifecycle;
 import java.io.File;
 import java.io.IOException;
 
+import nxt.Alias;
+import nxt.Block;
 import nxt.Nxt;
+import nxt.util.Convert;
 
 import org.apache.commons.io.FileDeleteStrategy;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.e4.ui.di.UISynchronize;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import com.dgex.offspring.config.Config;
@@ -17,15 +21,39 @@ import com.dgex.offspring.messages.Messages;
 
 public class UpgradeManager {
   
-  static String sJSONAlias = "OFFSPRING-LATEST-VERSION-DATA";
-  static int MIN_SECONDS_OLD_FOR_ALIAS = 60 * 60;
-  static boolean DEBUG = true;
-
   static Logger logger = Logger.getLogger(UpgradeManager.class);
   static UISynchronize sync = null;
 
   public static void init(UISynchronize sync) {
     UpgradeManager.sync = sync;
+  }
+
+  public static VersionData getVersionData() {
+    Alias alias = Alias.getAlias(Config.ALIAS_ID);
+    Block last = Nxt.getBlockchain().getLastBlock();
+    if (alias == null || last == null || (last.getTimestamp()-Convert.getEpochTime()) > 10*60) {
+
+      Shell shell = Display.getCurrent().getActiveShell();
+      if (shell != null) {
+        while (shell.getParent() != null) {
+          shell = shell.getParent().getShell();
+        }
+      }
+      if (shell != null) {
+        MessageDialog
+            .openWarning(
+                shell,
+                "Please wait",
+                "Blockchain has to be downloaded completely before you can use the update center");
+      }
+      else {
+        System.out.println("Blockchain not fully downloaded yet");
+      }
+      return null;
+    }
+
+    String json = alias.getURI();
+    return new VersionData(json);
   }
 
   /*

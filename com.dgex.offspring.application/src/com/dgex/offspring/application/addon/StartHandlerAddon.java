@@ -3,6 +3,9 @@ package com.dgex.offspring.application.addon;
 import it.sauronsoftware.junique.JUnique;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -29,6 +32,9 @@ import org.osgi.service.event.Event;
 import org.osgi.service.event.EventHandler;
 
 import com.dgex.offspring.application.dialogs.StartupDialog;
+import com.dgex.offspring.application.dialogs.UpdateCenterDialog;
+import com.dgex.offspring.application.lifecycle.UpgradeManager;
+import com.dgex.offspring.application.lifecycle.VersionData;
 import com.dgex.offspring.config.Config;
 import com.dgex.offspring.dataprovider.service.IDataProviderPool;
 import com.dgex.offspring.nxtCore.service.INxtService;
@@ -55,6 +61,9 @@ public class StartHandlerAddon {
   static String MAINWINDOW_ID = "com.dgex.offspring.application.mainwindow";
 
   private final Logger logger = Logger.getLogger(StartHandlerAddon.class);
+
+  private final ScheduledExecutorService scheduledThreadPool = Executors
+      .newScheduledThreadPool(2);
 
   @Inject
   private IEventBroker broker;
@@ -125,8 +134,7 @@ public class StartHandlerAddon {
       /* Kick off NXT startup */
 
       monitor.beginTask("Initializing NXT " + Nxt.VERSION
-          + " (might take several minutes)",
-          IProgressMonitor.UNKNOWN);
+          + " (might take several minutes)", IProgressMonitor.UNKNOWN);
       nxt.initialize(broker, sync);
 
       /* Immediately register for shutdown */
@@ -173,6 +181,30 @@ public class StartHandlerAddon {
 
       DONE = true;
       monitor.done();
+
+      /* Schedule the update checker every N seconds */
+      scheduledThreadPool.scheduleWithFixedDelay(new Runnable() {
+
+        @Override
+        public void run() {
+          if (UpdateCenterDialog.isOpened()) {
+            return;
+          }
+          VersionData data = UpgradeManager.getVersionData();
+          if (data != null) {
+            if (data.isOutdatedVersion(Config.VERSION)) {
+              sync.asyncExec(new Runnable() {
+
+                @Override
+                public void run() {
+                  UpdateCenterDialog.show(sync);
+                }
+              });
+            }
+          }
+        }
+
+      }, 30, Config.UPDATE_CHECK_INTERVAL_SECS, TimeUnit.SECONDS);
     }
   };
 
