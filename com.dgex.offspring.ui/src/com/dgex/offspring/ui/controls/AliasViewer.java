@@ -40,7 +40,7 @@ public class AliasViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Alias alias = (Alias) element;
-          return alias.getAliasName();
+          return alias.getAliasName().toLowerCase();
         }
 
         @Override

@@ -46,6 +46,11 @@ public class BidOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
+          System.out.println("order.getQuantityQNT()=" + order.getQuantityQNT());
+          System.out.println("order.getPriceNQT()=" + order.getPriceNQT());
+          long a = order.getQuantityQNT();
+          long b = order.getPriceNQT();
+
           return Long.valueOf(Utils.calculateOrderTotalNQT(order.getQuantityQNT(), order.getPriceNQT()));
         }
 
@@ -72,7 +77,11 @@ public class BidOrdersViewer extends GenerericTableViewer {
         public Object getCellValue(Object element) {
           Order order = (Order) element;
           Asset asset = Asset.getAsset(order.getAssetId());
-          return Long.valueOf(Utils.calculateOrderPricePerWholeQNT_InNQT(order.getPriceNQT(), asset.getDecimals()));
+          if (asset != null) {
+            return Long.valueOf(Utils.calculatePriceNQTperWholeQNT(
+                order.getPriceNQT(), asset.getDecimals()));
+          }
+          return Long.valueOf(0l);
         }
 
         @Override
@@ -130,8 +139,7 @@ public class BidOrdersViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toUnsignedLong((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = truncateId(Convert.toUnsignedLong((Long) getCellValue(element)));
         }
 
         @Override
@@ -203,8 +211,8 @@ public class BidOrdersViewer extends GenerericTableViewer {
 
       @Override
       public IGenericTableColumn[] getColumns() {
-        return new IGenericTableColumn[] { columnTotal, columnPrice,
-            columnQuantity, columnBuyer };
+        return new IGenericTableColumn[] { columnPrice, columnQuantity,
+            columnTotal, columnBuyer };
       }
     });
     refresh();

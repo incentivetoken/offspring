@@ -35,3 +35,15 @@
   font-weight: bold;
   font-size: 15px;
 }
+
+Label .upgradeCenterTitleUpToDate {
+  font-weight: bold;
+  font-size: 15px;
+  color: green;  
+}
+
+Label .upgradeCenterTitleStale {
+  font-weight: bold;
+  font-size: 15px;
+  color: red;  
+}

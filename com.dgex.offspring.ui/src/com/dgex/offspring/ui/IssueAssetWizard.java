@@ -168,8 +168,7 @@ public class IssueAssetWizard extends GenericTransactionWizard {
       if ((Byte) fieldDecimals.getValue() == null) {
         return null;
       }
-      return Utils.getQuantityQNT(textQuantity.getText().trim(),
-          ((Byte) fieldDecimals.getValue()));
+      return Utils.getQuantityQNT(textQuantity.getText().trim(), ((Byte) fieldDecimals.getValue()));
     }
 
     @Override

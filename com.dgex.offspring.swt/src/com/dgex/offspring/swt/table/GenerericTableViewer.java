@@ -155,6 +155,10 @@ public class GenerericTableViewer extends TableViewer implements
     // }
     // });
   }
+  
+  public static String truncateId(String s) {
+    return s.substring(0, 4) + "..";
+  }
 
   @Override
   public void setGenericTable(IGenericTable table) {
@@ -162,7 +166,7 @@ public class GenerericTableViewer extends TableViewer implements
 
     setUseHashlookup(true);
     setContentProvider(table.getContentProvider());
-    if (!(table.getContentProvider() instanceof IPageableStructeredContentProvider)) {
+    if (!(table.getContentProvider() instanceof IPageableStructeredContentProvider) && table.getDefaultSortColumn() != null) {
       this.comparator = new GenericComparator(table);
       setComparator(comparator);
     }

@@ -357,6 +357,27 @@ public class Messages extends NLS {
   public static String TransactionWizard_title;
 
   public static String TransactionWizard_window_title;
+
+  public static String UpgradeManager_outdated_version_title;
+
+  public static String UpgradeManager_outdated_version_msg;
+
+  public static String UpgradeManager_fail_browser_title;
+
+  public static String UpgradeManager_fail_browser_msg;
+
+  public static String UpgradeManager_update_later_title;
+
+  public static String UpgradeManager_update_later_msg;
+
+  public static String UpgradeManager_delete_blockchain_title;
+
+  public static String UpgradeManager_delete_blockchain_msg;
+
+  public static String UpgradeManager_fail_delete_blockchain_title;
+
+  public static String UpgradeManager_fail_delete_blockchain_msg;
+
   static {
     // initialize resource bundle
     NLS.initializeMessages(BUNDLE_NAME, Messages.class);

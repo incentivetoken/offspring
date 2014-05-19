@@ -35,9 +35,9 @@ public class MyAssetsViewer extends GenerericTableViewer {
 
   static String EXTENT_COLUMN_NAME = "01234567890";
   static String EXTENT_COLUMN_BALANCE = "1000000000";
-  static String EXTENT_COLUMN_ISSUER = "#############";
-  static String EXTENT_COLUMN_QUANTITY = "1000000000";
-  static String EXTENT_COLUMN_DESCRIPTION = "###############";
+  static String EXTENT_COLUMN_ISSUER = "######";
+  static String EXTENT_COLUMN_QUANTITY = "10000000000000";
+  static String EXTENT_COLUMN_DESCRIPTION = "####################";
   static final String EMPTY_STRING = "";
   static Logger logger = Logger.getLogger(MyAssetsViewer.class);
 
@@ -81,8 +81,10 @@ public class MyAssetsViewer extends GenerericTableViewer {
         public void getCellData(Object element, Object[] data) {
           Long id = (Long) element;
           Asset asset = Asset.getAsset(id);
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element), asset.getDecimals());
+          if (asset != null) {
+            data[ICellDataProvider.TEXT] = Utils.quantToString(
+                (Long) getCellValue(element), asset.getDecimals());
+          }
         }
 
         @Override
@@ -108,8 +110,9 @@ public class MyAssetsViewer extends GenerericTableViewer {
         public void getCellData(Object element, Object[] data) {
           Long id = (Long) element;
           Asset asset = Asset.getAsset(id);          
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element), asset.getDecimals());
+          if (asset != null)
+            data[ICellDataProvider.TEXT] = Utils.quantToString(
+                (Long) getCellValue(element), asset.getDecimals());
         }
 
         @Override
@@ -147,8 +150,8 @@ public class MyAssetsViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toUnsignedLong((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = truncateId(Convert
+              .toUnsignedLong((Long) getCellValue(element)));
         }
 
         @Override
@@ -166,7 +169,7 @@ public class MyAssetsViewer extends GenerericTableViewer {
           Long id = (Long) element;
           Asset asset = Asset.getAsset(id);
           if (asset != null)
-            return asset.getDescription();
+            return asset.getDescription().replace("\n", " ");
           return EMPTY_STRING;
         }
 

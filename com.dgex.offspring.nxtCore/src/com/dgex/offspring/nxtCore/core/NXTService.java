@@ -1,6 +1,8 @@
 package com.dgex.offspring.nxtCore.core;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import nxt.Account;
@@ -17,6 +19,7 @@ import nxt.peer.Peer;
 import nxt.peer.Peers;
 import nxt.util.Convert;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.e4.core.services.events.IEventBroker;
 import org.eclipse.e4.ui.di.UISynchronize;
@@ -78,6 +81,7 @@ public class NXTService implements INxtService {
     logger.info("NXT init START");
 
     try {
+
       /* Read the database file AND iterate over all records in database */
       Nxt.init(Config.properties);
     }
@@ -86,16 +90,28 @@ public class NXTService implements INxtService {
 
         @Override
         public void run() {
-          MessageDialog
-              .openError(
+          boolean doit = MessageDialog
+              .openQuestion(
                   Display.getDefault().getActiveShell(),
                   "NXT initialization Error",
                   "A fatal error occured initializing NXT.\n"
                       + "If this keeps occuring consider to delete NXT database folder.\n\n"
-                      + t.toString());
+                      + "Error:" + t.getMessage() + "\n\n"
+                      + "Do you want to delete the blockchain now?");
+          if (doit) {
+            File path = Constants.isTestnet ? Config.dbTestPath : Config.dbPath;
+            System.out.println("Path=" + path.getAbsolutePath());
+            if (path.exists()) {
+              Iterator<File> it = FileUtils.iterateFiles(path, null, true);
+              while (it.hasNext()) {
+                it.next().deleteOnExit();
+              }
+              path.deleteOnExit();
+            }
+          }
         }
       });
-      System.exit(-1);
+      System.exit(0);
       return;
     }
 
@@ -395,6 +411,22 @@ public class NXTService implements INxtService {
     return transaction;
   }
 
+  @Override
+  public Transaction createTransferAliasTransaction(IAccount sender,
+      Long recipient, long alias, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
+      TransactionException {
+    
+    Transaction transaction = TransactionTransferAlias.create(sender,
+        recipient, alias, deadline, feeNQT,
+        referencedTransactionFullHash, this);
+
+    broker.post(INxtService.TOPIC_ADD_FILTERED_UNCONFIRMED_TRANSACTION,
+        new TransactionHelper(this, transaction));
+
+    return transaction;
+  }
+  
   @Override
   public String getAccountForPrivateKey(String privateKey) {
     byte[] publicKey = Crypto.getPublicKey(privateKey);

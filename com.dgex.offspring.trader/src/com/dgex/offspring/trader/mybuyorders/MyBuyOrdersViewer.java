@@ -70,16 +70,7 @@ public class MyBuyOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           OrderWrapper order = (OrderWrapper) element;
-          
-          Double quantAsDouble = Utils.quantToDouble(order.getQuantityQNT(),
-              order.getDecimals());
-          try {
-            return Long.valueOf(Double.valueOf(
-                quantAsDouble * order.getPriceNQT()).longValue());
-          }
-          catch (ArithmeticException e) {
-            return null;
-          }          
+          return Long.valueOf(Utils.calculateOrderTotalNQT(order.getPriceNQT(), order.getQuantityQNT()));
         }
 
         @Override

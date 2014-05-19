@@ -1,6 +1,7 @@
 package com.dgex.offspring.nxtCore.core;
 
 import nxt.Account;
+import nxt.Alias;
 import nxt.Asset;
 import nxt.Constants;
 import nxt.util.Convert;
@@ -70,6 +71,18 @@ public class TransactionBase {
     if (asset == null) {
       throw new TransactionException(
           TransactionException.UNKNOWN_ASSET);
+    }
+  }
+  
+  static void validateAlias(Long aliasId) throws TransactionException {
+    Alias alias;
+    try {
+      alias = Alias.getAlias(aliasId);
+    } catch (RuntimeException e) {
+      throw new TransactionException(TransactionException.INCORRECT_ALIAS);
+    }
+    if (alias == null) {
+      throw new TransactionException(TransactionException.UNKNOWN_ALIAS);
     }
   }
 

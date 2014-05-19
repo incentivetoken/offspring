@@ -8,12 +8,15 @@ import java.util.List;
 import nxt.Asset;
 import nxt.util.Convert;
 
+import org.eclipse.e4.ui.di.UISynchronize;
+import org.eclipse.e4.ui.services.IStylingEngine;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 
 import com.dgex.offspring.config.CompareMe;
+import com.dgex.offspring.config.IContactsService;
 import com.dgex.offspring.nxtCore.service.INxtService;
 import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.table.GenerericTableViewer;
@@ -25,11 +28,13 @@ import com.dgex.offspring.swt.table.IFilteredStructuredContentProvider;
 import com.dgex.offspring.swt.table.IGenericTable;
 import com.dgex.offspring.swt.table.IGenericTableColumn;
 import com.dgex.offspring.swt.table.Wildcard;
+import com.dgex.offspring.ui.InspectAccountDialog;
+import com.dgex.offspring.user.service.IUserService;
 
 public class AssetsViewer extends GenerericTableViewer {
 
   static String EXTENT_COLUMN_NAME = "01234567890";
-  static String EXTENT_COLUMN_ISSUER = "#############";
+  static String EXTENT_COLUMN_ISSUER = "######";
   static String EXTENT_COLUMN_QUANTITY = "1000000000";
 
   final IGenericTableColumn columnName = new GenericTableColumnBuilder("Name")
@@ -63,8 +68,8 @@ public class AssetsViewer extends GenerericTableViewer {
           Asset asset = (Asset) element;
           Long id = asset.getAccountId();
           if (id != null) {
-            // InspectAccountDialog.show(id, nxt, engine, userService, sync,
-            // contactsService);
+            InspectAccountDialog.show(id, nxt, engine, userService, sync,
+                contactsService);
           }
         }
       }).provider(new ICellDataProvider() {
@@ -77,8 +82,8 @@ public class AssetsViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toUnsignedLong((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = truncateId(
+              Convert.toUnsignedLong((Long) getCellValue(element)));
         }
 
         @Override
@@ -86,6 +91,7 @@ public class AssetsViewer extends GenerericTableViewer {
           return CompareMe.compare((Long) v1, (Long) v2);
         }
       }).build();
+
 
   final IGenericTableColumn columnQuantity = new GenericTableColumnBuilder(
       "Quantity").align(SWT.RIGHT).textExtent(EXTENT_COLUMN_QUANTITY)
@@ -158,11 +164,21 @@ public class AssetsViewer extends GenerericTableViewer {
   };
 
   public INxtService nxt;
+  private IContactsService contactsService;
+  private IStylingEngine engine;
+  private IUserService userService;
+  private UISynchronize sync;
 
-  public AssetsViewer(Composite parent, INxtService nxt) {
+  public AssetsViewer(Composite parent, INxtService nxt,
+      IContactsService contactsService, IStylingEngine engine,
+      IUserService userService, UISynchronize sync) {
     super(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.SINGLE
         | SWT.BORDER);
     this.nxt = nxt;
+    this.contactsService = contactsService;
+    this.engine = engine;
+    this.userService = userService;
+    this.sync = sync;
     setGenericTable(new IGenericTable() {
 
       @Override
@@ -182,7 +198,7 @@ public class AssetsViewer extends GenerericTableViewer {
 
       @Override
       public IGenericTableColumn[] getColumns() {
-        return new IGenericTableColumn[] { columnName, columnQuantity };
+        return new IGenericTableColumn[] { columnName, columnIssuer };
       }
     });
     refresh();

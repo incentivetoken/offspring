@@ -10,6 +10,8 @@ import nxt.Constants;
 import nxt.NxtException.ValidationException;
 import nxt.Transaction;
 
+import org.eclipse.jface.layout.GridDataFactory;
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -17,9 +19,11 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
 import com.dgex.offspring.nxtCore.service.IAccount;
@@ -33,6 +37,8 @@ import com.dgex.offspring.user.service.IUser;
 import com.dgex.offspring.user.service.IUserService;
 
 public class PlaceAskOrderWizard extends GenericTransactionWizard {
+  
+  static String THIRD_COLUMN = "000000000000";
 
   final IGenericTransactionField fieldAsset = new IGenericTransactionField() {
 
@@ -77,8 +83,7 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
     private String createLabel(Account account, Asset asset) {
       Map<Long, Long> map = account.getAssetBalancesQNT();
       long balanceQNT = map != null ? map.get(asset.getId()) : 0l;
-      return "Asset: " + asset.getName() + " Balance: "
-          + Utils.quantToString(balanceQNT, asset.getDecimals());
+      return "Asset: " + asset.getName() + " Balance: " + Utils.quantToString(balanceQNT, asset.getDecimals());
     }
 
     @Override
@@ -105,8 +110,6 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
     @Override
     public Control createReadonlyControl(Composite parent) {
       comboAssetReadonly = new Combo(parent, SWT.READ_ONLY);
-      // comboAssetReadonly.add("..");
-      // comboAssetReadonly.select(0);
       return comboAssetReadonly;
     }
 
@@ -145,7 +148,7 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
 
     @Override
     public String getLabel() {
-      return "Quantity";
+      return "Quantity (Asset)";
     }
 
     @Override
@@ -153,14 +156,22 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
       if (fieldAsset.getValue() == null) {
         return null;
       }
-      return Utils.getQuantityQNT(textQuantity.getText().trim(),
+      return Utils.parseQNT(textQuantity.getText().trim(),
           ((Asset) fieldAsset.getValue()).getDecimals());
     };
 
     @Override
     public Control createControl(Composite parent) {
       textQuantity = new Text(parent, SWT.BORDER);
-      textQuantity.setText(Long.toString(presetQuantityQNT));
+
+      textQuantity.setText("");
+      if (presetAssetId != null) {
+        Asset asset = Asset.getAsset(presetAssetId);
+        if (asset != null) {
+          textQuantity.setText(Utils.quantToString(presetQuantityQNT, asset.getDecimals()));
+        }
+      }
+
       textQuantity.addModifyListener(new ModifyListener() {
 
         @Override
@@ -184,11 +195,17 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
         message[0] = "Must select asset first";
         return false;
       }
+      
+      Asset asset = (Asset)fieldAsset.getValue();
       String text = textQuantity.getText().trim();
-      Long quantityQNT = Utils.getQuantityQNT(text,
-          ((Asset) fieldAsset.getValue()).getDecimals());
+      if (!Utils.vaildateQuantityDecimalsForOrder(text, ((Asset) fieldAsset.getValue()).getDecimals())) {
+        message[0] = "To many decimals after comma, max allowed is " + asset.getDecimals();
+        return false;
+      }
+      
+      Long quantityQNT = Utils.parseQNT(text, ((Asset) fieldAsset.getValue()).getDecimals());
       if (quantityQNT == null) {
-        message[0] = "Value must be numeric";
+        message[0] = "Invalid value";
         return false;
       }
       if (quantityQNT < 1) {
@@ -196,22 +213,16 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
         return false;
       }
 
-      Asset asset = (Asset) fieldAsset.getValue();
-      if (asset != null) {
-        if (quantityQNT > asset.getQuantityQNT()) {
-          message[0] = "There where only "
-              + Utils.quantToString(asset.getQuantityQNT(),
-                  ((Asset) fieldAsset.getValue()).getDecimals())
-              + " assets issued";
-          return false;
-        }
+      if (quantityQNT > asset.getQuantityQNT()) {
+        String amount = Utils.quantToString(asset.getQuantityQNT(), ((Asset) fieldAsset.getValue()).getDecimals());
+        message[0] = "There where only " + amount + " assets issued";
+        return false;
       }
       textQuantityReadonly.setText(text);
       return true;
     }
   };
 
-  /* Price is expressed in NXT sends! User enters price in NXT with precision */
   final IGenericTransactionField fieldPrice = new IGenericTransactionField() {
 
     private Text textPrice;
@@ -223,46 +234,96 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
         requestVerification();
       }
     };
+    private Label labelPriceTotal;
+    private Label labelPriceTotalReadonly;
 
     @Override
     public String getLabel() {
-      return "Price";
+      return "Price (NXT/Asset)";
     }
 
     @Override
     public Object getValue() {
-      return Utils.getAmountNQT(textPrice.getText().trim());
+      return Utils.parseQNT(textPrice.getText().trim(), 8);
     };
 
     @Override
-    public Control createControl(Composite parent) {
-      textPrice = new Text(parent, SWT.BORDER);
+    public Control createControl(Composite parent) {      
+      Composite composite = new Composite(parent, SWT.NONE);
+      GridLayoutFactory.fillDefaults().numColumns(2).spacing(10, 0).margins(0, 0).applyTo(composite);
+
+      textPrice = new Text(composite, SWT.BORDER);
+      GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textPrice);
       if (presetAssetId != null && presetPriceNQT > 0) {
         textPrice.setText(Utils.quantToString(presetPriceNQT, 8));
       }
       else {
         textPrice.setText("0");
       }
-
       textPrice.addModifyListener(modificationListener);
-      return textPrice;
+
+      labelPriceTotal = new Label(composite, SWT.NONE);
+      GC gc = new GC(labelPriceTotal);
+      GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER).hint(gc.textExtent(THIRD_COLUMN).x, SWT.DEFAULT).applyTo(labelPriceTotal);
+      gc.dispose();
+      labelPriceTotal.setText("0.0");
+      
+      return composite;
     }
 
     @Override
     public Control createReadonlyControl(Composite parent) {
-      textPriceReadonly = new Text(parent, SWT.BORDER);
-      textPriceReadonly.setEditable(false);
-      return textPriceReadonly;
+      Composite composite = new Composite(parent, SWT.NONE);
+      GridLayoutFactory.fillDefaults().numColumns(2).spacing(10, 0).margins(0, 0).applyTo(composite);
+
+      textPriceReadonly = new Text(composite, SWT.BORDER);
+      GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textPriceReadonly);
+      textPriceReadonly.setText("");
+
+      labelPriceTotalReadonly = new Label(composite, SWT.NONE);
+      GC gc = new GC(labelPriceTotalReadonly);
+      GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER).hint(gc.textExtent(THIRD_COLUMN).x, SWT.DEFAULT).applyTo(labelPriceTotalReadonly);
+      gc.dispose();
+      labelPriceTotalReadonly.setText("0.0");
+
+      return composite;
     }
 
     @Override
     public boolean verify(String[] message) {
+      labelPriceTotal.setText("");
+      labelPriceTotalReadonly.setText("");
+      if (fieldAsset.getValue() == null) {
+        message[0] = "Must select asset first";
+        return false;
+      }
+      Asset asset = (Asset)fieldAsset.getValue();
       String text = textPrice.getText().trim();
-      Long priceNQT = Utils.getAmountNQT(text);
+      Long priceNQT = Utils.parseQNT(text, 8);
       if (priceNQT == null) {
         message[0] = "Incorrect value";
         return false;
       }
+      
+      if (!Utils.validatePriceDecimalsForOrder(text, asset.getDecimals())) {
+        message[0] = "To many decimals after comma, max allowed is " + (8 - asset.getDecimals());
+        return false;
+      }      
+      
+      Long quantityQNT = (Long) fieldQuantity.getValue();
+      if (quantityQNT != null) {
+        long pricePerQuantityQNT = Utils.getPricePerQuantityQNT(priceNQT, asset.getDecimals());
+        long orderTotalNQT = Utils.calculateOrderTotalNQT(pricePerQuantityQNT, quantityQNT);
+        String total = Utils.quantToString(orderTotalNQT, 8);
+
+        labelPriceTotal.setText(total);
+        labelPriceTotalReadonly.setText(total);
+        labelPriceTotal.pack();
+        labelPriceTotal.getParent().layout();
+        labelPriceTotalReadonly.pack();
+        labelPriceTotalReadonly.getParent().layout();
+      }      
+      
       textPriceReadonly.setText(text);
       return true;
     }
@@ -289,7 +350,8 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
         Asset asset = (Asset) fieldAsset.getValue();
         long quantityQNT = (Long) fieldQuantity.getValue();
         long priceNQT = (Long) fieldPrice.getValue();
-
+        long pricePerQuantityQNT = Utils.getPricePerQuantityQNT(priceNQT, asset.getDecimals());
+        
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
         dialog.setMinimumFeeNQT(Constants.ONE_NXT);
         dialog.setFeeNQT(Constants.ONE_NXT);
@@ -301,8 +363,7 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
         short deadline = dialog.getDeadline();
 
         try {
-          Transaction t = nxt.createPlaceAskOrderTransaction(sender,
-              asset.getId(), quantityQNT, priceNQT, deadline, feeNQT, null);
+          Transaction t = nxt.createPlaceAskOrderTransaction(sender, asset.getId(), quantityQNT, pricePerQuantityQNT, deadline, feeNQT, null);
           return t.getStringId();
         }
         catch (ValidationException e) {
@@ -318,8 +379,7 @@ public class PlaceAskOrderWizard extends GenericTransactionWizard {
 
       @Override
       public IGenericTransactionField[] getFields() {
-        return new IGenericTransactionField[] { fieldSender, fieldAsset,
-            fieldQuantity, fieldPrice };
+        return new IGenericTransactionField[] { fieldSender, fieldAsset, fieldQuantity, fieldPrice };
       }
 
       @Override

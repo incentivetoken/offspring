@@ -39,7 +39,9 @@ public class GenericComparator extends ViewerComparator {
 
   @Override
   public int compare(Viewer viewer, Object e1, Object e2) {
-    // logger.info("Compare e1=" + e1 + " e2=" + e2);
+    if (this.column == null)
+      return 0;
+
     int rc = this.column.getDataProvider().compare(
         this.column.getDataProvider().getCellValue(e1),
         this.column.getDataProvider().getCellValue(e2));

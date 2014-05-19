@@ -50,8 +50,7 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
     @Override
     public Object getValue() {
       String id_as_string = textAsset.getText().trim();
-      Long id = id_as_string.isEmpty() ? null : Convert
-          .parseUnsignedLong(id_as_string);
+      Long id = id_as_string.isEmpty() ? null : Convert.parseUnsignedLong(id_as_string);
       if (id != null) {
         return Asset.getAsset(id);
       }
@@ -65,8 +64,7 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
           .margins(0, 0).applyTo(composite);
 
       textAsset = new Text(composite, SWT.BORDER);
-      GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER)
-          .grab(true, false).applyTo(textAsset);
+      GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textAsset);
 
       String id = presetAssetId != null ? Convert.toUnsignedLong(presetAssetId)
           : "";
@@ -151,28 +149,29 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
 
     @Override
     public String getLabel() {
-      return "Quantity";
+      return "Quantity (Asset)";
     }
 
     @Override
     public Object getValue() {
-      if (fieldAsset.getValue() == null)
+      if (fieldAsset.getValue() == null) {
         return null;
-      return Utils.getQuantityQNT(textQuantity.getText().trim(),((Asset)fieldAsset.getValue()).getDecimals());      
+      }
+      return Utils.parseQNT(textQuantity.getText().trim(), ((Asset) fieldAsset.getValue()).getDecimals()); 
     };
 
     @Override
     public Control createControl(Composite parent) {
-      String text;      
-      Asset asset = Asset.getAsset(presetAssetId);
-      if (asset != null) {
-        text = Utils.quantToString(presetQuantityQNT, asset.getDecimals());
-      }
-      else {
-        text = "";
-      }
       textQuantity = new Text(parent, SWT.BORDER);
-      textQuantity.setText(text);
+
+      textQuantity.setText("");
+      if (presetAssetId != null) {
+        Asset asset = Asset.getAsset(presetAssetId);
+        if (asset != null) {
+          textQuantity.setText(Utils.quantToString(presetQuantityQNT, asset.getDecimals()));
+        }
+      }
+
       textQuantity.addModifyListener(new ModifyListener() {
 
         @Override
@@ -193,29 +192,34 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
     @Override
     public boolean verify(String[] message) {
       if (fieldAsset.getValue() == null) {
-        message[0] = "Must set asset first";
+        message[0] = "Must select asset first";
         return false;
       }
+      
+      Asset asset = (Asset)fieldAsset.getValue();
       String text = textQuantity.getText().trim();
-      Long quantityQNT = Utils.getQuantityQNT(text, ((Asset)fieldAsset.getValue()).getDecimals());
+      if (!Utils.vaildateQuantityDecimalsForOrder(text, ((Asset) fieldAsset.getValue()).getDecimals())) {
+        message[0] = "To many decimals after comma, max allowed is " + asset.getDecimals();
+        return false;
+      }
+      
+      Long quantityQNT = Utils.parseQNT(text, ((Asset) fieldAsset.getValue()).getDecimals());
       if (quantityQNT == null) {
         message[0] = "Invalid value";
         return false;
       }
+      if (quantityQNT < 1) {
+        message[0] = "Value to small";
+        return false;
+      }
 
-      System.out.println("quantityQNT=" + Long.toString(quantityQNT));
-
-      Asset asset = (Asset) fieldAsset.getValue();
-      if (asset != null) {
-        if (quantityQNT > asset.getQuantityQNT()) {
-          message[0] = "There where only "
-              + Utils.quantToString(asset.getQuantityQNT(),((Asset)fieldAsset.getValue()).getDecimals())
-              + " assets issued";
-          return false;
-        }
+      if (quantityQNT > asset.getQuantityQNT()) {
+        String amount = Utils.quantToString(asset.getQuantityQNT(), ((Asset) fieldAsset.getValue()).getDecimals());
+        message[0] = "There where only " + amount + " assets issued";
+        return false;
       }
       textQuantityReadonly.setText(text);
-      return true;
+      return true;      
     }
   };
 
@@ -242,7 +246,7 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
 
     @Override
     public String getLabel() {
-      return "Price";
+      return "Price (NXT/Asset)";
     }
 
     @Override
@@ -252,114 +256,94 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
 
     @Override
     public Control createControl(Composite parent) {
-
-      String price;
-      if (presetAssetId != null && presetPriceNQT > 0) {
-        Asset asset = Asset.getAsset(presetAssetId);
-        price = Utils.quantToString(Utils.calculateOrderPricePerWholeQNT_InNQT(presetPriceNQT, asset.getDecimals()), 8);
-      }
-      else {
-        price = "0.00";
-      }
-
       Composite composite = new Composite(parent, SWT.NONE);
-      GridLayoutFactory.fillDefaults().numColumns(2).spacing(10, 0)
-          .margins(0, 0).applyTo(composite);
+      GridLayoutFactory.fillDefaults().numColumns(2).spacing(10, 0).margins(0, 0).applyTo(composite);
 
       textPrice = new Text(composite, SWT.BORDER);
-      GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER)
-          .grab(true, false).applyTo(textPrice);
-      textPrice.setText(price);
+      GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textPrice);
+      if (presetAssetId != null && presetPriceNQT > 0) {
+        textPrice.setText(Utils.quantToString(presetPriceNQT, 8));
+      }
+      else {
+        textPrice.setText("0");
+      }
       textPrice.addModifyListener(modificationListener);
 
       labelPriceTotal = new Label(composite, SWT.NONE);
       GC gc = new GC(labelPriceTotal);
-      GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER)
-          .hint(gc.textExtent(THIRD_COLUMN).x, SWT.DEFAULT)
-          .applyTo(labelPriceTotal);
+      GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER).hint(gc.textExtent(THIRD_COLUMN).x, SWT.DEFAULT).applyTo(labelPriceTotal);
       gc.dispose();
       labelPriceTotal.setText("0.0");
-      return composite;
-
-      // ------------------
-      // textPrice = new Text(parent, SWT.BORDER);
-      //
-      // if (presetAssetId != null && presetPrice > 0) {
-      // Double p = new Long(presetPrice).doubleValue() / 100;
-      // p = (double) Math.round(p * 100) / 100;
-      // textPrice.setText(Double.toString(p));
-      // }
-      // else {
-      // textPrice.setText("0");
-      // }
-      //
-      // textPrice.addModifyListener(modificationListener);
-      // return textPrice;
+      
+      return composite;      
     }
 
     @Override
     public Control createReadonlyControl(Composite parent) {
+      
       Composite composite = new Composite(parent, SWT.NONE);
-      GridLayoutFactory.fillDefaults().numColumns(2).spacing(10, 0)
-          .margins(0, 0).applyTo(composite);
+      GridLayoutFactory.fillDefaults().numColumns(2).spacing(10, 0).margins(0, 0).applyTo(composite);
 
       textPriceReadonly = new Text(composite, SWT.BORDER);
-      GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER)
-          .grab(true, false).applyTo(textPriceReadonly);
+      GridDataFactory.fillDefaults().align(SWT.FILL, SWT.CENTER).grab(true, false).applyTo(textPriceReadonly);
       textPriceReadonly.setText("");
 
       labelPriceTotalReadonly = new Label(composite, SWT.NONE);
       GC gc = new GC(labelPriceTotalReadonly);
-      GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER)
-          .hint(gc.textExtent(THIRD_COLUMN).x, SWT.DEFAULT)
-          .applyTo(labelPriceTotalReadonly);
+      GridDataFactory.fillDefaults().align(SWT.END, SWT.CENTER).hint(gc.textExtent(THIRD_COLUMN).x, SWT.DEFAULT).applyTo(labelPriceTotalReadonly);
       gc.dispose();
       labelPriceTotalReadonly.setText("0.0");
-      return composite;
 
-      // textPriceReadonly = new Text(parent, SWT.BORDER);
-      // textPriceReadonly.setEditable(false);
-      // return textPriceReadonly;
+      return composite;      
     }
 
     @Override
     public boolean verify(String[] message) {
-      labelPriceTotalReadonly.setText("");
       labelPriceTotal.setText("");
-
+      labelPriceTotalReadonly.setText("");
+      if (fieldAsset.getValue() == null) {
+        message[0] = "Must select asset first";
+        return false;
+      }
+      Asset asset = (Asset)fieldAsset.getValue();
       String text = textPrice.getText().trim();
-      Long priceNQT = (Long) getValue();
+      Long priceNQT = Utils.parseQNT(text, 8);
       if (priceNQT == null) {
         message[0] = "Incorrect value";
         return false;
       }
       
-      System.out.println("priceNQT=" + Long.toString(priceNQT));
-
-      if (fieldAsset.getValue() == null) {
-        message[0] = "Must set asset first";
+      if (!Utils.validatePriceDecimalsForOrder(text, asset.getDecimals())) {
+        message[0] = "To many decimals after comma, max allowed is " + (8 - asset.getDecimals());
         return false;
-      }
-      textPriceReadonly.setText(text);
-
-      /* calculate the total */
+      }      
+      
       Long quantityQNT = (Long) fieldQuantityQNT.getValue();
       if (quantityQNT != null) {
-        try {
-          
-          long totalPriceNQT = Long.valueOf(Utils.calculateOrderTotalNQT(quantityQNT, priceNQT));
-          totalPriceNQT = BigInteger.valueOf(totalPriceNQT).divide(BigInteger.valueOf(Double.valueOf(Math.pow(10, ((Asset)fieldAsset.getValue()).getDecimals())).longValue())).longValue();
-          
-          String txt = Utils.quantToString(totalPriceNQT, 8);
-          labelPriceTotalReadonly.setText(txt);
-          labelPriceTotal.setText(txt);
-        }
-        catch (ArithmeticException e) {
-          labelPriceTotalReadonly.setText("-");
-          labelPriceTotal.setText("-");
-        }
-      }
-      return true;
+        long pricePerQuantityQNT = Utils.getPricePerQuantityQNT(priceNQT, asset.getDecimals());
+        long orderTotalNQT = Utils.calculateOrderTotalNQT(pricePerQuantityQNT, quantityQNT);
+        String total = Utils.quantToString(orderTotalNQT, 8);
+
+        labelPriceTotal.setText(total);
+        labelPriceTotalReadonly.setText(total);
+        labelPriceTotal.pack();
+        labelPriceTotal.getParent().layout();
+        labelPriceTotalReadonly.pack();
+        labelPriceTotalReadonly.getParent().layout();
+        
+//        StringBuilder b = new StringBuilder();
+//        b.append("Price.text="+text+"\n");
+//        b.append("Price.nqt="+Long.toString(priceNQT)+"\n");
+//        b.append("Quantity.qnt="+Long.toString(quantityQNT)+"\n");
+//        b.append("pricePerQuantityQNT="+Long.toString(pricePerQuantityQNT)+"\n");
+//        b.append("orderTotalNQT="+Long.toString(orderTotalNQT)+"\n");
+//        b.append("-------------------------------------------------------------");
+//        System.out.println(b.toString());
+        
+      }      
+      
+      textPriceReadonly.setText(text);
+      return true;      
     }
   };
 
@@ -381,8 +365,9 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
         IAccount sender = user.getAccount();
         Asset asset = (Asset) fieldAsset.getValue();
         long quantityQNT = (Long) fieldQuantityQNT.getValue();
-        long priceNQT = (Long) fieldPriceNQT.getValue(); // price is in cents
-
+        long priceNQT = (Long) fieldPriceNQT.getValue();
+        long pricePerQuantityQNT = Utils.getPricePerQuantityQNT(priceNQT, asset.getDecimals());
+        
         PromptFeeDeadline dialog = new PromptFeeDeadline(getShell());
         dialog.setMinimumFeeNQT(Constants.ONE_NXT);
         dialog.setFeeNQT(Constants.ONE_NXT);
@@ -394,8 +379,7 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
         short deadline = dialog.getDeadline();
 
         try {
-          Transaction t = nxt.createPlaceBidOrderTransaction(sender,
-              asset.getId(), quantityQNT, priceNQT, deadline, feeNQT, null);
+          Transaction t = nxt.createPlaceBidOrderTransaction(sender, asset.getId(), quantityQNT, pricePerQuantityQNT, deadline, feeNQT, null);
           return t.getStringId();
         }
         catch (ValidationException e) {
@@ -435,9 +419,9 @@ public class PlaceBidOrderWizard extends GenericTransactionWizard {
         if (quantityQNT != null && priceNQT != null) {
           try {
             Asset asset = ((Asset)fieldAsset.getValue());
-            Double quantAsDouble = Utils.quantToDouble(quantityQNT, asset.getDecimals());          
-            long totalPriceNQT = Long.valueOf(Double.valueOf(quantAsDouble * priceNQT).longValue());
-            if (totalPriceNQT > user.getAccount().getBalanceNQT()) {
+            long pricePerQuantityQNT = Utils.getPricePerQuantityQNT(priceNQT, asset.getDecimals());
+            long orderTotalNQT = Utils.calculateOrderTotalNQT(pricePerQuantityQNT, quantityQNT);
+            if (orderTotalNQT > user.getAccount().getBalanceNQT()) {
               message[0] = "Insufficient balance";
               return false;
             }

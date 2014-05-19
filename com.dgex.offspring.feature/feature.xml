@@ -41,7 +41,9 @@
       <import plugin="org.eclipse.equinox.p2.operations" version="2.3.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.p2.metadata.repository" version="1.2.100" match="greaterOrEqual"/>
       <import plugin="com.dgex.offspring.swt" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.jobs"/>
       <import plugin="javax.servlet"/>
+      <import plugin="org.apache.commons.io"/>
       <import plugin="org.eclipse.osgi.services"/>
       <import plugin="org.eclipse.osgi"/>
       <import plugin="com.dgex.offspring.nxtCore" version="1.0.0" match="greaterOrEqual"/>
@@ -51,9 +53,7 @@
       <import plugin="org.eclipse.equinox.util" version="1.0.500" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.ds" version="1.4.101" match="greaterOrEqual"/>
       <import plugin="com.dgex.offspring.3rdparty" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.commons.io"/>
       <import plugin="org.bouncycastle" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.junit"/>
    </requires>
 
    <plugin

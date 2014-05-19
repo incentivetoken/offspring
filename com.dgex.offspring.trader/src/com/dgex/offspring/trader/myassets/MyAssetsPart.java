@@ -31,6 +31,7 @@ import org.osgi.service.event.Event;
 
 import com.dgex.offspring.config.ContactsService;
 import com.dgex.offspring.nxtCore.service.INxtService;
+import com.dgex.offspring.nxtCore.service.Utils;
 import com.dgex.offspring.swt.table.PaginationContainer;
 import com.dgex.offspring.trader.api.IAssetExchange;
 import com.dgex.offspring.ui.PlaceAskOrderWizard;
@@ -142,10 +143,8 @@ public class MyAssetsPart {
   private void createAccountCombo(Composite parent) {
     comboSender = new Combo(parent, SWT.READ_ONLY);
     for (IUser user : userService.getUsers()) {
-      // if (!user.getAccount().isReadOnly()) {
-        senders.add(user);
-        comboSender.add(createLabel(user));
-      // }
+      senders.add(user);
+      comboSender.add(createLabel(user));
     }
 
     int index = senders.indexOf(userService.getActiveUser());
@@ -163,9 +162,10 @@ public class MyAssetsPart {
       }
     });
   }
-
+  
   private String createLabel(IUser user) {
-    return "# " + user.getAccount().getStringId() + " " + user.getName();
+    return "# " + user.getAccount().getStringId() + " " + user.getName() + " " + 
+        (user.getAccount().isReadOnly() ? "-" : (Utils.quantToString(user.getAccount().getBalanceNQT(),8) + " NXT"));
   }
 
   @Inject

@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Display;
 
 public class Config {
 
-  public static final String VERSION = "0.4.5";
+  public static final String VERSION = "0.4.6";
   public static final String TITLE = "Offspring v" + VERSION;
 
   static Logger logger = Logger.getLogger(Config.class);
@@ -36,7 +36,8 @@ public class Config {
   public static boolean nxtIsTestNet = false;
 
   /* Last updated from 0.9.9 */
-  public static String testNetPeers = "bug.airdns.org; node10.mynxtcoin.org; node9.mynxtcoin.org; testnxt-jp.cloudapp.net; testnxt-ne.cloudapp.net; testnxt-we.cloudapp.net";
+  // public static String testNetPeers =
+  // "bug.airdns.org; node10.mynxtcoin.org; node9.mynxtcoin.org; testnxt-jp.cloudapp.net; testnxt-ne.cloudapp.net; testnxt-we.cloudapp.net";
 
   public static File certificate;
   public static String offspring_charset = "UTF-8";
@@ -68,15 +69,13 @@ public class Config {
     if (System.getProperty("eclipse.launcher") == null)
       return;
 
-    installPath = new File(System.getProperty("eclipse.launcher"))
-        .getParentFile();
-    appPath = new File(System.getProperty("user.home") + File.separator
-        + "Offspring");
+    installPath = new File(System.getProperty("eclipse.launcher")).getParentFile();
+    appPath = new File(System.getProperty("user.home") + File.separator + "Offspring");
 
     appPath.mkdirs();
     logPath = getAppPath("nxt.log");
-    dbPath = getAppPath("nxt_db/nxt");
-    dbTestPath = getAppPath("nxt_test_db/nxt");
+    dbPath = getAppPath("nxt_db");
+    dbTestPath = getAppPath("nxt_test_db");
     dbPath.getParentFile().mkdirs();
 
     defaultConfig = findFileInParent(installPath, "offspring.config");
@@ -151,7 +150,7 @@ public class Config {
 
       logger.info("Adding TEST NET is TRUE");
 
-      properties.put("nxt.testnetPeers", testNetPeers);
+      // properties.put("nxt.testnetPeers", testNetPeers);
       properties.put("nxt.isTestnet", "true");
     }
 

@@ -101,7 +101,8 @@ public class AssetsPart {
     GridDataFactory.fillDefaults().align(SWT.FILL, SWT.FILL).grab(true, true)
         .applyTo(paginationContainer);
 
-    assetsViewer = new AssetsViewer(paginationContainer.getViewerParent(), nxt);
+    assetsViewer = new AssetsViewer(paginationContainer.getViewerParent(), nxt,
+        ContactsService.getInstance(), engine, userService, sync);
     paginationContainer.setTableViewer(assetsViewer, 200);
 
     assetsViewer.addSelectionChangedListener(new ISelectionChangedListener() {

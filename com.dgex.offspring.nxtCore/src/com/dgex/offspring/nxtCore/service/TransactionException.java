@@ -16,6 +16,8 @@ public class TransactionException extends Exception {
 
   public static final String INCORRECT_ALIAS = "Incorrect alias";
 
+  public static final String UNKNOWN_ALIAS = "Unknown alias";
+
   public static final String INCORRECT_URI_LENGTH = "Incorrect uri length";
 
   public static final String INCORRECT_ARBITRARY_MESSAGE = "Incorrect arbitrary message";
@@ -51,6 +53,7 @@ public class TransactionException extends Exception {
   public static final String UNKNOWN_ASSET = "Unknown asset";
 
   public static final String INCORRECT_ASSET = "Incorrect asset";
+
 
   private final String type;
 

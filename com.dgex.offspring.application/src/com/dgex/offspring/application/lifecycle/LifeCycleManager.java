@@ -4,7 +4,6 @@ import it.sauronsoftware.junique.AlreadyLockedException;
 import it.sauronsoftware.junique.JUnique;
 
 import java.io.File;
-import java.net.ServerSocket;
 
 import org.apache.log4j.Logger;
 import org.eclipse.e4.core.services.events.IEventBroker;
@@ -26,8 +25,6 @@ import com.dgex.offspring.wallet.IWallet;
 @SuppressWarnings("restriction")
 public class LifeCycleManager {
 
-  static int SERVER_PORT = 7891;
-  static ServerSocket server;
   static Logger logger = Logger.getLogger(LifeCycleManager.class);
 
   @PostContextCreate
@@ -65,14 +62,25 @@ public class LifeCycleManager {
     context.applicationRunning();
 
     Shell shell = Display.getCurrent().getActiveShell();
+
+    /* DEBUG */
+    // final UpdateCenterDialog dialog = new UpdateCenterDialog(shell, sync);
+    // if (dialog.open() != Integer.MAX_VALUE) {
+    // System.exit(0);
+    // return;
+    // }
+
     final LoginDialog loginDialog = new LoginDialog(shell, wallet);
     loginDialog.setBlockOnOpen(true);
 
-    if (loginDialog.open() != Window.OK)
+    if (loginDialog.open() != Window.OK) {
       System.exit(0);
+      return;
+    }
 
     /* Only allow upgrade after login */
-    UpgradeManager.checkForUpdate(shell);
+    UpgradeManager.init(sync);
+    UpgradeManager.checkForNXTUpdate(shell);
 
     /* Must re-initialize if user selected to use test net (write new config) */
     if (Config.nxtIsTestNet) {

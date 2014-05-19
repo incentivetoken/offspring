@@ -98,7 +98,7 @@
       </children>
       <children xsi:type="menu:Menu" xmi:id="_I02VGXltEeOoea91ep9utA" label="Help">
         <children xsi:type="menu:HandledMenuItem" xmi:id="_I02VGnltEeOoea91ep9utA" label="About" command="_I02VEXltEeOoea91ep9utA"/>
-        <children xsi:type="menu:HandledMenuItem" xmi:id="_5q3fwJSrEeOqkMlAPFxguQ" elementId="com.dgex.offspring.application.handledmenuitem.1" label="Check for Updates (Not Implemented)" command="_w9uJcJSrEeOqkMlAPFxguQ"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_5q3fwJSrEeOqkMlAPFxguQ" elementId="com.dgex.offspring.application.handledmenuitem.1" label="Update Center" command="_w9uJcJSrEeOqkMlAPFxguQ"/>
       </children>
     </mainMenu>
     <trimBars xmi:id="_3vIaQIKAEeOW2uUgFejwCA" elementId="com.dgex.offspring.application.trimbar.0">

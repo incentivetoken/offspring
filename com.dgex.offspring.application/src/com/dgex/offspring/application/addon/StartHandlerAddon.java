@@ -135,9 +135,13 @@ public class StartHandlerAddon {
 
         @Override
         public void run() {
-          nxt.shutdown();
-          String appId = "com.dgex.offspring.application.lifecycle.LifeCycleManager";
-          JUnique.releaseLock(appId);
+          try {
+            nxt.shutdown();
+          }
+          finally {
+            String appId = "com.dgex.offspring.application.lifecycle.LifeCycleManager";
+            JUnique.releaseLock(appId);
+          }
         }
       }));
 

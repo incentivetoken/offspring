@@ -352,6 +352,24 @@ public interface INxtService {
       TransactionException;
 
   /**
+   * Create a transfer alias transaction
+   * 
+   * @param sender
+   * @param recipient
+   * @param alias
+   * @param deadline
+   * @param feeNQT
+   * @param referencedTransactionFullHash
+   * @return
+   * @throws ValidationException
+   * @throws TransactionException
+   */
+  public Transaction createTransferAliasTransaction(IAccount sender,
+      Long recipient, long alias, short deadline, long feeNQT,
+      String referencedTransactionFullHash) throws ValidationException,
+      TransactionException;
+
+  /**
    * Creates a cancel ask order transactions
    * 
    * @param sender

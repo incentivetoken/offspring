@@ -1,5 +1,6 @@
 package com.dgex.offspring.trader.askorders;
 
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class AskOrdersViewer extends GenerericTableViewer {
   static String EXTENT_COLUMN_TOTAL = "000000";
   static String EXTENT_COLUMN_PRICE = "000000";
   static String EXTENT_COLUMN_QUANTITY = "000000";
-  static String EXTENT_COLUMN_SELLER = "000000";
+  static String EXTENT_COLUMN_SELLER = "000000"; 
 
   static DecimalFormat formatDouble = new DecimalFormat("#.##");
 
@@ -47,7 +48,8 @@ public class AskOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
-          return Long.valueOf(Utils.calculateOrderTotalNQT(order.getQuantityQNT(), order.getPriceNQT()));
+          
+          return Long.valueOf(BigInteger.valueOf(order.getPriceNQT()).multiply(BigInteger.valueOf(order.getQuantityQNT())).longValue());
         }
 
         @Override
@@ -72,8 +74,12 @@ public class AskOrdersViewer extends GenerericTableViewer {
         @Override
         public Object getCellValue(Object element) {
           Order order = (Order) element;
+          //return Long.valueOf(order.getPriceNQT());
           Asset asset = Asset.getAsset(order.getAssetId());
-          return Long.valueOf(Utils.calculateOrderPricePerWholeQNT_InNQT(order.getPriceNQT(), asset.getDecimals()));
+          if (asset != null) {
+            return Long.valueOf(Utils.calculatePriceNQTperWholeQNT(order.getPriceNQT(), asset.getDecimals()));
+          }
+          return Long.valueOf(0l);
         }
 
         @Override
@@ -131,8 +137,7 @@ public class AskOrdersViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toUnsignedLong((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = truncateId(Convert.toUnsignedLong((Long) getCellValue(element)));
         }
 
         @Override
@@ -204,8 +209,8 @@ public class AskOrdersViewer extends GenerericTableViewer {
 
       @Override
       public IGenericTableColumn[] getColumns() {
-        return new IGenericTableColumn[] { columnTotalNXT, columnPrice,
-            columnQuantity, columnSeller };
+        return new IGenericTableColumn[] { columnSeller, columnTotalNXT,
+            columnQuantity, columnPrice };
       }
     });
     refresh();

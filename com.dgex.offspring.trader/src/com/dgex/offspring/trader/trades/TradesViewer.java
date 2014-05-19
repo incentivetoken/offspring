@@ -2,6 +2,9 @@ package com.dgex.offspring.trader.trades;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +40,7 @@ public class TradesViewer extends GenerericTableViewer {
 
   static String EXTENT_COLUMN_DATE = "dd MMM yy hh:mm:ss ";
   static String EXTENT_COLUMN_PRICE = "1000000000";
-  static String EXTENT_COLUMN_ID = "012345678901234567890";
+  static String EXTENT_COLUMN_ID = "######";
   static String EXTENT_COLUMN_QUANTITY = "1000000000";
   static DecimalFormat formatDouble = new DecimalFormat("#.##");
 
@@ -46,7 +49,7 @@ public class TradesViewer extends GenerericTableViewer {
       .provider(new ICellDataProvider() {
 
         private final SimpleDateFormat dateFormat = new SimpleDateFormat(
-            "dd MMM yy hh:mm:ss");
+            "dd MMM yy HH:mm:ss");
 
         @Override
         public Object getCellValue(Object element) {
@@ -100,7 +103,10 @@ public class TradesViewer extends GenerericTableViewer {
         public Object getCellValue(Object element) {
           Trade trade = (Trade) element;
           Asset asset = Asset.getAsset(trade.getAssetId());
-          return Long.valueOf(Utils.calculateOrderPricePerWholeQNT_InNQT(trade.getPriceNQT(), asset.getDecimals()));          
+          if (asset != null) {
+            return Long.valueOf(Utils.calculatePriceNQTperWholeQNT(trade.getPriceNQT(), asset.getDecimals()));
+          } 
+          return Long.valueOf(0l);
         }
 
         @Override
@@ -128,8 +134,9 @@ public class TradesViewer extends GenerericTableViewer {
         public void getCellData(Object element, Object[] data) {
           Trade trade = (Trade) element;
           Asset asset = Asset.getAsset(trade.getAssetId());
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element), asset.getDecimals());
+          if (asset != null)
+            data[ICellDataProvider.TEXT] = Utils.quantToString(
+                (Long) getCellValue(element), asset.getDecimals());
         }
 
         @Override
@@ -161,8 +168,8 @@ public class TradesViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toUnsignedLong((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = truncateId(Convert
+              .toUnsignedLong((Long) getCellValue(element)));
         }
 
         @Override
@@ -194,8 +201,8 @@ public class TradesViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toUnsignedLong((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = truncateId(Convert
+              .toUnsignedLong((Long) getCellValue(element)));
         }
 
         @Override
@@ -223,7 +230,17 @@ public class TradesViewer extends GenerericTableViewer {
       if (assetId == null)
         return new Object[0];
 
-      List<Trade> trades = viewer.nxt.getTrades(assetId);
+      List<Trade> trades = new ArrayList<Trade>(viewer.nxt.getTrades(assetId));
+      Collections.sort(trades, new Comparator<Trade>() {
+
+        @Override
+        public int compare(Trade a, Trade b) {
+          return b.getTimestamp() < a.getTimestamp() ? -1 : b.getTimestamp() > a.getTimestamp() ? 1 : 0;
+        }
+      });
+      if (trades.size() > 1000) {
+        trades = trades.subList(0, 1000);
+      }
       return trades.toArray(new Object[trades.size()]);
     }
   };
@@ -248,12 +265,12 @@ public class TradesViewer extends GenerericTableViewer {
 
       @Override
       public int getDefaultSortDirection() {
-        return GenericComparator.DESCENDING;
+        return GenericComparator.ASSCENDING;
       }
 
       @Override
       public IGenericTableColumn getDefaultSortColumn() {
-        return columnDate;
+        return null;
       }
 
       @Override
@@ -263,8 +280,8 @@ public class TradesViewer extends GenerericTableViewer {
 
       @Override
       public IGenericTableColumn[] getColumns() {
-        return new IGenericTableColumn[] { columnDate, columnPrice,
-            columnQuantity, columnTotal, columnAskOrder, columnBidOrder };
+        return new IGenericTableColumn[] { columnDate, columnQuantity,
+            columnPrice, columnTotal, columnAskOrder, columnBidOrder };
       }
     });
     refresh();

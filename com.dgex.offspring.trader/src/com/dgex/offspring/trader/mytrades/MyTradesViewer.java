@@ -65,7 +65,7 @@ public class MyTradesViewer extends GenerericTableViewer {
       }).build();
 
   final IGenericTableColumn columnPrice = new GenericTableColumnBuilder("Price")
-      .align(SWT.RIGHT).textExtent("##########")
+      .align(SWT.RIGHT).textExtent("################")
       .provider(new ICellDataProvider() {
 
         @Override
@@ -87,7 +87,7 @@ public class MyTradesViewer extends GenerericTableViewer {
       }).build();
 
   final IGenericTableColumn columnQuantity = new GenericTableColumnBuilder(
-      "Quantity").align(SWT.RIGHT).textExtent("##########")
+      "Quantity").align(SWT.RIGHT).textExtent("###############")
       .provider(new ICellDataProvider() {
 
         @Override
@@ -100,9 +100,9 @@ public class MyTradesViewer extends GenerericTableViewer {
         public void getCellData(Object element, Object[] data) {
           Trade trade = (Trade) element;
           Asset asset = Asset.getAsset(trade.getAssetId());
-          
-          data[ICellDataProvider.TEXT] = Utils
-              .quantToString((Long) getCellValue(element), asset.getDecimals());
+          if (asset != null)
+            data[ICellDataProvider.TEXT] = Utils.quantToString(
+                (Long) getCellValue(element), asset.getDecimals());
         }
 
         @Override
@@ -112,7 +112,7 @@ public class MyTradesViewer extends GenerericTableViewer {
       }).build();
 
   final IGenericTableColumn columnAskOrder = new GenericTableColumnBuilder(
-      "Ask Order").align(SWT.RIGHT).textExtent("12345678901234567890123")
+      "Ask Order").align(SWT.RIGHT).textExtent("######")
       .activate(new ICellActivateHandler() {
 
         @Override
@@ -134,8 +134,8 @@ public class MyTradesViewer extends GenerericTableViewer {
 
         @Override
         public void getCellData(Object element, Object[] data) {
-          data[ICellDataProvider.TEXT] = Convert
-              .toUnsignedLong((Long) getCellValue(element));
+          data[ICellDataProvider.TEXT] = truncateId(Convert
+              .toUnsignedLong((Long) getCellValue(element)));
         }
 
         @Override
@@ -145,7 +145,7 @@ public class MyTradesViewer extends GenerericTableViewer {
       }).build();
 
   final IGenericTableColumn columnBidOrder = new GenericTableColumnBuilder(
-      "Bid Order").align(SWT.RIGHT).textExtent("12345678901234567890123")
+      "Bid Order").align(SWT.RIGHT).textExtent("######")
       .activate(new ICellActivateHandler() {
 
         @Override

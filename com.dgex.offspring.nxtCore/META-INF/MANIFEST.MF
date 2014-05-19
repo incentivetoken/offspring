@@ -123,6 +123,5 @@ Import-Package: nxt,
  org.eclipse.swt.events,
  org.eclipse.swt.graphics,
  org.eclipse.swt.layout,
- org.eclipse.swt.widgets,
- org.json.simple
+ org.eclipse.swt.widgets
 Bundle-ActivationPolicy: lazy
