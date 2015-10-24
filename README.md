@@ -10,7 +10,7 @@ Offspring was developed by [DGEX the BTC / NXT Cryptocurrency Exchange](http://d
 #[Click Here For Screenshots](#screenshots)
 
 #Open source
-Offspring is open source. We wellcome anyone to help and improve Offspring.
+Offspring is open source. We welcome anyone to help and improve Offspring.
 
 #Features
 * Asset Exchange (fully functional, buy/sell assets, issue assets etc..)
@@ -36,7 +36,7 @@ Offspring is built on Eclipse 4 technology.
 If you want to learn Eclipse 4 I advise the [Eclipse 4 RCP](http://blog.vogella.com/2013/11/22/eclipse-4-rcp-second-edition-available/) book by Lars Vogel.
 
 #Build
-These instructions apply to ubuntu.
+These instructions apply to Ubuntu.
 
 Clone this repository
 
